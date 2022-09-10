@@ -3,29 +3,39 @@
   "languageCode": "pl-pl",
   "title": "jerz.codes",
   "theme": "xmin",
-
   "disableKinds": [
     "taxonomy",
     "term"
   ],
-
   "menu": {
     "main": [
       {
         "name": "🏠",
         "url": "",
-        "weight": 1
+        "weight": 10
+      },
+      {
+        "name": "Zapisy",
+        "url": "/zapisy/",
+        "weight": 20
       },
       {
         "name": "FAQ",
         "url": "/faq/",
-        "weight": 2
+        "weight": 30
       },
       {
         "name": "Kontakt",
         "url": "/kontakt/",
-        "weight": 3
+        "weight": 40
       }
     ]
+  },
+  "markup": {
+    "goldmark": {
+      "renderer": {
+        "unsafe": true
+      }
+    }
   }
 }
