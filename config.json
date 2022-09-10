@@ -1,0 +1,31 @@
+{
+  "baseURL": "http://jerz.codes/",
+  "languageCode": "pl-pl",
+  "title": "jerz.codes",
+  "theme": "xmin",
+
+  "disableKinds": [
+    "taxonomy",
+    "term"
+  ],
+
+  "menu": {
+    "main": [
+      {
+        "name": "🏠",
+        "url": "",
+        "weight": 1
+      },
+      {
+        "name": "FAQ",
+        "url": "/faq/",
+        "weight": 2
+      },
+      {
+        "name": "Kontakt",
+        "url": "/kontakt/",
+        "weight": 3
+      }
+    ]
+  }
+}
