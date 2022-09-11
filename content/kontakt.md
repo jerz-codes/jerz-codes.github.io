@@ -2,7 +2,7 @@
 title: Informacje Kontaktowe
 ---
 
-W razie jakichkolwiek pytań, napisz do nas: jerz.codes@gmail.com
+W razie jakichkolwiek pytań napisz do nas: jerz.codes@gmail.com
 
 Spotkania dla uczestników zajęć odbywają się we wtorki w godzinach 16:00-17:30 w budynku Biblioteki Publicznej w Jerzmanowicach:
 
