@@ -24,13 +24,20 @@ hr {
 
 /* code */
 pre {
-  border: 1px solid #ddd;
-  box-shadow: 5px 5px 5px #eee;
   padding: 1em;
   overflow-x: auto;
+  border-radius: 6px;
+  background: rgba(175,184,193,0.2);
 }
-code { background: #f9f9f9; }
-pre code { background: none; }
+code {
+  background: rgba(175,184,193,0.2);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+}
+pre code {
+  background: none;
+  padding: 0em;
+}
 
 /* misc elements */
 img, iframe, video { max-width: 100%; }
