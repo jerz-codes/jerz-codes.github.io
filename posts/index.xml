@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>🏠 on jerz.codes</title>
-    <link>https://jerz.codes/</link>
-    <description>Recent content in 🏠 on jerz.codes</description>
+    <title>Posts on jerz.codes</title>
+    <link>https://jerz.codes/posts/</link>
+    <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Sun, 18 Sep 2022 13:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 18 Sep 2022 13:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Wstęp – wersja dla dorosłych</title>
       <link>https://jerz.codes/posts/wstep-rodzice/</link>
@@ -30,37 +30,6 @@ Jeżeli czytacie ten wpis, to w jakiś sposób dotarła do was informacja o orga
 Właśnie po to powstał ten wpis.
 Co będziemy robić? Na naszej stronie startowej mamy takie zdanie.
 Będziemy zajmować się nauką programowania w języku Kotlin od podstaw na przykładzie prostych gier komputerowych.</description>
-    </item>
-    
-    <item>
-      <title>Często Zadawane Pytania</title>
-      <link>https://jerz.codes/faq/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jerz.codes/faq/</guid>
-      <description>Dopiero zaczynamy naszą działalność, więc nikt jeszcze nie miał okazji nas o cokolwiek pytać 🤷‍.
-Masz inne pytanie? Napisz na jerz.codes@gmail.com</description>
-    </item>
-    
-    <item>
-      <title>Informacje Kontaktowe</title>
-      <link>https://jerz.codes/kontakt/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jerz.codes/kontakt/</guid>
-      <description>W razie jakichkolwiek pytań napisz do nas: jerz.codes@gmail.com
-Spotkania dla uczestników zajęć odbywają się we wtorki w godzinach 16:00-17:30 w budynku Biblioteki Publicznej w Jerzmanowicach:</description>
-    </item>
-    
-    <item>
-      <title>Zapisy</title>
-      <link>https://jerz.codes/zapisy/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://jerz.codes/zapisy/</guid>
-      <description>Prowadzimy obecnie zapisy do grupy na rok szkolny 2022-2023.
-Wymagania:
-💻 sprzęt (własny laptop) ⏰ czas (spotkania we wtorki 16:00-17:30) 🎂 wiek (10-14 lat) Ilość miejsc ograniczona! Zainteresowanych prosimy o wysłanie maila na adres jerz.codes@gmail.com</description>
     </item>
     
   </channel>
