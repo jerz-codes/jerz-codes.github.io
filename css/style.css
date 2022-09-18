@@ -41,7 +41,8 @@ pre code {
 
 /* misc elements */
 img, iframe, video { max-width: 100%; }
-main { hyphens: auto; }
+main { hyphens: none; }
+p { text-align: justify; }
 blockquote {
   background: #f9f9f9;
   border-left: 5px solid #ccc;
