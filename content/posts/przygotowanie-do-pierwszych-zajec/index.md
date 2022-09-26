@@ -1,14 +1,14 @@
 ---
 title: "Przygotowanie Do Pierwszych Zajęć"
-date: 2022-09-11T13:18:13+02:00
-draft: true
+date: 2022-09-27T02:00:00+02:00
+draft: false
 ---
 
 Na naszych wtorkowych zajęciach będziecie pracowali na własnym sprzęcie. Chciałbym, żeby wasze komputery były gotowe do pracy już przed zajęciami – możecie to zrobić w domu sami lub z pomocą rodziców albo starszego rodzeństwa.
 
 Na wykonanie poniższych kroków będziecie potrzebować około **jednej godziny** (zależy to m.in. od prędkości waszego łącza internetowego).
 
-Jeśli coś się wam się nie uda – trudno, poradzimy sobie z tym wspólnie w najbliższy wtorek. Postarajcie się jednak zrobić jak najwięcej kroków, pozwoli nam to zaoszczędzić wspólny czas na zajęciach.
+Jeśli nie uda się wam wykonać wszystkich kroków – trudno, poradzimy sobie z tym wspólnie w najbliższy wtorek (przyjdźcie wtedy pół godziny wcześniej, o 15:30). Postarajcie się jednak zrobić sami jak najwięcej, pozwoli nam to zaoszczędzić wspólny czas na zajęciach.
 
 # 1. Instalacja środowiska programistycznego IntelliJ
 
@@ -18,7 +18,13 @@ https://www.jetbrains.com/idea/download/
 
 A następnie postępujcie zgodnie z instrukcjami programu instalacyjnego.
 
-# 2. GitHub
+# 2. Konto e-mailowe
+
+Krok opcjonalny, tylko jeśli ktoś jeszcze nie ma swojego własnego maila. **Nie zakładajcie osobnego konta tylko na potrzeby naszych zajęć**.
+
+Jeśli musicie założyć nowe konto mailowe, polecam GMaila: wejdźcie na [gmail.com](https://gmail.com/), kliknijcie `Utwórz konto` i postępujcie zgodnie z instrukcjami.
+
+# 3. GitHub
 
 GitHub to narzędzie do przechowywania kodu źródłowego i zespołowej pracy nad kodem. W najbliższym czasie nie będziemy korzystać z większości funkcji tego serwisu, ale użyjemy go jako narzędzia do tworzenia kopii zapasowych napisanego przez was kodu.
 
@@ -40,7 +46,7 @@ Upewnijcie się, że w polu `Owner` wybrane jest wasze konto; jedynym wymaganym 
 
 Po naciśnięciu `Create repository from template` zostaniecie przekierowani na stronę waszego projektu. Gotowe!
 
-# 3. Integracja IntelliJ i GitHuba
+# 4. Integracja IntelliJ i GitHuba
 
 Po uruchomieniu programu IntelliJ należy wybrać opcję `Get from VCS`
 
@@ -82,7 +88,7 @@ Klikamy oczywiście `Trust Project`.
 
 Rozpocznie się teraz proces klonowania projektu (czyli pobierania go na dysk), konfigurowania projektu (czyli program IntelliJ będzie szukał, z jakich elementów składa się nasz projekt testowy i jak nam je najlepiej wyświetlić), oraz pobierania zależności. Ta ostatnia czynność za pierwszym razem może sporo potrwać, ponieważ oprócz naszego kodu IntelliJ postanowi pobrać ok. trzech-czwartych całego Internetu, na co niestety trzeba chwilę poczekać.
 
-# 4. Uruchomienie programu testowego
+# 5. Uruchomienie programu testowego
 
 Kiedy już wszystko się załaduje i znikną wszelkiego rodzaju paski postępu, w panelu po lewej stronie odszukajcie i wybierzcie plik `HelloWorld.kt`
 
@@ -96,9 +102,13 @@ Możliwe jest, że IntelliJ postanowi pobrać pozostałą część Internetu, wi
 
 ![Pierwszy program](helloworld.png)
 
-# 5. Slack
+# 6. Slack
 
-Slack to platforma komunikacyjna, której będziemy używać do kontaktu pomiędzy zajęciami. Na wasz adres email powinniście dostać zaproszenie do grupy `jerz.codes`. Jeśli nie dostaliście zaproszenia, zgłoście się do mnie po pierwszych zajęciach. 
+Slack to platforma komunikacyjna, której będziemy używać do kontaktu pomiędzy zajęciami.
+
+Żeby dodać was do naszego kanału na Slacku, potrzebny będzie mi wasz adres email. Z konta założonego w punkcie 2 wyślijcie na jerz.codes@gmail.com wiadomość zawierającą wasze imię i nazwisko.
+
+Po kilku godzinach wyślę wam mailem zaproszenie do kanału Slack'owego. W mailu, który otrzymacie, kliknijcie przycisk `JOIN NOW` i postępujcie zgodnie z instrukcjami.
 
 ---
 
