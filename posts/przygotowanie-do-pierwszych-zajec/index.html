@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Przygotowanie Do Pierwszych Zajęć | jerz.codes</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Przygotowanie Do Pierwszych Zajęć</span></h1>
+
+<h2 class="date">2022/09/27</h2>
+</div>
+
+<main>
+<p>Na naszych wtorkowych zajęciach będziecie pracowali na własnym sprzęcie. Chciałbym, żeby wasze komputery były gotowe do pracy już przed zajęciami – możecie to zrobić w domu sami lub z pomocą rodziców albo starszego rodzeństwa.</p>
+<p>Na wykonanie poniższych kroków będziecie potrzebować około <strong>jednej godziny</strong> (zależy to m.in. od prędkości waszego łącza internetowego).</p>
+<p>Jeśli nie uda się wam wykonać wszystkich kroków – trudno, poradzimy sobie z tym wspólnie w najbliższy wtorek (przyjdźcie wtedy pół godziny wcześniej, o 15:30). Postarajcie się jednak zrobić sami jak najwięcej, pozwoli nam to zaoszczędzić wspólny czas na zajęciach.</p>
+<h1 id="1-instalacja-środowiska-programistycznego-intellij">1. Instalacja środowiska programistycznego IntelliJ</h1>
+<p>Z oficjalnej strony firmy JetBrains pobierzcie najnowszą wersję IntelliJ Community Edition (czyli darmowy wariant) dla waszego systemu operacyjnego:</p>
+<p><a href="https://www.jetbrains.com/idea/download/">https://www.jetbrains.com/idea/download/</a></p>
+<p>A następnie postępujcie zgodnie z instrukcjami programu instalacyjnego.</p>
+<h1 id="2-konto-e-mailowe">2. Konto e-mailowe</h1>
+<p>Krok opcjonalny, tylko jeśli ktoś jeszcze nie ma swojego własnego maila. <strong>Nie zakładajcie osobnego konta tylko na potrzeby naszych zajęć</strong>.</p>
+<p>Jeśli musicie założyć nowe konto mailowe, polecam GMaila: wejdźcie na <a href="https://gmail.com/">gmail.com</a>, kliknijcie <code>Utwórz konto</code> i postępujcie zgodnie z instrukcjami.</p>
+<h1 id="3-github">3. GitHub</h1>
+<p>GitHub to narzędzie do przechowywania kodu źródłowego i zespołowej pracy nad kodem. W najbliższym czasie nie będziemy korzystać z większości funkcji tego serwisu, ale użyjemy go jako narzędzia do tworzenia kopii zapasowych napisanego przez was kodu.</p>
+<p>Ponadto, szablon projektu, na którym będziemy zaczynać naukę programowania, został zamieszczony na tym serwisie, a żeby go użyć, konieczne będzie utworzenie konta.</p>
+<p>Na stronie <a href="https://github.com/">https://github.com/</a> kliknijcie przycisk <code>Sign Up</code> i postępujcie zgodnie z instrukcjami.</p>
+<h2 id="przygotowanie-projektu-startowego">Przygotowanie projektu startowego</h2>
+<p>Na stronie <a href="https://github.com/jerz-codes/kotlin-starter-pack">https://github.com/jerz-codes/kotlin-starter-pack</a> kliknijcie zielony przycisk z napisem <code>Use this template</code>.</p>
+<p><img src="github1.png" alt="Strona szablonu kotlin-starter-pack"></p>
+<p>W ten sposób przejdziecie do tworzenia kopii projektu startowego opartego na przygotowanym przeze mnie szablonie.</p>
+<p><img src="github2.png" alt="Klonowanie szablonu projektu startowego"></p>
+<p>Upewnijcie się, że w polu <code>Owner</code> wybrane jest wasze konto; jedynym wymaganym polem jest nazwa projektu (pozostawiam to waszej inwencji twórczej), pozostałych opcji nie trzeba zmieniać.</p>
+<p>Po naciśnięciu <code>Create repository from template</code> zostaniecie przekierowani na stronę waszego projektu. Gotowe!</p>
+<h1 id="4-integracja-intellij-i-githuba">4. Integracja IntelliJ i GitHuba</h1>
+<p>Po uruchomieniu programu IntelliJ należy wybrać opcję <code>Get from VCS</code></p>
+<p><img src="intellij.png" alt="Okno startowe IntelliJ"></p>
+<p>W następnym oknie należy wybrać opcję <code>GitHub</code> w menu po lewej stronie, a następnie nacisnąć napis <code>Use token…</code></p>
+<p><img src="intellij2.png" alt="Otwieranie projektu ze źródeł"></p>
+<p>W kolejnym oknie kliknijcie przycisk <code>Generate…</code></p>
+<p><img src="intellij3.png" alt="Otwieranie projektu ze źródeł, ciąg dalszy"></p>
+<p>Powinna otworzyć się przeglądarka internetowa na stronie ustawień waszego konta na GitHubie (może być konieczne będzie ponowne zalogowanie)</p>
+<p><img src="githubtoken.png" alt="Dodawanie tokena na GitHubie"></p>
+<p>Proponuję, aby zmienić pole <code>Expiration</code> na wartość <code>No expiration</code>. Następnie należy przescrollować stronę na sam dół i nacisnąć przycisk <code>Generate token</code>.</p>
+<p>Na następnej stronie konieczne jest skopiowanie do schowka tekstu zaczynającego się od <code>ghp</code> (wystarczy nacisnąć niebieską ikonkę po jego prawej stronie).</p>
+<p><img src="githubtoken2.png" alt="Kopiowanie tokena z GitHuba"></p>
+<p>Jest to nasz klucz dostępu, który musicie przekopiować do programu IntelliJ.</p>
+<p><img src="githubtoken3.png" alt="Wklejanie tokena do IntelliJ"></p>
+<p>Po naciśnięciu przycisku <code>Log In</code> IntelliJ powinien wyświetlić listę wszystkich waszych projektów na GitHubie.</p>
+<p><img src="lista-projektow.png" alt="Lista projektów na GitHubie wyświetlona w IntelliJ&amp;rsquo;u"></p>
+<p>Wybierzcie utworzony wcześniej projekt i naciśnijcie przycisk <code>Clone</code>.</p>
+<p>IntelliJ może jeszcze zapytać się, czy jest to projekt godny zaufania:</p>
+<p><img src="trust.png" alt="IntelliJ pyta, czy może nam zaufać"></p>
+<p>Klikamy oczywiście <code>Trust Project</code>.</p>
+<p>Rozpocznie się teraz proces klonowania projektu (czyli pobierania go na dysk), konfigurowania projektu (czyli program IntelliJ będzie szukał, z jakich elementów składa się nasz projekt testowy i jak nam je najlepiej wyświetlić), oraz pobierania zależności. Ta ostatnia czynność za pierwszym razem może sporo potrwać, ponieważ oprócz naszego kodu IntelliJ postanowi pobrać ok. trzech-czwartych całego Internetu, na co niestety trzeba chwilę poczekać.</p>
+<h1 id="5-uruchomienie-programu-testowego">5. Uruchomienie programu testowego</h1>
+<p>Kiedy już wszystko się załaduje i znikną wszelkiego rodzaju paski postępu, w panelu po lewej stronie odszukajcie i wybierzcie plik <code>HelloWorld.kt</code></p>
+<p><img src="run.png" alt="Pierwszy program testowy"></p>
+<p>Następnie naciśnijcie na zielony trójkącik obok piątej linii kodu, a z menu, które się pojawi, wybierzcie pierwszą opcję</p>
+<p><img src="run2.png" alt="Menu &amp;ldquo;Run&amp;rdquo;"></p>
+<p>Możliwe jest, że IntelliJ postanowi pobrać pozostałą część Internetu, więc uzbrójcie się w cierpliwość. Jeżeli wszystko dobrze pójdzie, powinniście zobaczyć po chwili następujące okienko</p>
+<p><img src="helloworld.png" alt="Pierwszy program"></p>
+<h1 id="6-slack">6. Slack</h1>
+<p>Slack to platforma komunikacyjna, której będziemy używać do kontaktu pomiędzy zajęciami.</p>
+<p>Żeby dodać was do naszego kanału na Slacku, potrzebny będzie mi wasz adres email. Z konta założonego w punkcie 2 wyślijcie na <a href="mailto:jerz.codes@gmail.com">jerz.codes@gmail.com</a> wiadomość zawierającą wasze imię i nazwisko.</p>
+<p>Po kilku godzinach wyślę wam mailem zaproszenie do kanału Slack&rsquo;owego. W mailu, który otrzymacie, kliknijcie przycisk <code>JOIN NOW</code> i postępujcie zgodnie z instrukcjami.</p>
+<hr>
+<p>Uff, to chyba wszystko.</p>
+<p>Jak widzicie, jest to trochę żmudnej roboty i lepiej zrobić to w domu, żebyśmy mogli na zajęciach zająć się ciekawszymi sprawami.</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
