@@ -64,4 +64,4 @@ Przy okazji tej samodzielnej pracy na pewno będziecie mieli masę pytań i zdar
 
 Jeśli to, co opisałem w tym wpisie, wydaje się wam interesujące, poproście waszych rodziców o zgłoszenie was mailowo na adres jerz.codes@gmail.com.
 
-Zapisy na rok szkolny 2022-2023 trwają do końca września. Pierwsze zajęcia odbędą się **4 października**.
+Zapisy na rok szkolny 2022-2023 trwają do końca września. Pierwsze zajęcia odbędą się **11 października**.

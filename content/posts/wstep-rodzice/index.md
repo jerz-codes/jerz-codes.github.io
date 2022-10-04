@@ -54,6 +54,6 @@ Ostatnim wymaganiem jest **wiek**. Zajęcia są skierowane do młodzieży od 10 
 
 Jeśli przedstawiony w tym wpisie obraz zajęć spełnia wasze oczekiwania, proszę o wysłanie zgłoszenia na adres jerz.codes@gmail.com.
 
-Zapisy trwać będą do końca września, w ostatnim tygodniu zostanie ogłoszony ostateczny skład grupy. Pierwsze zajęcia odbędą się **4 października**. 
+Zapisy trwać będą do końca września, w ostatnim tygodniu zostanie ogłoszony ostateczny skład grupy. Pierwsze zajęcia odbędą się **11 października**. 
 
 W razie jakichkolwiek pytań proszę o kontakt mailowy.
