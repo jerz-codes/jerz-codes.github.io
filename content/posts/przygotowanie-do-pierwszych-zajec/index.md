@@ -110,6 +110,8 @@ Slack to platforma komunikacyjna, której będziemy używać do kontaktu pomięd
 
 Po kilku godzinach wyślę wam mailem zaproszenie do kanału Slack'owego. W mailu, który otrzymacie, kliknijcie przycisk `JOIN NOW` i postępujcie zgodnie z instrukcjami.
 
+Niestety, jeśli wasze konto e-mailowe na GMailu zostało stworzone jako konto dziecka powiązane z kontem rodzica, nie będziecie mogli użyć przy rejestracji konta na Slacku opcji `Join with Google`. Opcja `Join with Email` powinna działać dobrze.
+
 ---
 
 Uff, to chyba wszystko.
