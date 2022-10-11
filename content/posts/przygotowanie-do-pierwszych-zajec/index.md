@@ -18,7 +18,7 @@ https://www.jetbrains.com/idea/download/
 
 A następnie postępujcie zgodnie z instrukcjami programu instalacyjnego.
 
-# 2. Konto e-mailowe
+# 2. Konto e-mailowe {#email}
 
 Krok opcjonalny, tylko jeśli ktoś jeszcze nie ma swojego własnego maila. **Nie zakładajcie osobnego konta tylko na potrzeby naszych zajęć**.
 
@@ -102,11 +102,11 @@ Możliwe jest, że IntelliJ postanowi pobrać pozostałą część Internetu, wi
 
 ![Pierwszy program](helloworld.png)
 
-# 6. Slack
+# 6. Slack {#slack}
 
 Slack to platforma komunikacyjna, której będziemy używać do kontaktu pomiędzy zajęciami.
 
-Żeby dodać was do naszego kanału na Slacku, potrzebny będzie mi wasz adres email. Z konta założonego w punkcie 2 wyślijcie na jerz.codes@gmail.com wiadomość zawierającą wasze imię i nazwisko.
+Żeby dodać was do naszego kanału na Slacku, potrzebny będzie mi wasz adres email. Z konta założonego w [punkcie 2](#email) wyślijcie na jerz.codes@gmail.com wiadomość zawierającą wasze imię i nazwisko.
 
 Po kilku godzinach wyślę wam mailem zaproszenie do kanału Slack'owego. W mailu, który otrzymacie, kliknijcie przycisk `JOIN NOW` i postępujcie zgodnie z instrukcjami.
 
