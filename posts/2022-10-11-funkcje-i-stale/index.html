@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 1: gadka-szmatka; zapoznanie z IntelliJ; funkcje i stałe | jerz.codes</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 1: gadka-szmatka; zapoznanie z IntelliJ; funkcje i stałe</span></h1>
+
+<h2 class="date">2022/10/11</h2>
+</div>
+
+<main>
+<h1 id="gadka-szmatka">Gadka-szmatka</h1>
+<p>Witam was serdecznie!</p>
+<p>Zanim przejdziemy do faktycznego programowania, chciałbym udzielić wam kilku rad, żeby dobrze się nam wspólnie pracowało i żebyście wynieśli z tych zajęć jak najwięcej.</p>
+<p>Po pierwsze, jeśli czegokolwiek nie będziecie rozumieć, natychmiast dajcie mi znać. Jest to zwłaszcza ważne podczas pierwszych kilku zajęć, podczas których będziemy przechodzić przez fundamenty wiedzy programistycznej. Bez dokładnego opanowania tych podstaw późniejsze lekcje mogą okazać się niezrozumiałe.</p>
+<p>Przyznanie się przed całą grupą, że czegoś się nie wie, może być trudne, dlatego musimy postarać się o zbudowanie odpowiedniej atmosfery. Przede wszystkim proszę was o wyrozumiałość względem kolegów i koleżanek (czyli nie przewracać oczami i nie sapać &ldquo;<em>Oesu, jak możesz tego nie wiedzieć…</em>&rdquo; – takie teksty jeszcze nigdy nikomu nie pomogły) i względem siebie (czyli nie histeryzować &ldquo;<em>Jaki ja jestem głupi, ja tego nigdy, przenigdy nie zrozumiem!</em>&rdquo; – to też nie pomaga, tylko zatyka się mózg).</p>
+<p>Niewiedza na tych zajęciach nie jest niczym wstydliwym: są to przecież <strong>warsztaty</strong> programistyczne, gdzie będziecie się uczyć czegoś nowego, a nie <strong>konkurs</strong> programistyczny, na którym macie zabłysnąć wiedzą i oszołomić umiejętnościami.</p>
+<p>Po drugie: uzbrójcie się w cierpliwość. Pierwsze niebanalne gry (np.: Saper) będziecie w stanie napisać dopiero po 2-3 miesiącach, czyli po około 10 spotkaniach. Początkowo wasze programy będą wyglądały i działały dość siermiężnie (screenshoty możecie znaleźć we <a href="https://jerz.codes/posts/wstep-mlodziez/">wpisie opisującym program i formę zajęć</a>), a na poprawę wyglądu i sposobu sterowania będziemy potrzebować kolejnych kilkunastu zajęć.</p>
+<p>Ten wolny początkowy postęp wynika głównie z tego, że nie wspomagamy się żadnymi &ldquo;gotowcami&rdquo; i szablonami: prawie każdą linijkę kodu będziecie pisać własnoręcznie. W przyszłości zapewni wam to pełną swobodę w tworzeniu waszych wymarzonych gier, ale na wstępie będzie mocno ograniczało wasze możliwości.</p>
+<p>Po trzecie: wasza grupa liczy osiem osób, a prowadzący jest jeden. Może zdarzyć się, że kilka osób naraz będzie potrzebowało pomocy i fajnie by było, gdybyście w takich sytuacjach pomagali sobie nawzajem. Przy czym nie na zasadzie &ldquo;dawaj tę klawiaturę, to ci to napiszę&rdquo;, tylko starajcie się wytłumaczyć koledze lub koleżance, gdzie w ich programie jest błąd, albo o co IntelliJ ma pretensje.</p>
+<p>Podsumowując: nie wstydzimy się niewiedzy i śmiało zgłaszamy się, jeśli coś jest niejasne; pomagamy sobie nawzajem i jesteśmy wyrozumiali zarówno względem innych, jak i siebie samych.</p>
+<h1 id="zapoznanie-z-intellij">Zapoznanie z IntelliJ</h1>
+<p>IntelliJ to nasze środowisko programistyczne, czyli, inaczej mówiąc, program do pisania innych programów. Zrobię wam teraz bardzo szybki kurs korzystania z tego programu, żebyśmy mogli przejść do nauki programowania.</p>
+<p><img src="intellij-crash-course.png" alt="&amp;ldquo;Naucz się korzystać z IntelliJ w cztery i pół minuty!&amp;rdquo;"></p>
+<p>Musicie dowiedzieć się trzech rzeczy:</p>
+<h2 id="jak-otworzyć-kod-programu">Jak otworzyć kod programu</h2>
+<p>Po lewej stronie znajduje się panel <code>Project</code> z katalogami i plikami naszego programu. Można go chować i pokazywać naciskając na jego zakładkę albo używając skrótu <code>Alt + 1</code> (<code>⌘1</code> na MacOS). Na razie nie chcę wam zawracać głowy organizacją plików i katalogów w naszym projekcie. Pierwsze programy będą na tyle małe, że spokojnie możemy napisać każdy z nich w pojedynczym pliku. Możecie otworzyć plik, wybierając go w panelu po lewej stronie. Żeby przejść z panelu plików do pisania kodu, wystarczy nacisnąć przycisk <code>Esc</code>.</p>
+<h2 id="jak-uruchomić-program">Jak uruchomić program</h2>
+<p>Program po raz pierwszy uruchamiamy skrótem klawiszowym <code>Ctrl + Shift + F10</code> (<code>Ctrl + Shift + r</code> na MacOS) albo klikając na zielony trójkącik po lewej stronie kodu źródłowego. Drugi raz ten sam program możemy uruchomić skrótem <code>Shift + F10</code> (<code>Ctrl + r</code>) albo klikając zielony trójkącik na pasku narzędzi.</p>
+<h2 id="jak-stworzyć-plik-na-kolejny-program">Jak stworzyć plik na kolejny program</h2>
+<p>Żeby stworzyć nowy program, musimy przejść do panelu plików, a następnie najlepiej wybrać jeden z poprzednich programów i zrobić klasyczny manewr <code>Ctrl + C</code>, <code>Ctrl + V</code> (czyli &ldquo;<em>hej, hej, kopiuj-wklej</em>&rdquo;), wpisać nazwę nowego programu, a następnie wywalić wszystko z głównej funkcji programu.</p>
+<h1 id="podstawy-podstawowych-podstaw-programowania">Podstawy podstawowych podstaw programowania</h1>
+<h2 id="funkcja-main">Funkcja <code>main</code></h2>
+<p>Funkcja to instrukcja, którą opisujemy, co komputer ma zrobić. W języku Kotlin funkcje tworzymy w następujący sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">nazwaFunkcji</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Pomiędzy nawiasami klamrowymi jest tzw. ciało funkcji, czyli wszystkie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// instrukcje, które mają zostać wykonane.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// W Kotlinie wszystko po dwóch znaczkach / jest ignorowane – to tzw. komentarz do 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// kodu źródłowego. Komentarze dodaje się po to, żeby wyjaśnić coś osobie czytającej kod.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Główną funkcję programu przyjęło się nazywać <code>main</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Najbardziej podstawowy, ale też bezużyteczny program.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Nie robi absolutnie nic.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Funkcja może uruchamiać inne funkcje. Funkcje uruchamiamy (lub inaczej mówiąc: wywołujemy) pisząc jej nazwę i parę okrągłych nawiasów:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Program zawierający wywołanie funkcji println.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// W dalszym ciągu jest on mało użyteczny.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Wypisuje na ekran jedną pustą linię. 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Niektóre funkcje przyjmują argumenty. Inaczej mówiąc: można im dać &ldquo;klocek&rdquo;, a one będą się różnie zachowywać w zależności od tego, jaki damy im klocek. Programowanie tak naprawdę sprowadza się do tego, żeby tworzyć różne klocki i przekazywać je do różnych funkcji w taki sposób, żeby komputer robił to, co chcemy, żeby robił. Brzmi prosto, ale oczywiście proste nie jest.</p>
+<p>Na przykład, funkcja <code>println</code> może wypisać na ekran to, co jej damy. W pierwszym programie testowym, który pobraliście wraz z szablonem projektu, tworzymy klocek zawierający tekst i przekazujemy go do funkcji <code>println()</code>, żeby wypisać ten tekst na ekran:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Hello, World!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="drobna-dygresja">Drobna dygresja</h3>
+<p>Być może zauważyliście, że funkcja <code>main</code> w kodzie powyżej wygląda troszkę inaczej niż funkcje <code>main</code> opisane wcześniej: pojawił się dziwny zapis <code>fun main() = terminal {</code>.</p>
+<p>Dzięki temu nasz program uruchomi się w osobnym okienku i powinien działać tak samo na wszystkich komputerach. Na razie nie będę tłumaczył co dokładnie dzieje się &ldquo;pod spodem&rdquo; i jak działa ten zapis. To jedna z bardzo niewielu sytuacji na naszych zajęciach, gdy zmuszeni jesteśmy korzystać z &ldquo;magicznego&rdquo; kawałka kodu, niestety nie udało mi się znaleźć lepszego rozwiązania.</p>
+<h2 id="echo">Echo</h2>
+<p>&ldquo;Klocki&rdquo;, mogą być &ldquo;tworzone&rdquo; przez inne funkcje. Mówimy wtedy, że jakaś funkcja &ldquo;zwraca&rdquo; nam coś. Przykładowo, funkcja <code>readln()</code> czeka, aż użytkownik wpisze na klawiaturze linię tekstu i naciśnie enter. &ldquo;Klocek&rdquo; z tekstem, zwrócony przez funkcję <code>readln</code> przekazujemy do <code>println</code>, dzięki czemu program wypisuje na ekran dokładnie to, co napisał użytkownik.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(readln())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="stałe">Stałe</h2>
+<p>&ldquo;Klockom&rdquo; zwracanym przez funkcje albo tworzonym wewnątrz programu, można nadawać nazwy. Na nazwę, jaką nadamy naszemu &ldquo;klockowi&rdquo;, mówimy &ldquo;stała&rdquo; (stąd też słowo kluczowe, którego używamy: <code>val</code>, od &ldquo;<em>value</em>&rdquo;, czyli &ldquo;<em>wartość</em>&rdquo;).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> echo = readln()
+</span></span></code></pre></div><p>Jak sama nazwa wskazuje, stała jest czymś stałym, czego nie da się zmienić. To coś w rodzaju naklejki albo metki, na której napisana jest jakaś nazwa, którą przyklejamy do naszego &ldquo;klocka&rdquo;. W późniejszych częściach programu możemy używać tej nazwy wszędzie tam, gdzie normalnie użylibyśmy jakiegoś &ldquo;klocka&rdquo;. Czyli te linijki mają mniej więcej takie znaczenie:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// stwórz klocek z tekstem &#34;Hello&#34; i przyklej do niego metkę &#34;cześćPoAngielsku&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> cześćPoAngielsku = <span style="color:#e6db74">&#34;Hello&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// odszukaj klocek z metką &#34;cześćPoAngielsku&#34; i przekaż go do funkcji println,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// żeby wypisała go na ekran.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(cześćPoAngielsku)       
+</span></span></code></pre></div><p>Do każdego &ldquo;klocka&rdquo; można przyczepić dowolną liczbę metek, a dalsza część programu może używać dowolnej z nich.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> cześćPoAngielsku = <span style="color:#e6db74">&#34;Hello&#34;</span>
+</span></span><span style="display:flex;"><span>println(cześćPoAngielsku) <span style="color:#75715e">// dokładnie to samo co println(&#34;Hello&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> hello = cześćPoAngielsku
+</span></span><span style="display:flex;"><span>println(hello)            <span style="color:#75715e">// w dalszym ciągu wypisze to &#34;Hello&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(cześćPoAngielsku) <span style="color:#75715e">// możemy używać jednej i drugiej nazwy
+</span></span></span></code></pre></div><h2 id="przywitanie">Przywitanie</h2>
+<p>Wykorzystajmy to, co poznaliśmy do tej pory, aby stworzyć program, który przywita użytkownika, zapyta o imię, a potem użyje tego imienia w wypisywanym na ekran tekście:</p>
+<p><img src="przywitanie.png" alt="Program &amp;ldquo;przywitanie&amp;rdquo;"></p>
+<p>Żeby wypisywać rzeczy w tej samej linii, możemy użyć kilku instrukcji <code>print</code>, które w przeciwieństwie do <code>println()</code> nie przechodzi do nowej linii.</p>
+<p>Możemy też &ldquo;skleić&rdquo; kilka tekstów w jeden używając operatora dodawania:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiadomość = <span style="color:#e6db74">&#34;Cześć &#34;</span> + imię + <span style="color:#e6db74">&#34;, jak się masz?&#34;</span>
+</span></span><span style="display:flex;"><span>println(wiadomość)
+</span></span></code></pre></div><h3 id="szablony-tekstu">Szablony tekstu</h3>
+<p>Nieco czytelniej można napisać ten program z wykorzystaniem szablonów tekstu. Szablon tekstu to tekst
+z &ldquo;dziurami&rdquo;, które można wypełnić jakimś kodem. To tak, jak formularz, który wasi rodzice muszą wypełnić przed wycieczką szkolną – duża część tekstu jest wydrukowana, ale są też miejsca na wpisanie informacji o uczniu (imię, nazwisko, klasa, itp.).</p>
+<p>W Kotlinie szablon to tekst, który zawiera kawałki kodu po znaczku <code>$</code>, najczęściej przekazujemy tam po prostu stałą. Jest to prosty sposób na utworzenie &ldquo;klocka&rdquo; z tekstem powstałym z połączenia jakiegoś tekstu oraz stałych:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span></code></pre></div><h2 id="najnudniejsza-funkcja-świata">Najnudniejsza funkcja świata</h2>
+<p>Oprócz funkcji <code>main</code> możemy stworzyć dowolną liczbę własnych funkcji, a każda z tych funkcji może być dowolnie skomplikowana. Na dobry początek stwórzmy najnudniejszą funkcję świata, która po prostu wypisze na ekran kreskę. Tak jak w przypadku funkcji <code>main</code>, musi mieć ona jakąś nazwę oraz listę instrukcji w bloku kodu oznaczonym klamerkami.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Nad kreską&#34;</span>)
+</span></span><span style="display:flex;"><span>    kreska()
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Pomiędzy kreskami&#34;</span>)
+</span></span><span style="display:flex;"><span>    kreska()
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Pod kreską&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">kreska</span>() {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;-----------------&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="parametry-funkcji">Parametry funkcji</h2>
+<p>Funkcje mogą być stworzone ot tak sobie albo mogą być &ldquo;doklejone&rdquo; do &ldquo;klocka&rdquo;. Na przykład każdy klocek z tekstem ma &ldquo;doklejoną&rdquo; do siebie funkcję <code>uppercase</code>, która zwraca ten sam tekst, tylko że pisany z użyciem samych dużych liter. Żeby wywołać funkcję &ldquo;doklejoną&rdquo; do tekstu, musimy użyć takiego zapisu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;cichutko...&#34;</span>.uppercase()) <span style="color:#75715e">// wypisze &#34;CICHUTKO...&#34;
+</span></span></span></code></pre></div><p>Wykorzystamy teraz funkcję <code>uppercase()</code>, aby stworzyć własną funkcję, która będzie &ldquo;wykrzykiwać&rdquo; wszystko to, co jej damy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;uwaga, uwaga&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">megafon</span>() {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;📣 &#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// hmm, ale w jaki sposób dostać się do klocka z tekstem &#34;uwaga, uwaga&#34;?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>No ale właśnie, w jaki sposób przekazać parametry (albo inaczej: argumenty), do naszej funkcji? Pomiędzy nawiasami po nazwie funkcji możemy podać jakie argumenty nasza funkcja przyjmuje, czyli jakie &ldquo;klocki&rdquo; można jej podać. Każdy argument, czyli &ldquo;klocek&rdquo; przekazany do funkcji, musi mieć jakąś nazwę, oraz typ.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">megafon</span>(tekst: String) {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;📣 &#34;</span>)
+</span></span><span style="display:flex;"><span>    print(tekst.uppercase())
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;!!!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Nazwa, to &ldquo;metka&rdquo;, jakiej będziemy używać wewnątrz funkcji, żeby skorzystać z &ldquo;klocka&rdquo; przekazanego do funkcji. A co to jest typ? Można o tym myśleć, jako o &ldquo;kształcie klocka&rdquo;. Nasza funkcja <code>megafon</code> będzie oczekiwać &ldquo;klocków&rdquo; z tekstem, czyli typu <code>String</code>.</p>
+<h1 id="podsumowanie">Podsumowanie</h1>
+<p>Podsumujmy to, czego nauczyliśmy się do tej pory:</p>
+<ul>
+<li>Funkcje to bloki instrukcji, które komputer ma wykonać. Główna funkcja, która będzie wykonana po uruchomieniu programu, nosi nazwę <code>main</code>. Funkcje wykonują inne funkcje – nasze własne i wbudowane w język.</li>
+<li>Funkcje mogą przyjmować dowolną ilość &ldquo;klocków&rdquo;-parametrów. Mogą też zwracać jakiś &ldquo;klocek&rdquo; (ale tylko jeden).</li>
+<li>&ldquo;Klocki&rdquo; z danymi są albo tworzone w kodzie programu, albo zwracane przez inne funkcje.</li>
+<li>Każdy &ldquo;klocek&rdquo; i każdy parametr funkcji ma swój &ldquo;kształt&rdquo;. Żeby dało się przekazać &ldquo;klocek&rdquo; do funkcji jako parametr, te &ldquo;kształty&rdquo; muszą się zgadzać</li>
+<li>&ldquo;Klockowi&rdquo; można nadać nazwę, tak jakbyśmy przyklejali do niego &ldquo;metkę&rdquo; z jego nazwą</li>
+</ul>
+<p>Poznajmy też prawidłową terminologię:</p>
+<ul>
+<li>Na &ldquo;funkcje&rdquo; faktycznie mówi się po prostu <strong>funkcje</strong> (inne określenie, które możecie spotkać to <strong>metody</strong>).</li>
+<li>&ldquo;Klocki&rdquo;, które przekazujemy do funkcji to <strong>obiekty</strong>.</li>
+<li>&ldquo;Metki&rdquo;, przyczepiane do &ldquo;klocków&rdquo; to <strong>stałe</strong>.</li>
+<li>&ldquo;Kształt&rdquo; obiektu to jego <strong>typ</strong>.</li>
+</ul>
+<p>Konkretne funkcje, typy, i mechanizmy języka, które poznaliśmy do tej pory to:</p>
+<ul>
+<li>Funkcja <code>println()</code> wypisuje linijkę tekstu na ekran</li>
+<li>Funkcja <code>readln()</code> czeka, aż osoba korzystająca z naszego programu wpisze linijkę tekstu i naciśnie ENTER, po czym zwraca obiekt z tym tekstem.</li>
+<li>Funkcja <code>print()</code> wypisuje tekst na ekran, ale nie kończy linii. Dzięki temu można wypisać wiele rzeczy w jednej linijce.</li>
+<li>Można łatwo połączyć tekst i obiekty korzystając z szablonów: <code>&quot;Cześć $imię, jak się masz?&quot;</code></li>
+<li>Inny sposób na łączenie obiektów tekstowych to operator dodawania: <code>&quot;Cześć &quot; + imię + &quot;, jak się masz?&quot;</code></li>
+<li>Niektóre funkcje są &ldquo;doczepione&rdquo; do obiektów, np.: funkcja <code>uppercase</code> doczepiona jest do obiektów tekstowych.</li>
+<li>Obiekty tekstowe mają typ <code>String</code>.</li>
+</ul>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
