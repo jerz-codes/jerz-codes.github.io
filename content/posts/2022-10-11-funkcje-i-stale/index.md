@@ -1,7 +1,7 @@
 ---
 title: "Zajęcia 1: gadka-szmatka; zapoznanie z IntelliJ; funkcje i stałe"
 date: 2022-10-11T18:00:00+02:00
-draft: true
+draft: false
 ---
 
 # Gadka-szmatka
