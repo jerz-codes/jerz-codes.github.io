@@ -1,7 +1,7 @@
 ---
 title: "Zajęcia 2: funkcje – ciąg dalszy; instrukcje warunkowe"
 date: 2022-10-18T18:00:00+02:00
-draft: true
+draft: false
 ---
 
 # Funkcje, c.d.
