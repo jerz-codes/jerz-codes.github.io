@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 2: funkcje – ciąg dalszy; instrukcje warunkowe | jerz.codes</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&Roboto+Mono" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 2: funkcje – ciąg dalszy; instrukcje warunkowe</span></h1>
+
+<h2 class="date">2022/10/18</h2>
+</div>
+
+<main>
+<h1 id="funkcje-cd">Funkcje, c.d.</h1>
+<p>Poprzednie zajęcia skończyliśmy na pisaniu funkcji <code>megafon</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ostrzeżenie = <span style="color:#e6db74">&#34;uwaga, uwaga&#34;</span>
+</span></span><span style="display:flex;"><span>    megafon(ostrzeżenie)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">megafon</span>(tekst: String) {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;📣 &#34;</span>)
+</span></span><span style="display:flex;"><span>    print(tekst.uppercase())
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;!!!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Jest jeszcze kilka rzeczy, których możemy nauczyć się na tym przykładzie.</p>
+<h2 id="zakresy-widoczności">Zakresy widoczności</h2>
+<p>Jeżeli spróbujemy wewnątrz funkcji <code>megafon</code> użyć stałej <code>ostrzeżenie</code>, nasz program nie uruchomi się, a IntelliJ podkreśli tę linijkę na czerwono:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ostrzeżenie = <span style="color:#e6db74">&#34;uwaga, uwaga&#34;</span>
+</span></span><span style="display:flex;"><span>    megafon(ostrzeżenie)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">megafon</span>(tekst: String) {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;📣 &#34;</span>)
+</span></span><span style="display:flex;"><span>    print(ostrzeżenie.uppercase()) <span style="color:#75715e">// hmm, czemu to nie działa?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println(<span style="color:#e6db74">&#34;!!!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Natknęliśmy się na bardzo ważną programistyczną koncepcję: zakresy widoczności.</p>
+<p>Wyobraźcie sobie, że każda funkcja jest pudełkiem. Pudełko ma otworki, przez które można wsunąć do niego &ldquo;klocki&rdquo; – to są nasze parametry funkcji. Metki przyczepione do wsuwanych klocków nie są widoczne wewnątrz pudełka, więc nie można ich tam użyć. Zamiast tego, każdy otwór ma swoją nazwę, której można używać wewnątrz funkcji.</p>
+<h2 id="typ-int">Typ <code>Int</code></h2>
+<p>A co stanie się, jeśli spróbujemy przekazać do <code>megafonu</code> liczbę?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;uwaga, uwaga&#34;</span>)
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;rozpoczynamy odliczanie&#34;</span>)
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#ae81ff">3</span>) <span style="color:#75715e">// błąd
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    megafon(<span style="color:#ae81ff">2</span>) <span style="color:#75715e">// błąd
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    megafon(<span style="color:#ae81ff">1</span>) <span style="color:#75715e">// błąd
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    megafon(<span style="color:#e6db74">&#34;start&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Program zostanie podświetlony na czerwono. Liczby i tekst to dwa różne &ldquo;kształty&rdquo;. Nie możemy przekazać liczby (typu <code>Int</code>) do funkcji, która oczekuje argumentu <code>String</code>. To tak, jakbyśmy starali się wepchnąć kwadratowy klocek w okrągły otwór.</p>
+<p>Na szczęście, da się temu łatwo zaradzić: możemy na podstawie naszego &ldquo;kwadratowego&rdquo; (<code>Int</code>-owego) klocka z liczbą stworzyć nowy, &ldquo;okrągły&rdquo; &ldquo;klocek&rdquo; typu <code>String</code>. Służy do tego funkcja <code>toString()</code>, która &ldquo;dolepiona&rdquo; jest do każdego &ldquo;klocka&rdquo; w języku Kotlin.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;uwaga, uwaga&#34;</span>)
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;rozpoczynamy odliczanie&#34;</span>)
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#ae81ff">3.</span>toString())
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#ae81ff">2.</span>toString())
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#ae81ff">1.</span>toString())
+</span></span><span style="display:flex;"><span>    megafon(<span style="color:#e6db74">&#34;start&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="funkcje-zwracające-obiekt">Funkcje zwracające obiekt</h2>
+<p>Funkcje mogą nie tylko przyjmować &ldquo;klocki&rdquo;, ale także je tworzyć. Używaliśmy już kilku takich funkcji:</p>
+<ul>
+<li><code>readln()</code> zwraca linijkę tekstu wpisaną przez użytkownika</li>
+<li><code>uppercase()</code> zwraca tekst zamieniony na wielkie litery</li>
+</ul>
+<p>Napiszmy teraz własną metodę, która będzie zwracać jakieś dane. Po nawiasach okrągłych musimy podać po dwukropku typ, czyli &ldquo;kształt klocka&rdquo;, który będzie tworzyć nasza funkcja. Następnie, wewnątrz funkcji musimy użyć słowa kluczowego <code>return</code>, żeby zakończyć działanie naszej funkcji i zwrócić jakiś &ldquo;klocek&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">najfajniejszyWyrazŚwiata</span>(): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;pomidor&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="instrukcja-if">Instrukcja <code>if</code></h1>
+<p>Załóżmy, że piszemy grę, gdzie gracz steruje statkiem. W zależności od tego, który przycisk naciśnie gracz, powinny dziać się różne rzeczy. Czyli nie chcemy wykonywać wszystkich instrukcji w programie po kolei, z góry na dół. Jeżeli gracz naciska strzałkę w lewo, to statek ma lecieć w lewo; jeśli naciska strzałkę w prawo – to w prawo. Czyli mamy klasyczną sytuację &ldquo;jeśli dzieje się coś, to zrób to; w przeciwnym razie, zrób tamto&rdquo;. W programowaniu służą do tego instrukcje warunkowe. W języku Kotlin wygląda ona następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (warunek) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// zrób coś
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// zrób coś innego
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Nasz <code>warunek</code> to też tak naprawdę &ldquo;klocek&rdquo; o specjalnym kształcie – <code>Boolean</code>, czyli obiekt, który reprezentuje Prawdę albo Fałsz. Jednym ze sposobów stworzenia takiego klocka jest operator porównania <code>==</code> (używamy dwóch znaczków równości, bo pojedynczy jest używany do tworzenia stałych i zmiennych). Jeśli obiekty po lewej i po prawej stronie są sobie równe, dostaniemy w wyniku obiekt <code>true</code>, czyli Prawdę. W przeciwnym razie dostaniemy <code>false</code>, czyli Fałsz.</p>
+<p>Na próbę przeróbmy nasz program witający użytkownika tak, aby inaczej reagował, gdy użytkownik wpisze imię &ldquo;Kotlin&rdquo;:</p>
+<p><img src="przywitanie_v2.png" alt="Program &amp;ldquo;przywitanie&amp;rdquo;"></p>
+<p>Oczywiście, jeśli ktoś wpisze inne imię, powinien zostać wypisany normalny komunikat:</p>
+<p><img src="przywitanie.png" alt="Program &amp;ldquo;przywitanie&amp;rdquo;"></p>
+<h1 id="podsumowanie">Podsumowanie</h1>
+<ul>
+<li>Stałe stworzone wewnątrz funkcji nie są widoczne w innych wywoływanych funkcjach. Fachowo nazywamy to <strong>zakresem widoczności</strong>.</li>
+<li>Liczby całkowite w Kotlinie mają typ <code>Int</code> (z angielskiego &ldquo;<em>integer</em>&rdquo;).</li>
+<li>Każdy obiekt ma funkcję <code>toString()</code>, która tworzy tekstową reprezentację tego obiektu. W ten sposób możemy zamienić liczbę <code>1</code> na tekst <code>&quot;1&quot;</code>.</li>
+<li>Dzięki instrukcji warunkowej <code>if (…) {} else {}</code> nasz program może wykonać inne kawałki kodu w zależności od sytuacji.</li>
+<li>Typ <code>Boolean</code> używany jest do przedstawienia prawdy (obiekt <code>true</code>) lub fałszu (<code>false</code>).</li>
+</ul>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

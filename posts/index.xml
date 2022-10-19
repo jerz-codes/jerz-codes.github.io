@@ -6,7 +6,19 @@
     <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 11 Oct 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 18 Oct 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 2: funkcje – ciąg dalszy; instrukcje warunkowe</title>
+      <link>https://jerz.codes/posts/2022-10-18-funkcje-cd-i-instrukcje-warunkowe/</link>
+      <pubDate>Tue, 18 Oct 2022 18:00:00 +0200</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-10-18-funkcje-cd-i-instrukcje-warunkowe/</guid>
+      <description>Funkcje, c.d. Poprzednie zajęcia skończyliśmy na pisaniu funkcji megafon:
+fun main() = terminal { val ostrzeżenie = &amp;#34;uwaga, uwaga&amp;#34; megafon(ostrzeżenie) } fun megafon(tekst: String) { print(&amp;#34;📣 &amp;#34;) print(tekst.uppercase()) println(&amp;#34;!!!&amp;#34;) } Jest jeszcze kilka rzeczy, których możemy nauczyć się na tym przykładzie.
+Zakresy widoczności Jeżeli spróbujemy wewnątrz funkcji megafon użyć stałej ostrzeżenie, nasz program nie uruchomi się, a IntelliJ podkreśli tę linijkę na czerwono:
+fun main() = terminal { val ostrzeżenie = &amp;#34;uwaga, uwaga&amp;#34; megafon(ostrzeżenie) } fun megafon(tekst: String) { print(&amp;#34;📣 &amp;#34;) print(ostrzeżenie.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 1: gadka-szmatka; zapoznanie z IntelliJ; funkcje i stałe</title>
       <link>https://jerz.codes/posts/2022-10-11-funkcje-i-stale/</link>
