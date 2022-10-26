@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 18 Oct 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 25 Oct 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 3: zmagania z kodowaniem; garść nowego materiału</title>
+      <link>https://jerz.codes/posts/2022-10-25/</link>
+      <pubDate>Tue, 25 Oct 2022 18:00:00 +0200</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-10-25/</guid>
+      <description>Nasze zmagania z kodowaniem Na poprzednich zajęciach spora część grupy miała kłopot z napisaniem programów &amp;ldquo;Echo&amp;rdquo; oraz &amp;ldquo;Przywitanie&amp;rdquo;. Problemy, które zauważyłem, można podzielić na następujące kategorie:
+Nie wiem, jak dokładnie ma działać program? Kilka osób napisało programy, które teoretycznie działały, ale nie robiły dokładnie tego, co miały robić. Zakładam, że stało się tak, ponieważ na rzutniku wyświetlone były screenshoty, a opis działania przekazałem tylko słownie i niektóre szczegóły mogły umknąć waszej uwadze.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 2: funkcje – ciąg dalszy; instrukcje warunkowe</title>
       <link>https://jerz.codes/posts/2022-10-18-funkcje-cd-i-instrukcje-warunkowe/</link>

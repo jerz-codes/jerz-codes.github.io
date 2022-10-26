@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 3: zmagania z kodowaniem; garść nowego materiału | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 3: zmagania z kodowaniem; garść nowego materiału</span></h1>
+
+<h2 class="date">2022/10/25</h2>
+</div>
+
+<main>
+<h1 id="nasze-zmagania-z-kodowaniem">Nasze zmagania z kodowaniem</h1>
+<p>Na poprzednich zajęciach spora część grupy miała kłopot z napisaniem programów &ldquo;Echo&rdquo; oraz &ldquo;Przywitanie&rdquo;. Problemy, które zauważyłem, można podzielić na następujące kategorie:</p>
+<h2 id="nie-wiem-jak-dokładnie-ma-działać-program">Nie wiem, jak dokładnie ma działać program?</h2>
+<p>Kilka osób napisało programy, które teoretycznie działały, ale nie robiły dokładnie tego, co miały robić. Zakładam, że stało się tak, ponieważ na rzutniku wyświetlone były screenshoty, a opis działania przekazałem tylko słownie i niektóre szczegóły mogły umknąć waszej uwadze.</p>
+<p>Lepszym pomysłem na przyszłość będzie uruchamianie wzorcowego programu, żeby zademonstrować jego działanie w praktyce, a następnie pokazanie na rzutniku screenów wraz z opisem działania – tak, aby każdy mógł w dowolnej chwili do niego wrócić.</p>
+<h2 id="nie-wiem-od-czego-zacząć">Nie wiem, od czego zacząć?</h2>
+<p>Kilka osób nie wiedziało jak zacząć albo utknęło w pewnym momencie pisania programu. To będzie niestety problem, z którym będziecie borykać się przez cały czas i jedynym rozwiązaniem jest praktyka, praktyka i jeszcze raz praktyka.</p>
+<p>Programowanie to w dużej mierze umiejętność dzielenia dużego problemu na coraz mniejsze pod-problemy i pod-pod-problemiki, aż do momentu, kiedy da się je rozwiązać za pomocą jednej-dwóch linii kodu. Ponieważ macie małą wprawę w pisaniu faktycznego kodu, dobrym pomysłem może być użycie tzw. pseudokodu, czyli tekstu opisującego poszczególne kroki działania programu. Możecie napisać to sobie na kartce, w osobnym pliku w notatniku, albo w kodzie programu jako komentarz (przypomnienie: komentarz w Kotlinie zaczyna się od dwóch znaków <code>/</code>, np.: <code>println(&quot;To jest kod!&quot;) // a to jest komentarz</code>).</p>
+<p>Czyli zamiast od razu pisać kod programu &ldquo;Przywitanie&rdquo; możecie najpierw napisać pseudokod:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Wypisz na ekran tekst z pytaniem o imię
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Wczytaj imię
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Przywitaj użytkownika używając wczytanego imienia
+</span></span></span></code></pre></div><p>A następnie zastępować jego fragmenty wywołaniem odpowiednich funkcji albo, w przypadku trudniejszych programów, bardziej szczegółowym pseudokodem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Wypisz na ekran tekst z pytaniem o imię
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;Witaj! Jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Wczytaj imię
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> imie = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Przywitaj użytkownika używając wczytanego imienia
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;Cześć </span><span style="color:#e6db74">$imie</span><span style="color:#e6db74">, miło mi cię poznać!&#34;</span>)
+</span></span></code></pre></div><p>Pamiętajcie też o podstawowych pojęciach: funkcjach, obiektach i stałych. Działanie waszych programów zawsze sprowadzać się będzie do uruchamiania funkcji, tworzenia obiektów i przekazywania ich do innych funkcji. Jeśli wczytujecie tekst z klawiatury przez wywołanie funkcji <code>readln()</code>, pamiętajcie, że &ldquo;wypluje&rdquo; ona obiekt z tekstem i zastanówcie się, co możecie z nim dalej zrobić (podpowiedź: przypisać do stałej przy użyciu <code>val nazwaStałej = readln()</code> albo od razu przekazać do jakiejś innej funkcji, np.: <code>println(readln())</code>).</p>
+<h2 id="morze-czerwieni">Morze czerwieni</h2>
+<p>Problem, który dotykał chyba największej liczby osób to błędy składni. Z pozoru IntelliJ jest edytorem tekstu, więc możemy wpisać, co tylko nam się podoba, ale żeby wpisany tekst był poprawnym kodem, każdy nawias i każda klamerka musi być na swoim miejscu. Wystarczy pominąć jeden znaczek, a IntelliJ zaczyna podkreślać wszystko czerwonymi wężykami.</p>
+<p>Znalezienie błędu może sprawiać wam początkowo wiele problemów. Oto kilka sposobów, które mogą wam pomóc:</p>
+<h3 id="automatyczne-formatowanie-kodu">Automatyczne formatowanie kodu</h3>
+<p>Język Kotlin tak naprawdę ignoruje zdecydowaną większość &ldquo;białych znaków&rdquo; (tj. spacji, tabów, enterów, itp.). Program &ldquo;Przywitanie&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Równie dobrze można by napisać jako:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal { println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span><span style="color:#e6db74">&#34;Kotlin&#34;</span>){
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>println(                   <span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Albo nawet upchnąć wszystko w jednej linijce:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal { println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>);  <span style="color:#66d9ef">val</span> imię = readln(); <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) { println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>) } <span style="color:#66d9ef">else</span> { println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>) } }
+</span></span></code></pre></div><p>Jednak moim zdaniem ta pierwsza wersja jest najbardziej czytelna. Zauważcie, że wcięcia tekstu w tamtej wersji wizualnie tworzą nam &ldquo;bloczki&rdquo; podobne do tych znanych np.: z języka Scratch.</p>
+<p>Na szczęście nie musimy poprawiać wszystkiego ręcznie, IntelliJ ma funkcję automatycznego formatowania kodu. Po naciśnięciu kombinacji klawiszy <code>Ctrl + Lewy Alt + L</code> (na MacOS: <code>⌥⌘L</code>) IntelliJ postara się doprowadzić nasz kod do porządku, czyli zamienić pokraczną drugą wersję kodu w czytelniejszą, pierwszą wersję.</p>
+<p>Pomaga to również w momencie, gdy napiszemy niepoprawny składniowo kod. Na przykład, jeśli pokręcimy coś z nawiasami klamrowymi, jakiś kawałek naszego kodu zostanie przedwcześnie wyrównany do lewej krawędzi:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> { <span style="color:#75715e">// &lt;----- dziwna sprawa 🤔  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Kod nigdy nie dojdzie do lewej krawędzi:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) {
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &lt;------- w poprawnym kodzie powinna być tutaj klamerka zamykająca funkcję main
+</span></span></span></code></pre></div><p>Ewentualnie będziemy mieli dodatkowe klamerki na końcu funkcji:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię = readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>} <span style="color:#75715e">// dodatkowa klamerka podświetlona na czerwono
+</span></span></span></code></pre></div><p>Autoformatowanie nie usuwa domyślnie pustych linii, tak więc z tym musicie robić porządek sami. Czasami programiści celowo zostawiają pustą linijkę tu i ówdzie, żeby oddzielić od siebie jakieś fragmenty kodu. Zostawianie kilku pustych linijek jedna pod drugą raczej nie ma sensu: to polecam usunąć (skrót klawiszowy: <code>Ctrl + Y</code>/<code>⌘⌫</code>).</p>
+<h3 id="popatrzcie-na-linijkę-przed-podkreślonym-kodem">Popatrzcie na linijkę przed podkreślonym kodem</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Cześć, jak masz na imię?&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię = readln(       <span style="color:#75715e">// problem jest tutaj… (brakujący nawias okrągły) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// … ale IntelliJ zaczyna podkreślać kod od tego miejsca 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (imię <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) { 
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;Nie może być! Ja też nazywam się Kotlin!&#34;</span>)
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;Miło mi cię poznać </span><span style="color:#e6db74">$imię</span><span style="color:#e6db74">, ja nazywam się Kotlin.&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="czytanie-kodu-z-góry-na-dół">Czytanie kodu z góry na dół</h3>
+<p>Spokojnie czytamy kod i patrzymy czy każda linijka ma sens. Na razie poznaliśmy tylko garść składni:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// komentarz
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println()                    <span style="color:#75715e">// wywołanie funkcji
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;Hello&#34;</span>)             <span style="color:#75715e">// wywołanie funkcji z parametrem
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> czesc = <span style="color:#e6db74">&#34;Cześć&#34;</span>          <span style="color:#75715e">// przypisanie do stałej obiektu stworzonego w kodzie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> imie = readln()          <span style="color:#75715e">// przypisanie do stałej obiektu zwróconego przez funkcję
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(czesc)               <span style="color:#75715e">// użycie stałej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(y.uppercase())       <span style="color:#75715e">// wywołanie funkcji na obiekcie (i przekazanie wyniku do innej funkcji)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(czesc + <span style="color:#e6db74">&#34; &#34;</span> + imie)  <span style="color:#75715e">// klejenie tekstów przy użyciu +
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$czesc</span><span style="color:#e6db74"> </span><span style="color:#e6db74">$imie</span><span style="color:#e6db74">&#34;</span>)      <span style="color:#75715e">// klejenie tekstów przy użyciu szablonów
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// bloczek if..else
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span> (<span style="color:#ae81ff">1500</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2900</span>) {          <span style="color:#75715e">// porównywanie dwóch obiektów
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// definiowanie funkcji
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">funkcja</span>(parametrA: TypParametruA, parametrA: TypParametruB): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;💥 KABOOM! 💥&#34;</span>    <span style="color:#75715e">// zwracanie wyniku z funkcji
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Jeśli jakaś linijka nie pasuje do tych wzorców, jest duża szansa, że właśnie w niej jest błąd.</p>
+<h3 id="pisanie-najpierw-bloczku-wypełnianie-luk-później">Pisanie najpierw &ldquo;bloczku&rdquo;, wypełnianie luk później</h3>
+<p>Wasza największa zmora to brakujące nawiasy – okrągłe albo klamrowe. Starajcie się pisać kod &ldquo;bloczkami&rdquo;: pisząc wywołanie funkcji, dajcie od razu dwa nawiasy. Pisząc <code>if</code>&lsquo;a albo <code>if..else</code>&lsquo;a napiszcie najpierw coś takiego:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> () {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>I dopiero potem wypełniajcie brakujące luki.</p>
+<p>Podobnie, jeśli chcecie napisać funkcję, która będzie przyjmować jeden argument typu <code>Int</code> i zwracać <code>String</code>, nie starajcie się napisać wszystkiego od razu. Zacznijcie od najprostszego bloczku funkcji i dodawajcie kolejne rzeczy krok po kroku, upewniając się cały czas, że nic nie jest podkreślone na czerwono:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mojaSuperFunkcja</span>() {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Następnie dodajcie argument:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mojaSuperFunkcja</span>(argument: Int) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Dodajcie informację o zwracanym typie:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mojaSuperFunkcja</span>(argument: Int): String {
+</span></span><span style="display:flex;"><span>} <span style="color:#75715e">// &lt;------- tutaj pojawi się błąd, IntelliJ narzeka na brakujący return
+</span></span></span></code></pre></div><p>Dodajcie wyrażenie <code>return</code> z jakimkolwiek tekstem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">mojaSuperFunkcja</span>(argument: Int): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Dopiero teraz, gdy macie gotowe &ldquo;rusztowanie&rdquo; funkcji, zacznijcie pracować nad tym, co funkcja faktycznie ma robić.</p>
+<h3 id="cofnięcie-zmian-do-ostatniego-działającego-stanu">Cofnięcie zmian do ostatniego działającego stanu</h3>
+<p>IntelliJ, jak każdy porządny edytor tekstu, ma opcję cofnięcia zmian (skrót <code>Ctrl + Z</code>/<code>⌘Z</code>). Jeśli wasz program przed chwilą działał i kod był poprawny, możecie spróbować wrócić do tego stanu. Jeśli pojedziecie z cofaniem za daleko, możecie &ldquo;cofnąć cofnięcie&rdquo; naciskając <code>Ctrl + Shift + Z</code>/<code>⇧⌘Z</code>.</p>
+<h3 id="zaczynajcie-od-pustego-pliku">Zaczynajcie od pustego pliku</h3>
+<p>Nie rozszerzajcie jednego pliku <code>HelloWorld.kt</code> w nieskończoność. Zamiast tego trzymajcie każdy programik testowy w osobnym pliku. Dzięki temu będziecie mogli łatwo wrócić do napisanych wcześniej programów i podejrzeć jak rozwiązaliście jakieś problemy.</p>
+<h3 id="nuke-the-entire-site-from-orbit--its-the-only-way-to-be-sure">&ldquo;Nuke the entire site from orbit – it&rsquo;s the only way to be sure&rdquo;</h3>
+<p>Ostatnia deska ratunku: wasz program nie działa, opcja <code>Undo</code> nie działa, w zasadzie nic nie działa 😱. Wszystko podkreślone jest na czerwono, powoli przechodzicie w tryb &ldquo;panika&rdquo; i przestaje działać nawet wasz mózg.</p>
+<p>W takich chwilach trzeba wziąć kilka głębokich oddechów, powiedzieć sobie &ldquo;no trudno&rdquo;, doprowadzić plik do stanu startowego i zacząć od nowa:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.wprawki
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> jerz.codes.terminal.terminal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="nowy-materiał">Nowy materiał</h1>
+<h2 id="stringlength"><code>String.length</code></h2>
+<p>Możemy poprosić obiekt tekstowy (typu <code>String</code>), żeby powiedział nam, ile znajduje się w nim znaków:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> tekst = <span style="color:#e6db74">&#34;Hello&#34;</span>
+</span></span><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Tekst &#39;&#34;</span> + tekst + <span style="color:#e6db74">&#34;&#39; ma &#34;</span> + tekst.length + <span style="color:#e6db74">&#34; liter.&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Kod powyżej wypisze na ekran &#34;Tekst &#39;Hello&#39; ma 5 liter&#34;
+</span></span></span></code></pre></div><p>Możecie zastanawiać się, czy nie brakuje tutaj nawiasów? Czy nie powinno tam być <code>tekst.length()</code>? Przypadkiem natknęliśmy się na kolejny element języka: <strong>własności</strong> obiektów (ang. &ldquo;properties&rdquo;). Do obiektów, oprócz funkcji (tak jak np.: <code>uppercase()</code> na typie <code>String</code>), mogą być &ldquo;przyczepione&rdquo; także stałe i zmienne. <code>length</code> jest stałą typu <code>Int</code>, która zawiera liczbę liter w tekście.</p>
+<h3 id="szablony-tekstu-ciąg-dalszy">Szablony tekstu, ciąg dalszy</h3>
+<p>W kodzie powyżej użyłem operatora <code>+</code> do łączenia tekstów w jeden <code>String</code>. Zamiast tego, możemy użyć szablonu tekstu. Postawcie kursor w dowolnym miejscu tego wyrażenia i naciśnijcie kombinację <code>Alt + Enter</code>/<code>⌥⏎</code>. Jest to tak zwane okienko akcji kontekstowych (ang. <em>context actions</em>) albo inaczej <em>quick fixów</em>.</p>
+<p><img src="quickfix.png" alt="Akcje kontekstowe na obiekcie tekstowym lepionym operatorem dodawania"></p>
+<p>Jeśli wybierzecie opcję <code>Convert 'String' concatenation to a template</code>, kod zmieni się w następujący sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> tekst = <span style="color:#e6db74">&#34;Hello&#34;</span>
+</span></span><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Tekst &#39;</span><span style="color:#e6db74">$tekst</span><span style="color:#e6db74">&#39; ma </span><span style="color:#e6db74">${tekst.length}</span><span style="color:#e6db74"> liter.&#34;</span>)
+</span></span></code></pre></div><p>Zaskakujące mogą być dla was klamerki przy drugiej &ldquo;dziurze&rdquo; w szablonie. Okazuje się, że jeśli w szablonie tekstu chcemy wstawić tekst zwrócony przez kawałek kodu, musimy ten kod otoczyć nawiasami klamrowymi (spróbujcie, co się stanie, jeśli pominiecie nawiasy!). Jeśli &ldquo;dziura&rdquo; zawiera tylko wartość jakiejś stałej, klamerki można pominąć (jest to nawet sugerowane przez IntelliJ jako quickfix; sprawdźcie sami).</p>
+<h3 id="inne-operatory-porównania">Inne operatory porównania</h3>
+<p>Na poprzednich zajęciach pokazałem pierwszy operator porównania <code>==</code> służący do sprawdzenia, czy dwa obiekty są sobie równe. Są oczywiście dostępne inne operatory arytmetyczne. <code>a &gt; b</code>, <code>a &lt; b</code>, <code>a &gt;= b</code> i <code>a &lt;= b</code> są raczej oczywiste (trzeba pamiętać tylko o tym, że dla <code>&gt;=</code> i <code>&lt;=</code> znak równości jest drugi, nie można napisać <code>=&gt;</code> albo <code>=&lt;</code>), dziwnym może wydawać się wam operator <code>!=</code>. Jest to odwrotność operatora <code>==</code>, tj. wyrażenie <code>a != b</code> jest prawdziwe, jeśli <code>a</code> <strong>nie</strong> jest równe <code>b</code>.</p>
+<h2 id="łańcuszki-instrukcji-warunkowych">Łańcuszki instrukcji warunkowych</h2>
+<p>W programie &ldquo;Przywitanie&rdquo; reagowaliśmy w szczególny sposób, gdy użytkownik wpisał jako imię <code>Kotlin</code>. Jeśli chcielibyśmy dodać więcej reakcji na inne imiona, moglibyśmy osiągnąć ten efekt zagnieżdżając kilka <code>if..else'ów</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Jerzy&#34;</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>W praktyce nie jest to zbyt czytelne, głównie dlatego, że &ldquo;gałęzie&rdquo; kodu <code>A</code>, <code>B</code>, <code>C</code> i <code>D</code> są tak samo ważne, ale mają różnej wielkości wcięcia i wizualnie wygląda, jakby <code>A</code> było ważniejsze od <code>C</code> i <code>D</code>.</p>
+<p>Na szczęście tego typu &ldquo;serię&rdquo; instrukcji warunkowych można napisać z pominięciem klamerek dla pośrednich <code>else</code>&lsquo;ów:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Kotlin&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// A
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// B
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (imie <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;Jerzy&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// D
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h2 id="operatory-matematyczne">Operatory matematyczne</h2>
+<p>Zrobiliśmy przegląd operatorów matematycznych. Dodawanie <code>+</code>, odejmowanie <code>-</code> i mnożenie <code>*</code> zachowywało się całkowicie normalnie.</p>
+<p>Drobnym zaskoczeniem był operator dzielenia <code>/</code>. Dzielenie dwóch liczb całkowitych (<code>Int</code>) daje w wyniku także liczbę całkowitą, a część ułamkowa jest ignorowana:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#ae81ff">9</span> / <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// wypisze 3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#ae81ff">9</span> / <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// wypisze 4, część ułamkowa z 4½ zostanie odrzucona  
+</span></span></span></code></pre></div><p>Ma to też pewną przykrą konsekwencję: dzielenie i mnożenie liczb całkowitych w Kotlinie nie zawsze jest przemienne. Działania wykonywane są kolejno od lewej do prawej strony i odrzucona część ułamkowa może zmienić końcowy wynik:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#ae81ff">99</span> / <span style="color:#ae81ff">100</span> * <span style="color:#ae81ff">1000</span>) <span style="color:#75715e">// daje w wyniku 0, ponieważ 99 / 100 == 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#ae81ff">99</span> * <span style="color:#ae81ff">1000</span> / <span style="color:#ae81ff">100</span>) <span style="color:#75715e">// daje w wyniku 990
+</span></span></span></code></pre></div><p>Ostatni operator, który poznaliśmy to operator <code>%</code>, czyli dla liczb dodatnich reszta z dzielenia:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#ae81ff">9</span> % <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// wypisze 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#ae81ff">9</span> % <span style="color:#ae81ff">2</span>) <span style="color:#75715e">// wypisze 1
+</span></span></span></code></pre></div><h2 id="operatory-logiczne">Operatory logiczne</h2>
+<p>Jeśli chcemy połączyć kilka warunków w jeden, konieczne będzie użycie <strong>operatora logicznego</strong> &ldquo;lub&rdquo; albo &ldquo;i&rdquo;.</p>
+<p>Logiczne &ldquo;lub&rdquo; w Kotlinie to operator <code>||</code>. Zwraca on <code>true</code> (prawdę), jeśli przynajmniej jeden z dwóch obiektów <code>Boolean</code> po jego stronach jest prawdą:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> prawda     = <span style="color:#66d9ef">true</span>  <span style="color:#f92672">||</span> <span style="color:#66d9ef">true</span>   <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> teżPrawda  = <span style="color:#66d9ef">true</span>  <span style="color:#f92672">||</span> <span style="color:#66d9ef">false</span>  <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> innaPrawda = <span style="color:#66d9ef">false</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">true</span>   <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> nieprawda  = <span style="color:#66d9ef">false</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">false</span>  <span style="color:#75715e">// false
+</span></span></span></code></pre></div><p>Bliźniaczy operator logiczny &ldquo;i&rdquo; to <code>&amp;&amp;</code>. Zwraca <code>true</code> tylko jeśli zarówno <code>Boolean</code> po jego lewej, jak i po prawej stronie są także prawdziwe, czyli <code>true</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> prawda            = <span style="color:#66d9ef">true</span>  <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">true</span>   <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> nieprawda         = <span style="color:#66d9ef">true</span>  <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">false</span>  <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> dalejNieprawda    = <span style="color:#66d9ef">false</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">true</span>   <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> totalnaNieprawda  = <span style="color:#66d9ef">false</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">false</span>  <span style="color:#75715e">// false
+</span></span></span></code></pre></div><p>Jest również negacja (zaprzeczenie), czyli operator <code>!</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> nieprawda           = !<span style="color:#66d9ef">true</span>   <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> nieFałszCzyliPrawda = !<span style="color:#66d9ef">false</span>  <span style="color:#75715e">// true
+</span></span></span></code></pre></div><h2 id="konwersja-string---int">Konwersja <code>String</code> -&gt; <code>Int</code></h2>
+<p>Poznaliśmy już funkcję <code>.toString()</code>, która zamienia obiekty dowolnego typu na tekst. Teraz kolej na zamianę w drugą stronę. Do obiektu <code>String</code> &ldquo;dolepiona&rdquo; jest metoda <code>.toInt()</code> zamieniająca tekst na liczbę.</p>
+<p>Wykorzystajmy tę funkcję w kolejnej wersji programu &ldquo;Przywitanie&rdquo;: będziemy pytać użytkownika o wiek i porównywać go z wiekiem Kotlina (prace nad językiem rozpoczęły się w roku 2010, więc załóżmy, że Kotlin ma 12 lat). Dla każdej możliwości (użytkownik mający mniej/więcej/tyle samo lat) wypiszemy inny tekst:</p>
+<p><img src="przywitanie_wiek.png" alt="Program &amp;ldquo;Przywitanie&amp;rdquo; pytający użytkownika o wiek"></p>
+<p>Potrzebny nam będzie łańcuszek instrukcji warunkowych:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Ile masz lat?&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiek = readln().toInt()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiekKotlina = <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (wiek <span style="color:#f92672">==</span> wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;O, ja też!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (wiek &lt; wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ha, ja jestem starszy, mam już </span><span style="color:#e6db74">$wiekKotlina</span><span style="color:#e6db74"> lat!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (wiek &gt; wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Też bym chciał tyle mieć, mam dopiero </span><span style="color:#e6db74">$wiekKotlina</span><span style="color:#e6db74"> lat.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="nullable-types">Nullable types</h3>
+<p>Zobaczmy teraz, co się stanie, gdy ktoś zamiast wieku wpisze tekst, który nie jest liczbą. Nasz program przestanie działać, a w panelu &ldquo;Run&rdquo; w IntelliJ pojawi się czerwony tekst z opisem błędu i informacją, która linijka kodu nie zadziałała.</p>
+<p><img src="number_format_exception.png" alt="Błąd w programie &amp;ldquo;Przywitanie&amp;rdquo;"></p>
+<p>Co konkretnie poszło nie tak? Staramy się w naszym programie wymusić zamianę tekstu wpisanego przez użytkownika na liczbę. Jeśli taka zamiana jest niemożliwa, program się &ldquo;wykrzaczy&rdquo;. Podobny problem jest bardzo częstą przyczyną błędów w programach. Zapamiętajcie zatem: <strong>ludzie będą wpisywać w waszych programach bardzo dziwne rzeczy i wasze programy muszą być na to gotowe!</strong></p>
+<p>Jak można temu zaradzić? Musimy, niestety, pogodzić się z faktem, że ludzie będą wpisywać różne głupoty. Zamiast funkcji <code>.toInt()</code> (czyli &ldquo;<em>ten tekst to jest liczba, jestem w 100% pewien, podaj mi ją, proszę</em>&rdquo;) możemy użyć <code>.toIntOrNull()</code>: &ldquo;<em>spodziewam się tu liczby; jeśli to możliwe, podaj mi ją, a jeśli nie, no to trudno</em>&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Ile masz lat?&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiek = readln().toInt()
+</span></span></code></pre></div><p>Po tej zamianie dalsza część kodu zaczęła &ldquo;świecić się&rdquo; na czerwono. O co znowu chodzi?</p>
+<p><img src="enigmatyczny_blad.png" alt="Enigmatyczny błąd kompilacji"></p>
+<p>Komunikat o błędzie jest dość enigmatyczny, potrzebna nam będzie jakaś wskazówka. Użyjmy quick-fixa <code>Specify type explicitly</code> na stałej <code>wiek</code> (czyli musicie najechać na nią kursorem i nacisnąć <code>Alt + Enter</code>). Przy stałej powinna pokazać się dodatkowa informacja o typie (wróćcie do pisanej przez nas wcześniej funkcji <code>megafon</code>: użyliśmy tam podobnej składni, żeby powiedzieć kompilatorowi, jaki jest typ przekazywanego parametru; w przypadku stałych można ten typ zazwyczaj pominąć i pozwolić, by kompilator się domyślił).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiek: Int? = readln().toIntOrNull()
+</span></span></code></pre></div><p>Do znanego nam już typu <code>Int</code> dolepiony jest znaczek <code>?</code>. W ten sposób Kotlin oznacza &ldquo;typy opcjonalne&rdquo; albo, jak mówią niektórzy polscy programiści, mieszając polski z angielskim w język Ponglish: &ldquo;typy nullowalne&rdquo;. Typ nullowalny oznacza, że są dwie możliwości: albo będziemy mieli obiekt spodziewanego typu (czyli w tym przypadku <code>Int</code>), albo będziemy mieli specjalną wartość <code>null</code> oznaczającą &ldquo;nic&rdquo;.</p>
+<p>Weźcie natomiast pod uwagę, że to nie jest byle jakie &ldquo;nic&rdquo;, to jest bardzo konkretne &ldquo;nic&rdquo; o takim samym kształcie jak &ldquo;coś&rdquo;, co mogłoby w naszej stałej się znajdować. Jeśli wrócimy do naszej analogii obiektów i typów jako klocków o różnych kształtach, to <code>null</code> w stałej typu <code>Int?</code> byłoby &ldquo;pustką&rdquo; w kształcie <code>Int</code>a.</p>
+<p>Wróćmy teraz do komunikatu o błędzie: kompilatorowi nie podoba się, że staramy się porównać <code>wiek</code> typu <code>Int?</code> i liczbę typu <code>Int</code>. Jeśli nasz <code>Int?</code> będzie faktycznie zawierał liczbę, to sprawa jest jasna, ale co w przypadku, gdy będzie tam <code>null</code>? Czy &ldquo;pustka&rdquo; jest większa niż 12?</p>
+<p>Komputer nie jest w stanie odpowiedzieć na to pytanie, musimy więc zmienić warunki w naszym łańcuszku <code>if</code>ów. Możemy przy porównywaniu wieku dodać sprawdzenie, czy <code>wiek</code> jest faktycznie liczbą (czyli, inaczej mówiąc, czy <code>wiek</code> nie jest <code>null</code>em) i połączyć ten warunek z porównaniem przy użyciu logicznego &ldquo;i&rdquo;, czyli operatora <code>&amp;&amp;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Ile masz lat?&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiek = readln().toIntOrNull()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wiekKotlina = <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (wiek <span style="color:#f92672">==</span> wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;O, ja też!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (wiek <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> wiek &lt; wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ha, ja jestem starszy, mam już </span><span style="color:#e6db74">$wiekKotlina</span><span style="color:#e6db74"> lat!&#34;</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (wiek <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> wiek &gt; wiekKotlina) {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Też bym chciał tyle mieć, mam dopiero </span><span style="color:#e6db74">$wiekKotlina</span><span style="color:#e6db74"> lat.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Zauważcie, że nie musimy dodawać tego warunku dla operatora <code>==</code>: to jest porównanie, które komputer jest w stanie wykonać bez dodatkowej pomocy, bo <code>null</code> na 100% nie jest tym samym co jakaś liczba.</p>
+<h2 id="pętla-do----while-">Pętla <code>do { … } while (…)</code></h2>
+<p>Czasami chcemy, żeby program powtarzał jakieś instrukcje wiele razy. Jednym ze sposobów na osiągnięcie tego efektu jest instrukcja:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// to, co ma się powtarzać
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#66d9ef">while</span> (warunkek)
+</span></span></code></pre></div><p>Tak jak w przypadku instrukcji <code>if</code>, nasz <code>warunek</code> ma typ <code>Boolean</code>. Dopóki warunek jest spełniony (czyli jest to <code>true</code>), instrukcje wewnątrz bloku <code>do { … }</code> będą wywoływały się w kółko.</p>
+<p>Problemem, jaki możemy napotkać, jest sytuacja, gdy nasz problem nigdy się nie kończy. Przy uruchomieniu programu z IntelliJ możemy go zakończyć, naciskając ikonkę z czerwonym kwadratem w lewej dolnej części ekranu.</p>
+<p><img src="intellij-stop-program.png" alt="Gdzie znajduje się ikonka do ubicia programu"></p>
+<p>Inna opcja to zamknięcie okna programu.</p>
+<h1 id="podsumowanie">Podsumowanie</h1>
+<ul>
+<li>Pseudokod to opis programu ukształtowany trochę jak prawdziwy kod, z pętlami if-ami, itd., ale nie zagłębiający się w szczegóły. To dobre narzędzie do &ldquo;naszkicowania&rdquo; ogólnej struktury programu i rozbicia problemu na mniejsze kawałki.</li>
+<li>Autoformatowanie kodu czasami pomaga w znalezieniu błędów składni (brakujących nawiasów, itp.)</li>
+<li>Żeby zmniejszyć szansę popełnienia błędów składni, piszcie najpierw &ldquo;bloczek&rdquo; (<code>if</code>, <code>do..while</code>, definicję funkcji), a dopiero później wypełniajcie luki faktycznym kodem.</li>
+<li>Instrukcje <code>if … else</code> można łączyć w &ldquo;łańcuszek&rdquo;: <code>if (…) {} else if (…) {} else if (…) {} else {}</code>.</li>
+<li>IntelliJ ma wbudowane wiele tzw. Quick Fixów, czyli typowych zmian kodu. Menu quick fixów dostępne jest po naciśnięciu skrótu klawiszowego <code>Alt + Enter</code>.</li>
+<li>Typ <code>Boolean</code> używany jest do przedstawienia prawdy (obiekt <code>true</code>) lub fałszu (<code>false</code>).</li>
+<li>Możemy łączyć obiekty <code>Boolean</code> operatorami logicznymi <code>&amp;&amp;</code>, <code>||</code> oraz <code>!</code>.</li>
+<li>Do działań na liczbach wykorzystujemy operatory matematyczne (<code>+</code>, <code>-</code>, <code>/</code>, <code>*</code>, <code>%</code>).</li>
+<li>Dzielenie na liczbach całkowitych daje w wyniku liczbę całkowitą, część ułamkowa jest ignorowana.</li>
+<li>Możemy użyć operatorów porównania <code>==</code> lub <code>!=</code>, żeby sprawdzić, czy dwa obiekty są sobie równe. Te operatory to tak naprawdę funkcje, które zwracają typ <code>Boolean</code>, tylko zapisujemy je w nietypowy sposób, żeby kod był czytelniejszy.</li>
+<li>Inne operatory porównania to <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code> i <code>&lt;=</code>.</li>
+<li>Typ może być opcjonalny, jeśli do nazwy typu dodamy znak <code>?</code>. Ta &ldquo;opcjonalność&rdquo; oznacza, że albo będziemy mieli obiekt tego typu, albo specjalną wartość <code>null</code> oznaczającą &ldquo;nic&rdquo;.</li>
+<li>Funkcja <code>toInt()</code> na type <code>String</code> pozwala zamienić tekst na liczbę. Musimy mieć jednak pewność, że ten tekst faktycznie zawiera liczbę, w przeciwnym razie ryzykujemy &ldquo;wykrzaczenie&rdquo; się programu.</li>
+<li>Program po &ldquo;wykrzaczeniu&rdquo; się wypisuje w panelu <code>Run</code> w IntelliJ co dokładnie poszło nie tak.</li>
+<li>Jeśli nie mamy pewności, czy tekst zawiera liczbę (bo np.: jest to tekst wpisany z klawiatury przez użytkownika), możemy użyć metody <code>.toIntOrNull()</code>, która zwraca <code>Int?</code>.</li>
+<li>Możemy kilka razy wykonać ten sam kod przy użyciu pętli <code>do {} while (…)</code>. Pętla będzie wykonywała się tak długo, jak warunek sprawdzany w instrukcji <code>while(…)</code> będzie spełniony.</li>
+</ul>
+<h1 id="programy-do-napisania">Programy do napisania</h1>
+<p>Następne spotkanie dopiero za dwa tygodnie (<strong>2022-11-08</strong>), więc żeby wam się nie nudziło 😈, zamieszczam listę programów do samodzielnego napisania w domu. Trochę tego jest, więc nie odkładajcie pisania na ostatnią chwilę!</p>
+<p>Pamiętajcie o różnych sposobach rozwiązywania problemów ze składnią, które omawialiśmy na zajęciach. Jeśli utkniecie albo pomimo waszych najszczerszych wysiłków IntelliJ dalej będzie podkreślał pół kodu na czerwono, poproście o pomoc na kanale <code>#pomocyyy</code> na Slacku.</p>
+<p>Niektóre z zadań polegają na rozszerzeniu funkcjonalności programów, które pisaliśmy na wcześniejszych zajęciach. Dopilnujcie, żeby nie popsuć wcześniejszej funkcjonalności, tj. wersja 3 programu &ldquo;Przywitanie&rdquo; oprócz nowych rzeczy powinna robić wszystko to, co wersja 2! Na razie polecam wam pisanie kolejnych wersji w osobnych plikach (kiedyś pokażę wam lepszy sposób, ale na teraz tworzenie osobnych plików będzie wystarczająco dobrym rozwiązaniem).</p>
+<h2 id="1-przywitanie-v3">1. Przywitanie v3</h2>
+<p>Jeśli użytkownik wpisze imię dłuższe niż 8 liter, program powinien wyrazić swój zachwyt tak długim imieniem.</p>
+<p><img src="przywitanie_v3.png" alt="Kolejna wersja programu &amp;ldquo;Przywitanie&amp;rdquo;"></p>
+<h2 id="2-przywitanie-v4">2. Przywitanie v4</h2>
+<p>Niech program reaguje inaczej, jeśli wpisane imię jest nazwą języka programowania (dodajcie przynajmniej 2 języki programowania)</p>
+<p><img src="przywitanie_v4.png" alt="I jeszcze jedna zmiana w &amp;ldquo;Przywitaniu&amp;rdquo;"></p>
+<h2 id="3-przywitanie-v41">3. Przywitanie v4.1</h2>
+<p>Niech program nie zwraca uwagi na wielkość liter.</p>
+<p><img src="przywitanie_v4_1.png" alt="I jeszcze jedna zmiana w &amp;ldquo;Przywitaniu&amp;rdquo;"></p>
+<p><strong>Uwaga</strong>: nie próbujcie rozwiązać tego problemu przy użyciu operatora <code>||</code>. Potrzebne będzie inne podejście&hellip;</p>
+<h2 id="4-echo-v2">4. Echo v2</h2>
+<p>Powtarza w nieskończoność.</p>
+<p><img src="echo_v2.png" alt="program &amp;ldquo;Echo&amp;rdquo;, wersja 2.0&quot;"></p>
+<h2 id="5-echo-v3">5. Echo v3</h2>
+<p>Jeśli echo dostanie tekst <code>&quot;STOP!&quot;</code>, nie powinno powtarzać tego tekstu, tylko wypisać <code>&quot;no dobra...&quot;</code> i zakończyć działanie programu.</p>
+<p><img src="echo_v3.png" alt="program &amp;ldquo;Echo&amp;rdquo;, wersja 3.0&quot;"></p>
+<h2 id="6-echo-v4">6. Echo v4</h2>
+<p>Sprawcie, aby nasze echo było leniuchem. Dla długich tekstów (więcej niż 10 znaków) niech mówi tylko <code>&quot;bla, bla, bla 🥱&quot;</code>.</p>
+<p><img src="echo_v4.png" alt="program &amp;ldquo;Echo&amp;rdquo;, wersja 4.0&quot;"></p>
+<h2 id="7-tabliczka">7. Tabliczka</h2>
+<p>Napiszcie funkcję, która wypisuje podany tekst wielkimi literami w tabliczce-ramce złożonej ze znaków <code>|-+</code>. Czyli dla następującej funkcji <code>main</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    tabliczka(<span style="color:#e6db74">&#34;uwaga, tygrys!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Program powinien wypisać na ekran coś takiego:</p>
+<p><img src="tabliczka.png" alt="efekt wywołania funkcji tabliczka dla tekstu &amp;ldquo;uwaga, tygrys!&amp;rdquo;"></p>
+<p>Konieczne będzie użycie funkcji <code>String.repeat(n: Int): String</code>, która zwraca tekst powtórzony <code>n</code> razy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> trzyIksy = <span style="color:#e6db74">&#34;X&#34;</span>.repeat(<span style="color:#ae81ff">3</span>) 
+</span></span><span style="display:flex;"><span>println(trzyIksy) <span style="color:#75715e">// ta linijka wypisze na ekran XXX 
+</span></span></span></code></pre></div><h2 id="8-funkcja-input">8. Funkcja <code>input</code></h2>
+<p><em>(Zadanie dedykowane Bartkowi, który z uporem godnym lepszej sprawy stara się przekazać tekst do funkcji <code>readln</code>)</em></p>
+<p>Napiszcie Kotlinowy odpowiednik funkcji <code>input</code> z Pythona: ma ona wypisać przekazany jej tekst (bez przechodzenia do następnej linii!), a następnie zwrócić tekst wpisany przez użytkownika z klawiatury. Inaczej mówiąc, wynikiem działania tego programu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> tekst = input(<span style="color:#e6db74">&#34;Napisz coś: &#34;</span>)
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Napisałeś: </span><span style="color:#e6db74">$tekst</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Powinno być to:</p>
+<p><img src="input.png" alt="demonstracja działania funkcji &amp;ldquo;input&amp;rdquo;"></p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
