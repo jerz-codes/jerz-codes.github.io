@@ -6,7 +6,17 @@
     <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 25 Oct 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Nov 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 4: `when`, `for`, `IntRange`, `Char`, `var`, `package`, `import`, o rany ile tego jest 🙀</title>
+      <link>https://jerz.codes/posts/2022-11-08/</link>
+      <pubDate>Tue, 08 Nov 2022 18:00:00 +0200</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-11-08/</guid>
+      <description>Smart casting Wróćmy do przykładu &amp;ldquo;Przywitania&amp;rdquo; pytającego o wiek:
+println(&amp;#34;Ile masz lat?&amp;#34;) val wiek = readln().toIntOrNull() val wiekKotlina = 12 if (wiek == wiekKotlina) { println(&amp;#34;O, ja też!&amp;#34;) } else if (wiek != null &amp;amp;&amp;amp; wiek &amp;lt; wiekKotlina) { println(&amp;#34;Ha, ja jestem starszy, mam już $wiekKotlina lat!&amp;#34;) } else if (wiek != null &amp;amp;&amp;amp; wiek &amp;gt; wiekKotlina) { println(&amp;#34;Też bym chciał tyle mieć, mam dopiero $wiekKotlina lat.&amp;#34;) } Dodajmy na początku łańcuszka if.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 3: zmagania z kodowaniem; garść nowego materiału</title>
       <link>https://jerz.codes/posts/2022-10-25/</link>
