@@ -164,7 +164,7 @@ zmienna = 2900 // wszystko w porządku, zmieniamy zawartość pudełka z etykiet
 zmienna = "kopytko" // błąd kompilacji, nie da się wsadzić Stringa do zmiennej typu Int
 ```
 
-Drobna dygresja: wszystkie te porównania do pudełek, metek i innych fizycznych przedmiotów w pewnym momencie stają się naciągane (i to dość mocno). Na przykład, jedne obiekt bez problemu można jednocześnie wsadzić do kilku pudełek:
+Drobna dygresja: wszystkie te porównania do pudełek, metek i innych fizycznych przedmiotów w pewnym momencie stają się naciągane (i to dość mocno). Na przykład, jeden obiekt bez problemu można jednocześnie wsadzić do kilku pudełek:
 
 ```kotlin
 val tekst = readln()
@@ -216,7 +216,7 @@ for (liczba in 1..20) {
 }
 ```
 
-`liczba` jest taką tymczasową zmienną, którą widać tylko w bloku kodu pomiędzy nawiasami klamrowymi. Ten blok wykona się po kolei dla każdej liczby w podanym przedziale i za każdym razem zmienna `liczba` będzie miała inną wartość.
+`liczba` jest taką tymczasową stałą, którą widać tylko w bloku kodu pomiędzy nawiasami klamrowymi. Ten blok wykona się po kolei dla każdej liczby w podanym przedziale i za każdym razem stała `liczba` będzie miała inną wartość.
 
 Jak widzicie, jest to idealne rozwiązanie do programu "Zabawa w chowanego": użycie przedziału i pętli `for` pozwoli znacznie uprościć kod.
 
@@ -277,7 +277,7 @@ fun main() = terminal {
 }
 
 fun rzutMonetą(): Boolean {
-    return (0..1) == 1
+    return (0..1).random() == 1
 }
 ```
 
