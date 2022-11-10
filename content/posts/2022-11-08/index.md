@@ -441,6 +441,8 @@ Może wyglądać następująco:
 
 ![Druga wersja programu megafon](megafon-v2.png)
 
+Do zmiany wielkości litery typu `Char`, podobnie jak w przypadku `String`'ów, służą funkcje `literka.lowercase()` oraz `literka.uppercase()`.
+
 ## 4. Przeliterowywacz
 
 Napiszcie program, który wczyta tekst z klawiatury, a następnie "przeliteruje" je, wypisując każdą literę w osobnej linii i dodając "jak Imię-Które-Zaczyna-Się-Na-Tę-Literę":
