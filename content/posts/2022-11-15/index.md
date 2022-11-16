@@ -590,6 +590,8 @@ fun wynik(p: List<String>): String? {
 }
 ```
 
+Jeśli doczytaliście do tego momentu, wyślijcie do mnie na Slacku wiadomość o treści "Żyrafy wchodzą do szafy".
+
 Zmieniłem też nazwę parametru funkcji na `p`: zazwyczaj jestem zwolennikiem dłuższych nazw, które lepiej opisują obiekt, ale w tym przypadku kod będzie dużo czytelniejszy, jeśli użyjemy krótkiej, jednoliterowej nazwy.
 
 # Podsumowanie
