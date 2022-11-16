@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 5: `&#34;&#34;&#34; &#34;&#34;&#34;`, `List&lt;&gt;`, Kółko i Krzyżyk | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 5: <code>&quot;&quot;&quot; &quot;&quot;&quot;</code>, <code>List&lt;&gt;</code>, Kółko i Krzyżyk</span></h1>
+
+<h2 class="date">2022/11/15</h2>
+</div>
+
+<main>
+<h1 id="teksty-wielolinijkowe">Teksty wielolinijkowe</h1>
+<p>Przypuszczam, że większość z was napisała zadany na ostatnich zajęciach program &ldquo;Kostka do gry&rdquo; mniej-więcej w ten sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">rysujKostkę</span>(oczka: Int) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">when</span> (oczka) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;+---+&#34;</span>)
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;|   |&#34;</span>)
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;| o |&#34;</span>)
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;|   |&#34;</span>)
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;+---+&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// itd.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Zwykłe teksty tworzone w kodzie, <code>&quot;taki jak ten&quot;</code>, muszą zaczynać się i kończyć w tej samej linii. Tekst ograniczony z dwóch stron potrójnym cudzysłowem <code>&quot;&quot;&quot;</code> może obejmować kilka linii:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">rysujKostkę</span>(oczka: Int) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">when</span> (oczka) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            println(
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                +---+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                |   |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                | o |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                |   |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                +---+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// itd.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Problem natomiast jest taki, że wcięcia w kodzie, użyte po to, aby nasz kod był czytelniejszy, będą pomieszane ze wcięciami w naszym wielolinijkowym tekście. Chcielibyśmy, aby nasza kostka wyrysowana została przy lewej krawędzi ekranu, ale zamiast tego otrzymamy taki efekt:</p>
+<p><img src="kostka-przesuniecie.png" alt="Nieprawidłowo narysowana kostka"></p>
+<p>Żeby tego uniknąć, możemy dodać w naszym tekscie lewą &ldquo;granicę&rdquo; przy użyciu znaczka <code>|</code> i użyć metody <code>trimMargin()</code>, która &ldquo;dotnie&rdquo; tekst do tych znaczników:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">rysujKostkę</span>(oczka: Int) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">when</span> (oczka) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>            println(
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                |+---+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                ||   |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                || o |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                ||   |
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                |+---+
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &#34;&#34;&#34;</span>.trimMargin()
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// itd.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="kostka-docieta.png" alt="Prawidłowo narysowana kostka"></p>
+<h1 id="listy">Listy</h1>
+<p>Zanim będziemy w stanie napisać kolejne gry, musimy poznać pierwszą, podstawową strukturę danych: listę.</p>
+<p>Na szczęście, jest to dość intuicyjne pojęcie: mamy kilka rzeczy, i jeśli poukładamy je w kolejności, otrzymamy właśnie listę. W codziennym życiu znajdziecie dużo takich przykładów: lista zakupów, lista obecności w dzienniku, lista lekcji na waszym planie zajęć, itd., itp.</p>
+<p>Kotlinowe listy tworzymy przy użyciu funkcji <code>listOf(…)</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> uczniowie = listOf&lt;&gt;()
+</span></span></code></pre></div><p>Pojawi się tutaj coś dziwnego: IntelliJ będzie bardzo chciał, żebyśmy napisali coś wewnątrz &ldquo;trójkątnych nawiasów&rdquo;, utworzonych ze znaków mniejszości i większości. Chodzi o to, że funkcja <code>listOf()</code> będzie tworzyła listę, ale musimy powiedzieć, czym będą elementy tej listy: czy będą to liczby, tekst, albo jeszcze coś innego. Na naszej liście będziemy zamieszczać imiona uczniów, będzie to zatem lista tekstów, a więc <code>listOf&lt;String&gt;()</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> uczniowie = listOf&lt;String&gt;(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Adam&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Ania&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Bartek&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Jurek&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Mieszko&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Olgierd&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Tytus&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Po dodaniu imion <code>&lt;String&gt;</code> zmieni kolor na szary: IntelliJ daje nam w ten sposób znać, że teraz już sam się domyśla, jaki jest typ elementów na liście i można tę informację usunąć.</p>
+<h2 id="podstawowe-operacje-na-listach">Podstawowe operacje na listach</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// ilość elementów na liście
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie.size)                     <span style="color:#75715e">// 8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// n-ty element z listy wyciągamy operatorem []
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie[<span style="color:#ae81ff">1</span>])                       <span style="color:#75715e">// Ania
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// przy czym elementy numerowane są od 0!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie[<span style="color:#ae81ff">0</span>])                       <span style="color:#75715e">// Adam
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie[<span style="color:#ae81ff">2</span>])                       <span style="color:#75715e">// Bartek
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// zakres poprawnych indeksów, których możemy użyć z operatorem []
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie.indices)                  <span style="color:#75715e">// 0..7
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// wybranie losowej osoby z listy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie.random())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// sprawdzenie, czy element znajduje się na liście
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie.contains(<span style="color:#e6db74">&#34;Krzysztof&#34;</span>))    <span style="color:#75715e">// false, bo nie mamy Krzyśka na liście
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(uczniowie.contains(<span style="color:#e6db74">&#34;Adam&#34;</span>))         <span style="color:#75715e">// true, bo Adam jak najbardziej jest
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// wypisze wszystkich uczniów jedno pod drugim
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (uczen <span style="color:#66d9ef">in</span> uczniowie) {
+</span></span><span style="display:flex;"><span>    println(uczen)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="lista-obecności">&ldquo;Lista Obecności&rdquo;</h1>
+<p>Czas na rozgrzewkę przed trudniejszym wyzwaniem: napiszmy program, który wypisuje tekst, który wygląda jak dialog nauczyciela z uczniami. Dla każdego ucznia na będziemy &ldquo;rzucać kostką&rdquo;: jeśli wypadnie jedno oczko, oznacza to, że uczeń jest nieobecny; inny wynik oznacza, że uczeń jest obecny:</p>
+<p><img src="lista-obecnosci-1.png" alt="Początek programu &amp;ldquo;Lista obecności&amp;rdquo;"></p>
+<p>&ldquo;Rzut kostką&rdquo; to oczywiście losowanie liczby z przedziału <code>1..6</code> przy użyciu <code>fun IntRange.random(): Int</code>, tak jak w &ldquo;Zgaduli&rdquo;. Po sprawdzeniu obecności nauczyciel może wywołać kogoś do odpowiedzi:</p>
+<p><img src="lista-obecnosci-2.png" alt="Początek programu &amp;ldquo;Lista obecności&amp;rdquo;"></p>
+<h2 id="list-vs-mutablelist"><code>List</code> vs <code>MutableList</code></h2>
+<p>Jeśli wykonamy nasz program w obecnej formie, może dojść do krępującej sytuacji: nauczyciel może wywołać do odpowiedzi nieobecną osobę. Moja propozycja na rozwiązanie tego problemu to utworzenie drugiej listy, do której będziemy dodawać tylko obecnych uczniów.</p>
+<p>Jeśli zdefiniujemy tę drugą listę jako <code>val obecni = listOf&lt;String&gt;()</code>, czeka nas przykra niespodzianka: nie znajdziemy żadnej metody w stylu <code>add</code>, <code>insert</code>, ani nic takiego.</p>
+<p>W Kotlinie standardowe listy są &ldquo;stałe&rdquo;, nie można zmieniać ich zawartości po ich utworzeniu. Jeśli potrzebujemy listy, którą będzie można w dowolny sposób zmieniać w dalszej części programu, musimy stworzyć inny obiekt: <code>mutableListOf&lt;String&gt;()</code>. Nie chodzi tu o żadne mutanty z horrorów z trzecią ręką wyrastającą z pleców, po prostu &ldquo;<em>mutable</em>&rdquo; oznacza po angielsku &ldquo;<em>zmienny</em>&rdquo;. Ten podział na zmienne/niezmienne struktury danych może wydawać wam się dziwny, ale jest to bardzo dobry pomysł, który zapobiega wielu rodzajom błędów.</p>
+<p>Posłużę się kolejnym porównaniem: zwykła, niezmienna <code>List</code> to jak kamienna tablica z wyrytymi napisami: raczej ciężko zmienić ich zawartość. &ldquo;Zmienialna&rdquo; <code>MutableList</code> jest jak pociąg: można doczepić do niego więcej wagonów, albo jakieś odczepić, można też zmienić zawartość wagonu.</p>
+<p>Ważne jest też to, że mutowalność (bądź niemutowalność) listy nie ma nic wspólnego z tym, czy nasza lista jest przypisana do zmiennej, czy stałej:</p>
+<ul>
+<li><code>val list = listOf(…)</code>: kamienne tablice z metką</li>
+<li><code>var list = listOf(…)</code>: pudełko na kamienne tablice</li>
+<li><code>val list = mutableListOf(…)</code>: pociąg z metką</li>
+<li><code>var list = mutableListOf(…)</code>: pudełko na pociągi</li>
+</ul>
+<p>Do <code>MutableList</code> możemy dodawać elementy metodą <code>add()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> obecni = mutableListOf&lt;String&gt;()
+</span></span><span style="display:flex;"><span>obecni.add(<span style="color:#e6db74">&#34;Krzysztof Jarzyna&#34;</span>)
+</span></span></code></pre></div><p>A przy użyciu operatora <code>[]</code> możemy zmieniać ich zawartość:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> superLiczby = mutableListOf(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+</span></span><span style="display:flex;"><span>superLiczby[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">42</span> <span style="color:#75715e">// po tej zmianie lista będzie zawierać liczby 42, 2, 3, 4 
+</span></span></span></code></pre></div><h1 id="kółko-i-krzyżyk">&ldquo;Kółko i Krzyżyk&rdquo;</h1>
+<p>Pora na prawdziwe wyzwanie: grę w kółko i krzyżyk!</p>
+<p><img src="xo.png" alt="Program &amp;ldquo;Kółko i Krzyżyk&amp;rdquo;"></p>
+<p>Da się ten program napisać, wykorzystując tylko to, czego nauczyliśmy się do tej pory, ale najprawdopodobniej nie macie pojęcia jak się za to zabrać. Proponuję podzielić pracę na następujące kroki:</p>
+<ul>
+<li>Stan gry</li>
+<li>Pseudokod</li>
+<li>Puste funkcje</li>
+<li>Integracja</li>
+<li>Wypełnianie dziur</li>
+</ul>
+<h2 id="stan-gry-czyli-model-danych">Stan gry, czyli model danych</h2>
+<p>Zastanówmy się, jakiego typu danych będziemy używać do przechowywania stanu gry. Przy grze w kółko i krzyżyk musimy jakoś zapisać dwie rzeczy:</p>
+<ul>
+<li>Co jest na planszy</li>
+<li>Kto jest aktywnym graczem</li>
+</ul>
+<p>Proponuję, aby planszę zapisać na 9-elementowej liście <code>String</code>ów (nie jest to najbardziej odpowiednia struktura danych, ale na razie nie poznaliśmy mechanizmów języka, które pozwoliłyby nam lepiej rozwiązać ten problem), zawierających <code>&quot;X&quot;</code>, <code>&quot;O&quot;</code>, albo <code>&quot;.&quot;</code> (dla pustego pola). Będziemy zmieniać zawartość tej listy, więc trzeba użyć <code>MutableList</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> plansza = mutableListOf&lt;String&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// dodajemy dziewięć &#34;.&#34; reprezentujących puste pola na planszy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">9</span>) {
+</span></span><span style="display:flex;"><span>    plansza.add(<span style="color:#e6db74">&#34;.&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Będziemy musieli zdecydować które elementy naszej listy odpowiadają poszczególnym polom na planszy. W zasadzie nie ma większego znaczenia, jaki obierzemy system, ale dobrze by było, gdyby był on choć trochę intuicyjny: będzie łatwiej nam później napisać resztę programu. Proponuję obrać następującą numerację:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span> 0 | 1 | 2
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 3 | 4 | 5
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 6 | 7 | 8
+</span></span></code></pre></div><p>Czyli stan lewego górnego pola będziemy trzymali w pierwszym elemencie naszej listy (o indeksie <code>0</code>), prawe pole będzie miało ma indeks <code>5</code>, a dolne - <code>7</code>.</p>
+<p>Aktywnego gracza też możemy trzymać jako <code>String</code>: <code>&quot;X&quot;</code> albo <code>&quot;O&quot;</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> tura = <span style="color:#e6db74">&#34;O&#34;</span>
+</span></span></code></pre></div><h2 id="pseudokod">Pseudokod</h2>
+<p>Gwoli przypomnienia: <strong>pseudokod</strong> to tekstowy opis programu poszczególnych kroków programu. Na podstawie screenshota, dla gry &ldquo;Kółko i Krzyżyk&rdquo; można stworzyć następujący pseudokod:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span></code></pre></div><p>Te trzy rzeczy powinny powtarzać się do końca gry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// powtarzaj:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// doputy, dopóki gra się nie skończyła
+</span></span></span></code></pre></div><p>Musimy też pamiętać o tym, że ludzie mogą wpisać z klawiatury dziwne rzeczy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// powtarzaj:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// doputy, dopóki gra się nie skończyła
+</span></span></span></code></pre></div><p>Na koniec wypadałoby wypisać wynik:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// powtarzaj:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// doputy, dopóki gra się nie skończyła
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wypisz wynik
+</span></span></span></code></pre></div><h2 id="puste-funkcje">Puste funkcje</h2>
+<p>W naszym pseudokodzie znajdują się dość ogólnikowe stwierdzenia, jak np.: &ldquo;narysuj planszę&rdquo;. Będziemy potrzebowali do tego kilku instrukcji, więc żeby nie zawalać sobie funkcji <code>main</code>, proponuję stworzenie osobnej funkcji <code>narysujPlansze(plansza: List&lt;String&gt;)</code>. Dzięki temu kod naszego <code>main</code>a stanie się dużo czytelniejszy: będzie przypominał pseudokod, a wszystkie szczegóły i szczególiki będą zamknięte w osobnej funkcji. Na razie nie będziemy pisać wnętrza (czyli inaczej <strong>ciała</strong> funkcji), stworzymy tylko pusty &ldquo;szkielet&rdquo; funkcji, który będziemy wypełniać później:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujPlansze</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Podobnie postąpimy z kolejnymi funkcjami. W przypadku funkcji, które powinny coś zwracać, dodamy w ciele funkcji pojedynczy <code>return</code> z byle jaką wartością – tylko tyle, żeby IntelliJ nie bazgrał nam na czerwono.</p>
+<p>Idąc dalej tym tropem, powinniśmy też stworzyć funkcję <code>wczytajRuch()</code>. Nazwa tej funkcji sugeruje, że powinniśmy z niej zwrócić &ldquo;ruch&rdquo;, który chce wykonać aktywny gracz (podobnie jak <code>readln()</code>, czyli z angielskiego <em>read line</em>, wczytuje linię i zwraca ją). Proponuję, żeby reprezentować &ldquo;ruch gracza&rdquo; jako <code>Int</code>, odpowiadający indeksowi danego pola na naszej liście <code>plansza</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span> 0 | 1 | 2
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 3 | 4 | 5
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 6 | 7 | 8
+</span></span></code></pre></div><p>Jak zawsze, gdy wczytujemy tekst z klawiatury, musimy być gotowi na to, że użytkownicy wpiszą jakieś totalne bzdury. W takich przypadkach nasza funkcja <code>wczytajRuch()</code> może zwrócić <code>null</code>, a więc zwracanym typem powinien być opcjonalny <code>Int?</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajRuch</span>(): Int? { 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Kolejna rzecz do zrobienia to sprawdzenie poprawności ruchu i naniesienie go na planszę. Można to zawrzeć w jednej funkcji: <code>wykonajRuch(ruch: Int?, plansza: MutableList&lt;String&gt;, gracz: String): String</code>. Jeśli ruch jest poprawny i został naniesiony na planszę, powinniśmy zmienić aktywnego gracza. Do tego właśnie służyć będzie wartość zwracana z tej funkcji.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wykonajRuch</span>(ruch: Int?, plansza: MutableList&lt;String&gt;, gracz: String): String { 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gracz  
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Najtrudniejszą funkcją do napisania w naszym programie będzie sprawdzenie wyniku gry: <code>wynik(plansza: List&lt;String&gt;): String?</code>. Znów mamy do czynienia z opcjonalnym typem zwracanym: niech nasza funkcja zwraca <code>&quot;X&quot;</code> bądź <code>&quot;O&quot;</code> w przypadku wygranej jednego z graczy, <code>&quot;.&quot;</code> jeśli będzie remis, albo <code>null</code>, jeśli gra jeszcze nie została rozstrzygnięta:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(plansza: List&lt;String&gt;): String? { 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ostatnia funkcja, która będzie nam potrzebna, służyć będzie do wypisania wyniku gry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wypiszWynik</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>}  
+</span></span></code></pre></div><h2 id="integracja">Integracja</h2>
+<p>Kolejnym krokiem jest sprawdzenie, jak wszystkie wymyślone przez nas funkcje łączą się w całość i czy niczego nam nie brakuje. Na tym etapie powinniśmy mieć mniej-więcej coś takiego:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ---------- KROK 1: STAN GRY -----------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> plansza = mutableListOf&lt;String&gt;()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">9</span>) {
+</span></span><span style="display:flex;"><span>        plansza.add(<span style="color:#e6db74">&#34;.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> tura = <span style="color:#e6db74">&#34;O&#34;</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ---------- KROK 2: PSEUDOKOD ---------- 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// powtarzaj:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// doputy, dopóki gra się nie skończyła
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// wypisz wynik
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ---------- KROK 3: PUSTE FUNKCJE ---------- 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujPlansze</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajRuch</span>(): Int? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wykonajRuch</span>(ruch: Int?, plansza: MutableList&lt;String&gt;, gracz: String): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gracz
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(plansza: List&lt;String&gt;): String? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wypiszWynik</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Możemy zacząć zastępować pseudokod prawdziwym kodem. &ldquo;Powtarzaj czynność, dopóki jakiś warunek jest spełniony&rdquo; to tekstowy opis pętli <code>do…while</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// narysuj planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// wczytaj z klawiatury ruch gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">while</span> (wynik(plansza) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// wypisz wynik
+</span></span></span></code></pre></div><p>Ustaliliśmy wcześniej, że funkcja <code>wynik(…)</code> będzie zwracać <code>null</code> dla gry, która nie została jeszcze rozstrzygnięta, więc &ldquo;gra trwa dalej&rdquo; to <code>wynik(plansza) == null</code>.</p>
+<p>Parę innych linijek pseudokodu też da się dość łatwo zastąpić wywołaniem pojedynczej funkcji:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        narysujPlansze(plansza)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch(plansza)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// nanieś ruch na planszę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">while</span> (wynik(plansza) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    wypiszWynik(plansza)
+</span></span></code></pre></div><p>Ostatni kawałek pseudokodu może być troszkę trudniejszy do zastąpienia. Obydwie rzeczy – sprawdzenie poprawności ruchu i naniesienie go na planszę – załatwiane są przez jedną funkcję <code>wykonajRuch</code>. Ponadto, &ldquo;naniesienie ruchu na planszę&rdquo; powinno też zmienić aktywnego gracza. Dlatego też nasza funkcja <code>wykonajRuch</code> zwraca informację, czyja będzie następna tura i musimy tę wartość przypisać do zmiennej <code>tura</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        narysujPlansze(plansza)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch(plansza)
+</span></span><span style="display:flex;"><span>        tura = wykonajRuch(ruch, plansza, tura)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">while</span> (wynik(plansza) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>    wypiszWynik(plansza)
+</span></span></code></pre></div><h2 id="wypełnianie-dziur">Wypełnianie dziur</h2>
+<p>Funkcja <code>main</code> jest gotowa, musimy &ldquo;tylko&rdquo; 😬 napisać kod pozostałych funkcji.</p>
+<p>Każdą funkcję możecie potraktować jako osobny, mały programik i przechodzić przez ten sam proces, co w przypadku głównego programu: zaczynamy od pseudokodu, tworzymy pomocnicze funkcje (jeśli będzie taka potrzeba), a na końcu zastępujemy pseudokod prawdziwym kodem.</p>
+<p>Możecie chcieć przetestować jakąś drobniejszą część programu, np.: tylko funkcję <code>narysujPlansze</code>. Najprostszym sposobem na zrobienie tego będzie zmiana nazwy obecnej funkcji <code>main</code> na coś innego i napisanie nowego <code>main</code>a, zawierającego tylko to, co chcemy sprawdzić:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> plansza = mutableListOf&lt;String&gt;()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">9</span>) {
+</span></span><span style="display:flex;"><span>        plansza.add(<span style="color:#e6db74">&#34;.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    narysujPlansze(plansza)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// stara funkcja main ze zmienioną nazwą
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">xo</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// dwa i pół kilo kodu 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujPlansze</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// kolejne pół kilo kodu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="rysowanie-planszy">Rysowanie planszy</h3>
+<p>Programowanie bywa kłopotliwe, ponieważ nawet najprostsze czynności trzeba bardzo precyzyjnie wytłumaczyć. Dla człowieka polecenie &ldquo;narysuj planszę do gry w kółko i krzyżyk&rdquo; jest proste i oczywiste, dla komputera jest to niezrozumiałe i niewykonalne. Musimy wytłumaczyć po kolei. Każdy. Najmniejszy. Kroczek.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujPlansze</span>(plansza: List&lt;String&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj lewe-górne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj górne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj prawe-górne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// przejdź do następnej linijki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj lewe pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj środkowe pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj prawe pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// przejdź do następnej linijki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj lewe-dolne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj dolne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// narysuj prawe-dolne pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// przejdź do następnej linijki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>&ldquo;Przejdź do następnej linijki&rdquo; to <code>println()</code>. &ldquo;Narysuj jakieśtam pole&rdquo; to wypisanie jednego elementu z listy metodą <code>print()</code>. Musicie tylko pamiętać sposób indeksowania pól, który przyjęliśmy wcześniej:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span> 0 | 1 | 2
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 3 | 4 | 5
+</span></span><span style="display:flex;"><span>---+---+---
+</span></span><span style="display:flex;"><span> 6 | 7 | 8
+</span></span></code></pre></div><p>Jeśli chcecie upchnąć to samo w mniejszej liczbie linijek kodu, możecie użyć szablonów tekstu, albo tekstów wielolinijkowych, ale prosta seria <code>print</code>ów i <code>println</code>&lsquo;ów też zrobi robotę.</p>
+<h3 id="wczytanie-ruchu">Wczytanie ruchu</h3>
+<p>Wczytanie ruchu z klawiatury to oczywiście <code>readln()</code>. Podobnie jak musieliśmy przyjąć jakiś system indeksowania elementów na planszy, musimy przyjąć jakiś zestaw komend do sterowania naszą grą. Proponuję wybrać jakiś w miarę kwadratowy obszar na klawiaturze (np.: literki <code>qweasdzxc</code>, albo klawiaturę numeryczną z prawej strony, jeśli ktoś ma pełną klawiaturę w swoim laptopie) i przypisać jedną literkę do jednego pola planszy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span> q | w | e          0 | 1 | 2 
+</span></span><span style="display:flex;"><span>---+---+---        ---+---+---
+</span></span><span style="display:flex;"><span> a | s | d    =&gt;    3 | 4 | 5 
+</span></span><span style="display:flex;"><span>---+---+---        ---+---+---
+</span></span><span style="display:flex;"><span> z | x | c          6 | 7 | 8 
+</span></span></code></pre></div><p>Czyli literka <code>q</code> odpowiadać będzie lewemu-górnemu rogowi planszy. Nasz pseudokod będzie wyglądał następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajRuch</span>(): Int? { 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// wczytaj tekst z klawiatury
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli wczytany tekst
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// to literka q, to zwróć indeks lewego-górnego pola planszy 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// to literka w, to zwróć indeks górnego pola planszy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// …
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// w przeciwnym razie to nie może być poprawny ruch, więc zwróć null  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Można też dodać szczyptę <code>println()</code> i <code>print()</code>&lsquo;ów, żeby poprawić wygląd naszej gry.</p>
+<h3 id="wykonanie-ruchu">Wykonanie ruchu</h3>
+<p>Wczytaliśmy ruch, mamy indeks pola, które wybrał gracz (lub <code>null</code>, jeśli wpisał głupoty), musimy teraz zająć się naniesieniem ruchu na planszę i zwróceniem informacji czyj będzie następny ruch:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wykonajRuch</span>(ruch: Int?, plansza: MutableList&lt;String&gt;, gracz: String): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli gracz wpisał jakieś bzdury
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// nie zmieniamy tury i od razu kończymy tę funkcję
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli gracz próbuje postawić swój znaczek na zajętym polu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// nie zmieniamy tury i od razu kończymy tę funkcję
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli gracz próbuje postawić swój znaczek na pustym polu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// wstawiamy tam jego znaczek
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// zmieniamy turę na drugiego gracza
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>&ldquo;Nie zmieniamy tury i kończymy funkcję&rdquo; to po prostu <code>return gracz</code>. &ldquo;Zmiana tury na drugiego gracza&rdquo; to <code>if…else</code>, który zwróci <code>&quot;X&quot;</code>, jeśli obecnym graczem jest <code>&quot;O&quot;</code> i vice versa.</p>
+<h3 id="sprawdzenie-wyniku">Sprawdzenie wyniku</h3>
+<p>To chyba najtrudniejsza funkcja w naszym programie, postarajmy się więc rozbić ją na drobniutkie kroczki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(plansza: List&lt;String&gt;): String? {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli ktoś wygrał, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ok, doszedłem do tego miejsca w kodzie, czyli nikt nie wygrał
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w takim razie albo jest remis, albo gra toczy się dalej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Pamiętajcie, że komputer potrafi wykonać miliardy operacji w ciągu sekundy, ale nie wykazuje się żadną inicjatywą ani samodzielnym myśleniem. &ldquo;Jeśli ktoś wygrał&rdquo; musimy rozbić na super drobne kroczki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(plansza: List&lt;String&gt;): String? {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w górnym rządku, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w środkowym rządku, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w dolnym rządku, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w lewej kolumnie, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w środkowej kolumnie, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w prawej kolumnie, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w przekątnej \, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// jeśli ktoś postawił trzy takie same znaczki w przekątnej /, zwróć jego symbol
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ok, doszedłem do tego miejsca w kodzie, czyli nikt nie wygrał
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w takim razie albo jest remis, albo gra toczy się dalej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Oczywiście &ldquo;jeśli ktoś postawił trzy takie same znaczki w górnym rządku&rdquo; też jest dla komputera zbyt abstrakcyjnym zdaniem, trzeba to rozbić jeszcze bardziej:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// lewy górny symbol, prawy górny symbol i górny symbol są takie same
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// i nie jest to &#34;.&#34; (bo sprawdzamy, czy ktoś postawił tam &#34;X&#34; albo &#34;O&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// to zwróć ten symbol.
+</span></span></span></code></pre></div><p>W Kotlinie nie można porównać naraz trzech wartości, musimy więc rozbić to na dwa porównania i połączyć je operatorem <code>&amp;&amp;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// (górny symbol == lewy górny symbol) &amp;&amp; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// (górny symbol == prawy górny symbol) &amp;&amp; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// (górny symbol != &#34;.&#34;) 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// to zwróć górny symbol
+</span></span></span></code></pre></div><p>Myślę, że z takim pseudokodem do warunków wygranej powinniście dać sobie radę.</p>
+<hr>
+<p>Weźmy na warsztat drugą część pseudokodu: sprawdzenie, czy jest remis, czy gra toczy się dalej. Można spróbować to rozbić na dwa sposoby:</p>
+<ul>
+<li>&ldquo;Gra toczy się dalej, jeśli na planszy jest jakieś puste pole&rdquo;</li>
+<li>&ldquo;Gra zakończyła się remisem, jeśli wszystkie pola na planszy są zajęte i gra nie zakończyła się wygraną&rdquo;</li>
+</ul>
+<p>Zdecydowanie prostsza do napisania będzie pierwsza wersja:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#75715e">// popatrz po kolei na wszystkie pola
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli pole jest puste
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// gra toczy się dalej
+</span></span></span></code></pre></div><p>Tak więc pseudokod naszej funkcji finalnie będzie wyglądał następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(p: List&lt;String&gt;): String? {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// popatrz po kolei na wszystkie pola planszy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli pole jest puste
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// gra toczy się dalej, zwróć null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// gra się zakończyła, więc teraz sprawdzę, czy ktoś wygrał
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// … 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 8 długaśnych warunków zwycięstwa
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// …
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ok, doszedłem do tego miejsca w kodzie, czyli nikt nie wygrał
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w takim razie jest remis
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Zmieniłem też nazwę parametru funkcji na <code>p</code>: zazwyczaj jestem zwolennikiem dłuższych nazw, które lepiej opisują obiekt, ale w tym przypadku kod będzie dużo czytelniejszy, jeśli użyjemy krótkiej, jednoliterowej nazwy.</p>
+<h1 id="podsumowanie">Podsumowanie</h1>
+<ul>
+<li>Możemy zdefiniować wielolinijkowy tekst przy użyciu potrójnych <code>&quot;</code>: <code>&quot;&quot;&quot;tekst&quot;&quot;&quot;</code>. W przeciwieństwie do zwykłego tekstu taki tekst może zawierać znaki nowej linii.</li>
+<li>Żeby zapobiec wymieszaniu się wcięcia kodu i wcięcia tekstu w wielolinijkowym tekście, możemy dodać znaki lewego marginesu <code>|</code> i użyć funkcji <code>.trimMargin()</code>.</li>
+<li>Lista obiektów to <code>List&lt;…&gt;</code>, można ją utworzyć funkcją <code>listOf()</code>. Typ podany pomiędzy <code>&lt;&gt;</code> określa jakiego typu elementy zawiera nasza lista.</li>
+<li>Po utworzeniu, listy nie można zmieniać – nie można podmienić żadnego z jej elementów, nie można też dodać ani usunąć żadnego elementu. To jak kamienne tablice z wyrytym tekstem.</li>
+<li>Lista, którą można zmieniać to <code>MutableList&lt;…&gt;</code>, tworzona funkcją <code>mutableListOf()</code>. Porównaliśmy ją do pociągu, do którego można doczepiać lub odczepiać wagony albo zmieniać zawartość wagonów.</li>
+<li>Napisanie gry, nawet tak prostej jak &ldquo;Kółko i Krzyżyk&rdquo;, wymaga wiele pracy 🥵.</li>
+</ul>
+<h1 id="zadanie-do-domu">Zadanie do domu</h1>
+<p>Emotka w tytule zadania odpowiada emotce, którą powinniście kliknąć na Slacku po wykonaniu zadania.</p>
+<h2 id="-dokończenie-kółka-i-krzyżyk">#️⃣ Dokończenie &ldquo;Kółka i Krzyżyk&rdquo;</h2>
+<p>Do zrobienia została zamiana pseudokodu pomocniczych funkcji na normalny Kotlinowy kod. To też może nie być proste! Jeśli gdzieś się zaklinujecie, nie wstydźcie się poprosić o pomoc.</p>
+<h1 id="zadania-dodatkowe">Zadania dodatkowe</h1>
+<p>Dla prawdziwie niestrudzonych, których nie wymęczy dostatecznie &ldquo;Kółko i Krzyżyk&rdquo;. Zadania oznaczone ⭐️ są nieco trudniejsze.</p>
+<h2 id="1-lista-obecności--wagarowicze">1️⃣ Lista Obecności – Wagarowicze</h2>
+<p>Program &ldquo;Lista Obecności&rdquo; zawiera błąd: jeśli zdarzyłoby się, że wszyscy uczniowie będą nieobecni, nasz program wysypie się, ponieważ będziemy usiłowali wylosować element z pustej listy. Powstaje też niepokojące pytanie: kto odpowiadał nauczycielowi podczas sprawdzania obecności 👻?</p>
+<p>Możecie łatwo powtórzyć ten błąd, usuwając linijkę: <code>obecni.add(uczen)</code>. Postarajcie się wykombinować jak zmienić przebieg programu, żeby reagować na taką sytuację w specjalny sposób:</p>
+<p><img src="lista-obecnosci-wagarowicze.png" alt="Lista Obecności - wagarowicze"></p>
+<h2 id="2-odwrócona-zgadula-">2️⃣ Odwrócona &ldquo;Zgadula&rdquo; ⭐️</h2>
+<p>Program zasugerowany przez Mieszka i Bartka na poprzednich zajęciach: odwróćmy role, niech komputer stara się odgadnąć liczbę wymyśloną przez użytkownika:</p>
+<p><img src="odwrocona-zgadula.png" alt="Odwrócona zgadula"></p>
+<p>Pamiętajcie o obsłudze pewnego specjalnego przypadku:</p>
+<p><img src="odwrocona-zgadula-kanciarz.png" alt="Reakcja odwróconej zgaduli na kantującego użytkownika"></p>
+<h2 id="3-kółko-i-krzyżyk-single-player-vs-noob-">3️⃣ Kółko i Krzyżyk single player vs. noob ⭐️</h2>
+<p>Przeróbcie grę &ldquo;Kółko i Krzyżyk&rdquo; tak, aby można było grać przeciwko komputerowi. Nie musi to być bardzo wymagający przeciwnik: możecie losować ruch komputera ze wszystkich dostępnych ruchów.</p>
+<p><img src="xo-vs-noob.png" alt="Kółko i Krzyżyk - gra przeciwko noobowi"></p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

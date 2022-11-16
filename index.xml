@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 08 Nov 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Nov 2022 18:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 5: `&#34;&#34;&#34; &#34;&#34;&#34;`, `List&lt;&gt;`, Kółko i Krzyżyk</title>
+      <link>https://jerz.codes/posts/2022-11-15/</link>
+      <pubDate>Tue, 15 Nov 2022 18:00:00 +0200</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-11-15/</guid>
+      <description>Teksty wielolinijkowe Przypuszczam, że większość z was napisała zadany na ostatnich zajęciach program &amp;ldquo;Kostka do gry&amp;rdquo; mniej-więcej w ten sposób:
+fun rysujKostkę(oczka: Int) { when (oczka) { 1 -&amp;gt; { println(&amp;#34;+---+&amp;#34;) println(&amp;#34;| |&amp;#34;) println(&amp;#34;| o |&amp;#34;) println(&amp;#34;| |&amp;#34;) println(&amp;#34;+---+&amp;#34;) } // itd. } } Zwykłe teksty tworzone w kodzie, &amp;quot;taki jak ten&amp;quot;, muszą zaczynać się i kończyć w tej samej linii. Tekst ograniczony z dwóch stron potrójnym cudzysłowem &amp;quot;&amp;quot;&amp;quot; może obejmować kilka linii:</description>
+    </item>
+    
     <item>
       <title>Zajęcia 4: `when`, `for`, `IntRange`, `Char`, `var`, `package`, `import`, o rany ile tego jest 🙀</title>
       <link>https://jerz.codes/posts/2022-11-08/</link>
