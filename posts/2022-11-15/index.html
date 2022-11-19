@@ -422,16 +422,17 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// gra toczy się dalej
 </span></span></span></code></pre></div><p>Tak więc pseudokod naszej funkcji finalnie będzie wyglądał następująco:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(p: List&lt;String&gt;): String? {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// popatrz po kolei na wszystkie pola planszy
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli pole jest puste
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// gra toczy się dalej, zwróć null
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// gra się zakończyła, więc teraz sprawdzę, czy ktoś wygrał
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// sprawdzę, czy ktoś wygrał
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// … 
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 8 długaśnych warunków zwycięstwa
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// …
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ok, doszedłem do tego miejsca w kodzie, czyli nikt nie wygrał
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// popatrz po kolei na wszystkie pola planszy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// jeśli pole jest puste
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// gra toczy się dalej, zwróć null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// gra się zakończyła, ale nikt nie wygrał
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w takim razie jest remis
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><p>Jeśli doczytaliście do tego momentu, wyślijcie do mnie na Slacku wiadomość o treści &ldquo;Żyrafy wchodzą do szafy&rdquo;.</p>
