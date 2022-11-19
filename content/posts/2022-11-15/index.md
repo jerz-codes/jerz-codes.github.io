@@ -576,16 +576,17 @@ Tak więc pseudokod naszej funkcji finalnie będzie wyglądał następująco:
 
 ```kotlin
 fun wynik(p: List<String>): String? {
-    // popatrz po kolei na wszystkie pola planszy
-        // jeśli pole jest puste
-            // gra toczy się dalej, zwróć null
-    
-    // gra się zakończyła, więc teraz sprawdzę, czy ktoś wygrał
+    // sprawdzę, czy ktoś wygrał
     // … 
     // 8 długaśnych warunków zwycięstwa
     // …
-    
+
     // ok, doszedłem do tego miejsca w kodzie, czyli nikt nie wygrał
+    // popatrz po kolei na wszystkie pola planszy
+        // jeśli pole jest puste
+            // gra toczy się dalej, zwróć null
+
+    // gra się zakończyła, ale nikt nie wygrał
     // w takim razie jest remis
 }
 ```
