@@ -286,7 +286,7 @@
 <p>Parę innych linijek pseudokodu też da się dość łatwo zastąpić wywołaniem pojedynczej funkcji:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
 </span></span><span style="display:flex;"><span>        narysujPlansze(plansza)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch(plansza)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch()
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// jeśli wczytany ruch jest prawidłowy  
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// nanieś ruch na planszę
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">while</span> (wynik(plansza) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
@@ -294,7 +294,7 @@
 </span></span></code></pre></div><p>Ostatni kawałek pseudokodu może być troszkę trudniejszy do zastąpienia. Obydwie rzeczy – sprawdzenie poprawności ruchu i naniesienie go na planszę – załatwiane są przez jedną funkcję <code>wykonajRuch</code>. Ponadto, &ldquo;naniesienie ruchu na planszę&rdquo; powinno też zmienić aktywnego gracza. Dlatego też nasza funkcja <code>wykonajRuch</code> zwraca informację, czyja będzie następna tura i musimy tę wartość przypisać do zmiennej <code>tura</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
 </span></span><span style="display:flex;"><span>        narysujPlansze(plansza)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch(plansza)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ruch = wczytajRuch()
 </span></span><span style="display:flex;"><span>        tura = wykonajRuch(ruch, plansza, tura)
 </span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">while</span> (wynik(plansza) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
 </span></span><span style="display:flex;"><span>    wypiszWynik(plansza)
