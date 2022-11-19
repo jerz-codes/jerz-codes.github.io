@@ -377,7 +377,7 @@ Parę innych linijek pseudokodu też da się dość łatwo zastąpić wywołanie
 ```kotlin
     do {
         narysujPlansze(plansza)
-        val ruch = wczytajRuch(plansza)
+        val ruch = wczytajRuch()
         // jeśli wczytany ruch jest prawidłowy  
             // nanieś ruch na planszę
     } while (wynik(plansza) == null)
@@ -389,7 +389,7 @@ Ostatni kawałek pseudokodu może być troszkę trudniejszy do zastąpienia. Oby
 ```kotlin
     do {
         narysujPlansze(plansza)
-        val ruch = wczytajRuch(plansza)
+        val ruch = wczytajRuch()
         tura = wykonajRuch(ruch, plansza, tura)
     } while (wynik(plansza) == null)
     wypiszWynik(plansza)
