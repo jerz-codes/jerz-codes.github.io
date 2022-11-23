@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 6: Wisielec | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 6: Wisielec</span></h1>
+
+<h2 class="date">2022/11/22</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#wisielec">&ldquo;Wisielec&rdquo;</a>
+      <ul>
+        <li><a href="#stan-grymodel-danych">Stan gry/model danych</a>
+          <ul>
+            <li><a href="#dygresja-nr-1-czy-nasz-model-danych-musi-wyglądać-w-ten-sposób">Dygresja nr 1: czy nasz model danych musi wyglądać w ten sposób?</a></li>
+          </ul>
+        </li>
+        <li><a href="#pseudokod">Pseudokod</a></li>
+        <li><a href="#puste-funkcje">Puste funkcje</a>
+          <ul>
+            <li><a href="#dygresja-nr-2-po-co-nam-te-wszystkie-funkcje">Dygresja nr 2: po co nam te wszystkie funkcje?</a></li>
+          </ul>
+        </li>
+        <li><a href="#integracja">Integracja</a>
+          <ul>
+            <li><a href="#operator-">Operator <code>!!</code></a></li>
+          </ul>
+        </li>
+        <li><a href="#wypełnianie-dziur">Wypełnianie dziur</a>
+          <ul>
+            <li><a href="#narysujszubienicę"><code>narysujSzubienicę</code></a></li>
+            <li><a href="#wypiszodkrytelitery"><code>wypiszOdkryteLitery</code></a></li>
+            <li><a href="#wczytajliterę"><code>wczytajLiterę</code></a></li>
+            <li><a href="#odkryjliterę"><code>odkryjLiterę</code></a></li>
+            <li><a href="#wynik"><code>wynik</code></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#zadania-do-domu">Zadania do domu</a>
+      <ul>
+        <li><a href="#-dokończenie-wisielca">😵 Dokończenie &ldquo;Wisielca&rdquo;</a></li>
+        <li><a href="#-podawanie-hasła-do-wisielca">🔑 Podawanie hasła do &ldquo;Wisielca&rdquo;</a></li>
+        <li><a href="#-wielowyrazowe-hasła-w-wisielcu-">🫥 Wielowyrazowe hasła w &ldquo;Wisielcu&rdquo; ⭐️</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<h1 id="wisielec">&ldquo;Wisielec&rdquo;</h1>
+<p>Inną grą, którą możemy napisać dzięki listom, jest &ldquo;Wisielec&rdquo;.</p>
+<p>Celem gry jest odgadnięcie hasła składającego się z jednego wyrazu. Początkowo wszystkie litery hasła są zakryte, tj. zastąpione kropeczkami (czyli od samego początku wiadomo, ile hasło ma liter). Gracz zgaduje po jednej literce: jeśli podana literka jest w haśle, wszystkie jej wystąpienia w haśle zostają odsłonięte; jeśli jej nie ma, gracz traci jedno życie.</p>
+<p>Liczba pozostałych żyć przedstawiona jest w dość makabryczny sposób: na ekranie wyświetlona jest szubienica, do której stopniowo dorysowywane są kolejne elementy ludzika – tytułowego wisielca. Gracz wygrywa, jeśli uda mu się odgadnąć hasło, zanim na ekranie pojawi się cała postać wisielca.</p>
+<p><img src="wisielec.png" alt="Wisielec"></p>
+<p>Tak jak w przypadku &ldquo;Kółka i Krzyżyk&rdquo;, przejdziemy kolejno przez pięć kroków:</p>
+<ul>
+<li><strong>Stan gry</strong>: jakie dane składają się na pełny stan gry</li>
+<li><strong>Pseudokod</strong>: jak wyglądać będzie główna pętla gry</li>
+<li><strong>Puste funkcje</strong>: pomocnicze funkcje, którymi zastąpimy fragmenty pseudokodu</li>
+<li><strong>Integracja</strong>: sprawdzenie, czy pomocnicze funkcje pasują do siebie i czy niczego nie brakuje</li>
+<li><strong>Wypełnianie dziur</strong>: implementacja pomocniczych funkcji</li>
+</ul>
+<h2 id="stan-grymodel-danych">Stan gry/model danych</h2>
+<p>W przypadku &ldquo;Wisielca&rdquo; stan gry składa się z następujących danych:</p>
+<ul>
+<li>Ilość popełnionych dotychczas błędów (lub na odwrót – liczba pozostałych &ldquo;żyć&rdquo;)</li>
+<li>Odgadywane hasło</li>
+<li>Postępy odgadywania</li>
+</ul>
+<p>Ilość błędów lub pozostałych żyć to po prostu liczba, a zatem zmienna typu <code>Int</code>.</p>
+<p>Odgadywane hasło oraz postępy odgadywania możemy przechowywać na liście znaków. W drugim przypadku będziemy tę listę zmieniać, powinna więc to być wartość typu <code>MutableList&lt;Char&gt;</code>. Hasło może być typu <code>List&lt;Char&gt;</code>.</p>
+<p>Sugestia, aby przechowywać postępy odgadywania hasła jako <code>String</code> o takiej długości jak hasło nie jest dobrym pomysłem: w Kotlinie teksty są stałe (niemutowalne), i nie można zmieniać ich wartości. Da się ten problem obejść, ale byłoby to po prostu dużo mniej poręczne i czytelne niż zastosowanie listy.</p>
+<p>Do zamiany tekstu na listę znaków możecie użyć funkcji <code>fun String.toList(): List&lt;Char&gt;</code>.</p>
+<p>Tak więc nasz model danych przedstawia się następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> błędy: Int = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> hasło: List&lt;Char&gt; = <span style="color:#e6db74">&#34;cośtam&#34;</span>.toList()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> odkryteLitery: MutableList&lt;Char&gt; = mutableListOf()
+</span></span></code></pre></div><p>Początkowo wszystkie litery są zakryte, a więc dodajmy do <code>odkryteLitery</code> tyle znaków <code>'.'</code>, ile jest liter w haśle:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (litera <span style="color:#66d9ef">in</span> hasło) {
+</span></span><span style="display:flex;"><span>    odkryteLitery.add(<span style="color:#e6db74">&#39;.&#39;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="dygresja-nr-1-czy-nasz-model-danych-musi-wyglądać-w-ten-sposób">Dygresja nr 1: czy nasz model danych musi wyglądać w ten sposób?</h3>
+<p>Absolutnie nie musi! W programowaniu każdy problem można rozwiązać na kilkanaście sposobów.</p>
+<p>Nasz model danych można zorganizować zupełnie inaczej, co będzie miało duży wpływ na dalszą implementację: niektóre funkcje pomocnicze mogą stać się prostsze do napisania, niektóre trudniejsze.</p>
+<p>Spróbujcie wykombinować inny sposób na przechowywanie stanu gry!</p>
+<h2 id="pseudokod">Pseudokod</h2>
+<p>Główna pętla gry wygląda następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// narysuj szubienicę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wypisz odkryte litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wczytaj literę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// jeśli wczytana litera jest w haśle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     odkryj wszystkie wystąpienia tej litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// w przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     zwiększ licznik błędów o jeden
+</span></span></span></code></pre></div><p>I jak każda porządna pętla gry, jest powtarzana, póki gra nie zostanie zakończona:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// powtarzaj
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     narysuj szubienicę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     wypisz odkryte litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     wczytaj literę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     jeśli wczytana litera jest w haśle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         odkryj wszystkie wystąpienia tej litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     w przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         zwiększ licznik błędów o jeden
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// tak długo, jak gra nie została zakończona
+</span></span></span></code></pre></div><p>Na koniec wypada też wypisać wynik:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// powtarzaj
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     narysuj szubienicę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     wypisz odkryte litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     wczytaj literę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     jeśli wczytana litera jest w haśle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         odkryj wszystkie wystąpienia tej litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     w przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//         zwiększ licznik błędów o jeden
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// tak długo, jak gra nie została zakończona
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wypisz wynik
+</span></span></span></code></pre></div><h2 id="puste-funkcje">Puste funkcje</h2>
+<p>Do narysowania szubienicy potrzebna jest tylko informacja o liczbie popełnionych błędów, tak więc nasza pierwsza funkcja pomocnicza będzie wyglądać następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujSzubienicę</span>(błędy: Int) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Wypisywanie odkrytych liter też chyba nie wymaga dłuższego komentarza:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wypiszOdkryteLitery</span>(odkryteLitery: List&lt;Char&gt;) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Chcemy wczytywać z klawiatury pojedynczą literę, co sugeruje zwracanie obiektu typu <code>Char</code>. Musimy jednak pamiętać o tym, że użytkownicy mogą wpisać jakieś bzdury. Użyjmy zatem opcjonalnego typu <code>Char?</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajLiterę</span>(): Char? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span> <span style="color:#75715e">// zwracamy cokolwiek, żeby IntelliJ nie marudził
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Do sprawdzenia, czy wczytana litera jest częścią hasła, możemy użyć bibliotecznej funkcji <code>List&lt;T&gt;.contains(T): Boolean</code>.</p>
+<p>Najtrudniejszym zadaniem będzie odkrywanie odgadniętej litery. Proponuję opakować to w funkcję:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">odkryjLiterę</span>(
+</span></span><span style="display:flex;"><span>    litera: Char,
+</span></span><span style="display:flex;"><span>    hasło: List&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>    odkryteLitery: MutableList&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Nasza funkcja będzie zmieniała przekazaną do niej listę <code>odkryteLitery</code> w taki sposób, aby odkryć wszystkie wystąpienia litery <code>litera</code> na liście <code>hasło</code>.</p>
+<hr>
+<p>Ostatnim elementem pseudokodu, który wymaga napisania osobnej funkcji, jest sprawdzenie, czy gra została zakończona w warunku głównej pętli. Proponuję stworzyć funkcję <code>wynik</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(błędy: Int, odkryteLitery: List&lt;Char&gt;): Boolean? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ponieważ grę w &ldquo;Wisielca&rdquo; można albo przegrać, albo wygrać, możemy tę informację przekazać typem <code>Boolean</code>. Wartość <code>true</code> będzie oznaczać wygraną, a wartość <code>false</code> – przegraną. Zwrócenie <code>null</code> oznacza, że gra wciąż trwa.</p>
+<p>Parametr <code>błędy</code> potrzebny będzie, aby stwierdzić, czy gra zakończyła się przegraną: gracz przegrywa, jeśli popełni więcej niż dozwoloną ilość błędów.
+<code>odkryteLitery</code> wykorzystamy, aby sprawdzić, czy gra toczy się dalej: wystarczy poszukać, czy w dalszym ciągu mamy tam znak <code>'.'</code>, którym zastąpiliśmy litery hasła (wymaga to przyjęcia radosnego założenia, że <code>hasło</code> samo w sobie nie ma znaku <code>'.'</code>; pomyślcie, jak trzebaby zmienić program, aby takie hasła były wspierane).</p>
+<h3 id="dygresja-nr-2-po-co-nam-te-wszystkie-funkcje">Dygresja nr 2: po co nam te wszystkie funkcje?</h3>
+<p>Inaczej mówiąc, czy nie dałoby się tego napisać wszystkiego w <code>main</code>?</p>
+<p>Oczywiście, że by się dało, ale ładowanie wszystkiego do jednej funkcji nie jest najlepszą praktyką. W przypadku tak krótkiego programu jak &ldquo;Wisielec&rdquo; czy &ldquo;Kółko i Krzyżyk&rdquo; nie będzie to miało większego znaczenia, ale przy dłuższych programach rozbijanie kodu na mniejsze funkcje jest bardzo pomocne.</p>
+<p>Dzięki tym pomocniczym funkcjom kod naszej funkcji <code>main</code> będzie przypominał pseudokod, czyli będzie łatwiej się zorientować, co się tam po kolei dzieje.</p>
+<h2 id="integracja">Integracja</h2>
+<p>Pseudokod i puste funkcje pomocnicze wyglądają następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ---------- KROK 1: STAN GRY -----------
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> błędy: Int = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> hasło: List&lt;Char&gt; = <span style="color:#e6db74">&#34;cośtam&#34;</span>.toList()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> odkryteLitery: MutableList&lt;Char&gt; = mutableListOf()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ---------- KROK 2: PSEUDOKOD ---------- 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// powtarzaj
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     narysuj szubienicę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     wypisz odkryte litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     wczytaj literę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     jeśli wczytana litera jest w haśle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//         odkryj wszystkie wystąpienia tej litery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     w przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//         zwiększ licznik błędów o jeden
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// tak długo, jak gra nie została zakończona
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// wypisz wynik
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ---------- KROK 3: PUSTE FUNKCJE ---------- 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujSzubienicę</span>(błędy: Int) {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wypiszOdkryteLitery</span>(odkryteLitery: List&lt;Char&gt;) {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajLiterę</span>(): Char? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">odkryjLiterę</span>(
+</span></span><span style="display:flex;"><span>    litera: Char,
+</span></span><span style="display:flex;"><span>    hasło: List&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>    odkryteLitery: MutableList&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(błędy: Int, odkryteLitery: List&lt;Char&gt;): Boolean? {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Kilka linii pseudokodu można zastąpić wywołaniem jednej z pomocniczych funkcji:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    narysujSzubienicę(błędy)
+</span></span><span style="display:flex;"><span>    wypiszOdkryteLitery(odkryteLitery)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> litera =  wczytajLiterę()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#960050;background-color:#1e0010">…</span>) { <span style="color:#75715e">// jeśli wczytana litera jest w haśle
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        odkryjLiterę(litera, hasło, odkryteLitery)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        błędy = błędy + <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (<span style="color:#960050;background-color:#1e0010">…</span>) <span style="color:#75715e">// gra trwa dalej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// wypisz wynik
+</span></span></span></code></pre></div><p>Warunek <code>gra trwa dalej</code> można inaczej zapisać jako <code>wynik gry nie jest jeszcze znany</code>, czyli inaczej <code>wynik(…) == null</code>.</p>
+<p>Warunek <code>wczytana litera jest w haśle</code> to inaczej <code>hasło zawiera wczytaną literę</code>, co w zasadzie 1:1 tłumaczy się na wywołanie bibliotecznej funkcji: <code>hasło.contains(litera)</code>.</p>
+<p>Do wypisania wyniku nie stworzyliśmy osobnej funkcji. Możemy użyć prostego wyrażenia <code>when</code>.</p>
+<p>Finalnie daje nam to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    narysujSzubienicę(błędy)
+</span></span><span style="display:flex;"><span>    wypiszOdkryteLitery(odkryteLitery)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> litera = wczytajLiterę()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (hasło.contains(litera)) {
+</span></span><span style="display:flex;"><span>        odkryjLiterę(litera, hasło, odkryteLitery)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        błędy = błędy + <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (wynik(błędy, odkryteLitery) <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">when</span> (wynik(błędy, odkryteLitery)<span style="color:#f92672">!!</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">true</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// pogratuluj graczowi wygranej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">false</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// wyświetl komunikat o przegranej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Treść komunikatów o wygranej/przegranej pozostawiam waszej inwencji twórczej.</p>
+<h3 id="operator-">Operator <code>!!</code></h3>
+<p>Zwróćcie uwagę na linię:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">when</span> (wynik(błędy, odkryteLitery)<span style="color:#f92672">!!</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// …
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Dwa wykrzykniki (<code>!!</code>) służą do wymuszenia na Kotlinie zmiany opcjonalnego obiektu (w tym przypadku <code>Boolean?</code> zwróconego z funkcji <code>wynik</code>) na jego nie-opcjonalny odpowiednik. Dzięki temu musimy obsłużyć w naszym wyrażeniu <code>when</code> tylko dwa przypadki – dla <code>true</code> i <code>false</code> – możemy natomiast pominąć obsługę sytuacji dla <code>wynik(…)</code> zwracającego <code>null</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">when</span> (wynik(błędy, odkryteLitery)<span style="color:#f92672">!!</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">true</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// pogratuluj graczowi
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">false</span> <span style="color:#f92672">-&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// wyświetl komunikat o przegranej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// nie ma potrzeby dodawania jeszcze:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// null -&gt; { … } 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Jako twórcy programu mamy 100% pewność, że w tym momencie wartość zwrócona z funkcji <code>wynik()</code> nie może być równa <code>null</code> – gdyby taka była, nasza główna pętla gry działałaby nadal. Kotlin nie jest w stanie sam tego stwierdzić, więc musimy mu pomóc.</p>
+<p>Nadużywanie operatora <code>!!</code> nie jest dobrą praktyką. Wręcz przeciwnie – za każdym razem, gdy musicie go użyć, powinniście też zastanowić się, czy nie da się jakoś przerobić powiązanego kodu tak, aby użycie <code>!!</code> nie było konieczne.</p>
+<h2 id="wypełnianie-dziur">Wypełnianie dziur</h2>
+<p>Ostatni krok to dodanie kodu w pustych &ldquo;wydmuszkach&rdquo; funkcji pomocniczych. W tym wpisie zamieszczę tylko pseudokod dla każdej funkcji, a waszym zadaniem do domu będzie zamiana tego pseudokodu na Kotlinową implementację.</p>
+<h3 id="narysujszubienicę"><code>narysujSzubienicę</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">narysujSzubienicę</span>(błędy: Int) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli ilość popełnionych błędów jest równa
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     0 -&gt; narysuj tylko szubienicę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     1 -&gt; narysuj szubienicę oraz główkę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     2 -&gt; narysuj szubienicę oraz główkę i brzuszek
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Do rysowania możemy użyć serii <code>println</code>&lsquo;ów albo pojedynczego <code>println</code> z <a href="https://jerz.codes/posts/2022-11-15/#teksty-wielolinijkowe">tekstem wielolinijkowym</a>.</p>
+<p><strong>Uwaga</strong>: możecie mieć problem z narysowaniem prawej rączki ludzika. Znak <code>\</code> wewnątrz zwykłego tekstu traktowany jest w specyficzny sposób – łączy się on z następnym znakiem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// \n przechodzi do następnej linijki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;Hello</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">World&#34;</span>) <span style="color:#75715e">// wypisanie tekstu w dwóch liniach jednym println
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// \&#34; to po prostu cudzysłów
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// dzięki temu możemy stworzyć tekst zawierający znak &#34; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Hello</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">&#34;</span>) <span style="color:#75715e">// wypisze &#34;Hello&#34;
+</span></span></span></code></pre></div><p>Żeby wypisać znak <code>\</code> musimy wewnątrz tekstu użyć <code>&quot;\\&quot;</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;O, znalazłem prawą rękę wisielca: </span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">&#34;</span>)
+</span></span></code></pre></div><h3 id="wypiszodkrytelitery"><code>wypiszOdkryteLitery</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wypiszOdkryteLitery</span>(odkryteLitery: List&lt;Char&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// dla każdej litery na liście odkryteLitery
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     wypisz literę na ekran nie przechodząc do następnej linii
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// a na koniec funkcji przejdź do następnej linii
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="wczytajliterę"><code>wczytajLiterę</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wczytajLiterę</span>(): Char? {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// wczytaj tekst z klawiatury
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli wczytany tekst jest jednoliterowy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     zwróć pierwszą (i jedyną) literę tego tekstu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     zwróć null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="odkryjliterę"><code>odkryjLiterę</code></h3>
+<p>Przy naszym modelu danych ta funkcja będzie dość trudna do napisania. Musimy jednocześnie patrzeć na dwie listy, <code>hasło</code> i <code>odkryteLitery</code>, tak więc nie możemy użyć zwykłej pętli <code>for (litera in hasło)</code>.</p>
+<p>Wykorzystamy fakt, że te dwie listy powinny mieć tę samą liczbę elementów i będziemy &ldquo;jechać&rdquo; pętlą nie po elementach listy, ale po jej indeksach:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> hasło.indices) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// wyciąganie i-tej litery z listy hasło
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> literaHasła = hasło[i]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// zmiana i-tego elementu listy odkryteLitery 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    odkryteLitery[i] = <span style="color:#960050;background-color:#1e0010">…</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Tak więc pseudokod tej funkcji będzie wyglądał następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">odkryjLiterę</span>(
+</span></span><span style="display:flex;"><span>    litera: Char,
+</span></span><span style="display:flex;"><span>    hasło: List&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>    odkryteLitery: MutableList&lt;Char&gt;,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// dla wszystkich indeksów na liście odkryte litery 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//     jeśli i-ty element hasła jest taki sam jak wpisana litera
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//         ustaw i-ty element listy odkryteLitery na wpisaną literę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h3 id="wynik"><code>wynik</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wynik</span>(błędy: Int, odkryteLitery: List&lt;Char&gt;): Boolean? {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// jeśli gracz popełnił więcej błędów niż dopuszczalna ilość, zwróć false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w przeciwnym razie, jeśli w dalszym ciągu jest jakaś nieodkryta litera, zwróć null
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// w przeciwnym razie gra musiała się zakończyć wygraną więc zwróć true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h1 id="zadania-do-domu">Zadania do domu</h1>
+<h2 id="-dokończenie-wisielca">😵 Dokończenie &ldquo;Wisielca&rdquo;</h2>
+<p>Funkcja <code>main</code> jest prawie gotowa, musicie tylko dodać komunikaty o wygranej i przegranej oraz zaprogramować wszystkie pomocnicze funkcje.</p>
+<h2 id="-podawanie-hasła-do-wisielca">🔑 Podawanie hasła do &ldquo;Wisielca&rdquo;</h2>
+<p>Na razie hasło jest na sztywno wpisane w kod programu. Zamiast tego, możecie na starcie programu poprosić użytkownika o wpisanie hasła. Dzięki temu można będzie grać w naszego &ldquo;Wisielca&rdquo; z rodzeństwem albo kolegą: jedna osoba będzie wpisywać hasło, a druga będzie je odgadywać.</p>
+<p>Problemem jest to, że wpisane hasło będzie widoczne na ekranie na starcie gry:</p>
+<p><img src="wisielec-haslo.png" alt="Wisielec z wpisywaniem hasła"></p>
+<p>Nie mamy jeszcze gotowej funkcji do czyszczenia ekranu, ale możemy ten problem obejść. Jeśli wypiszemy masę pustych linii, zawartość ekranu &ldquo;przewinie się&rdquo; i zniknie za górną krawędzią okna:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// po wczytaniu hasła, ale przed wejściem do głównej pętli gry
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">50</span>) {
+</span></span><span style="display:flex;"><span>    println()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="-wielowyrazowe-hasła-w-wisielcu-">🫥 Wielowyrazowe hasła w &ldquo;Wisielcu&rdquo; ⭐️</h2>
+<p>Dodajcie do &ldquo;Wisielca&rdquo; obsługę wielowyrazowych haseł. Spacje powinny być widoczne już od samego początku, żeby było wiadomo, ile liter ma każdy z wyrazów.</p>
+<p><img src="wisielec-spacje.png" alt="Wisielec z wielowyrazowymi hasłami"></p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
