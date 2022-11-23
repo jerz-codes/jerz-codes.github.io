@@ -4,6 +4,8 @@ date: 2022-11-15T18:00:00+02:00
 draft: false
 ---
 
+{{<toc>}}
+
 # Teksty wielolinijkowe
 
 Przypuszczam, że większość z was napisała zadany na ostatnich zajęciach program "Kostka do gry" mniej-więcej w ten sposób:
