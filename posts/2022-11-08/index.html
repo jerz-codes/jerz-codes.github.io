@@ -35,6 +35,49 @@
 </div>
 
 <main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#smart-casting">Smart casting</a></li>
+    <li><a href="#when"><code>when</code></a>
+      <ul>
+        <li><a href="#when-z-argumentem"><code>when</code> z argumentem</a></li>
+      </ul>
+    </li>
+    <li><a href="#zmienne">Zmienne</a>
+      <ul>
+        <li><a href="#program-zabawa-w-chowanego">Program &ldquo;Zabawa w chowanego&rdquo;</a></li>
+      </ul>
+    </li>
+    <li><a href="#przedziały-liczb">Przedziały liczb</a></li>
+    <li><a href="#użycie-pętli-for-z-typem-string">Użycie pętli <code>for</code> z typem <code>String</code></a></li>
+    <li><a href="#losowanie-liczby">Losowanie liczby</a></li>
+    <li><a href="#losowanie-boolean-rzut-monetą">Losowanie <code>Boolean</code> (rzut monetą)</a>
+      <ul>
+        <li><a href="#pakiety-i-importy">Pakiety i <code>import</code>y</a></li>
+      </ul>
+    </li>
+    <li><a href="#zgadula">Zgadula</a></li>
+    <li><a href="#podsumowanie">Podsumowanie</a></li>
+    <li><a href="#programy-do-napisania-w-domu">Programy do napisania w domu</a>
+      <ul>
+        <li><a href="#1-szczęśliwego-nowego-roku">1. Szczęśliwego Nowego Roku!</a></li>
+        <li><a href="#2-kostka-do-gry">2. Kostka do gry</a></li>
+        <li><a href="#3-megafon-v2">3. Megafon v2</a></li>
+        <li><a href="#4-przeliterowywacz">4. Przeliterowywacz</a></li>
+        <li><a href="#ulepszenia-zgaduli">Ulepszenia &ldquo;Zgaduli&rdquo;</a>
+          <ul>
+            <li><a href="#5-gramy-jeszcze-raz">5. Gramy jeszcze raz?</a></li>
+            <li><a href="#6-frustrat">6. Frustrat</a></li>
+            <li><a href="#7-bliskodaleko-">7. Blisko/Daleko ⭐️</a></li>
+            <li><a href="#8-pilnowanie-sensownego-przedziału-">8. Pilnowanie sensownego przedziału ⭐</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
 <h1 id="smart-casting">Smart casting</h1>
 <p>Wróćmy do przykładu &ldquo;Przywitania&rdquo; pytającego o wiek:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Ile masz lat?&#34;</span>)
@@ -223,7 +266,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Jednak sensowniejszą opcją będzie użycie bibliotecznej funkcji <code>Random.nextBoolean()</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (Random.nextBoolean()) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">Random</span>.nextBoolean()) {
 </span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Pójdę w lewo!&#34;</span>)
 </span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
 </span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Pójdę w prawo!&#34;</span>)

@@ -32,8 +32,7 @@ Celem gry jest odgadnięcie hasła składającego się z jednego wyrazu.</descri
       <pubDate>Tue, 08 Nov 2022 18:00:00 +0200</pubDate>
       
       <guid>https://jerz.codes/posts/2022-11-08/</guid>
-      <description>Smart casting Wróćmy do przykładu &amp;ldquo;Przywitania&amp;rdquo; pytającego o wiek:
-println(&amp;#34;Ile masz lat?&amp;#34;) val wiek = readln().toIntOrNull() val wiekKotlina = 12 if (wiek == wiekKotlina) { println(&amp;#34;O, ja też!&amp;#34;) } else if (wiek != null &amp;amp;&amp;amp; wiek &amp;lt; wiekKotlina) { println(&amp;#34;Ha, ja jestem starszy, mam już $wiekKotlina lat!&amp;#34;) } else if (wiek != null &amp;amp;&amp;amp; wiek &amp;gt; wiekKotlina) { println(&amp;#34;Też bym chciał tyle mieć, mam dopiero $wiekKotlina lat.&amp;#34;) } Dodajmy na początku łańcuszka if.</description>
+      <description>Smart casting when when z argumentem Zmienne Program &amp;ldquo;Zabawa w chowanego&amp;rdquo; Przedziały liczb Użycie pętli for z typem String Losowanie liczby Losowanie Boolean (rzut monetą) Pakiety i importy Zgadula Podsumowanie Programy do napisania w domu 1. Szczęśliwego Nowego Roku! 2. Kostka do gry 3. Megafon v2 4. Przeliterowywacz Ulepszenia &amp;ldquo;Zgaduli&amp;rdquo; 5. Gramy jeszcze raz? 6. Frustrat 7. Blisko/Daleko ⭐️ 8. Pilnowanie sensownego przedziału ⭐ Smart casting Wróćmy do przykładu &amp;ldquo;Przywitania&amp;rdquo; pytającego o wiek:</description>
     </item>
     
     <item>
@@ -42,8 +41,7 @@ println(&amp;#34;Ile masz lat?&amp;#34;) val wiek = readln().toIntOrNull() val w
       <pubDate>Tue, 25 Oct 2022 18:00:00 +0200</pubDate>
       
       <guid>https://jerz.codes/posts/2022-10-25/</guid>
-      <description>Nasze zmagania z kodowaniem Na poprzednich zajęciach spora część grupy miała kłopot z napisaniem programów &amp;ldquo;Echo&amp;rdquo; oraz &amp;ldquo;Przywitanie&amp;rdquo;. Problemy, które zauważyłem, można podzielić na następujące kategorie:
-Nie wiem, jak dokładnie ma działać program? Kilka osób napisało programy, które teoretycznie działały, ale nie robiły dokładnie tego, co miały robić. Zakładam, że stało się tak, ponieważ na rzutniku wyświetlone były screenshoty, a opis działania przekazałem tylko słownie i niektóre szczegóły mogły umknąć waszej uwadze.</description>
+      <description>Nasze zmagania z kodowaniem Nie wiem, jak dokładnie ma działać program? Nie wiem, od czego zacząć? Morze czerwieni Automatyczne formatowanie kodu Popatrzcie na linijkę przed podkreślonym kodem Czytanie kodu z góry na dół Pisanie najpierw &amp;ldquo;bloczku&amp;rdquo;, wypełnianie luk później Cofnięcie zmian do ostatniego działającego stanu Zaczynajcie od pustego pliku &amp;ldquo;Nuke the entire site from orbit – it&amp;rsquo;s the only way to be sure&amp;rdquo; Nowy materiał String.length Szablony tekstu, ciąg dalszy Inne operatory porównania Łańcuszki instrukcji warunkowych Operatory matematyczne Operatory logiczne Konwersja String -&amp;gt; Int Nullable types Pętla do { … } while (…) Podsumowanie Programy do napisania 1.</description>
     </item>
     
     <item>
@@ -52,10 +50,9 @@ Nie wiem, jak dokładnie ma działać program? Kilka osób napisało programy, k
       <pubDate>Tue, 18 Oct 2022 18:00:00 +0200</pubDate>
       
       <guid>https://jerz.codes/posts/2022-10-18-funkcje-cd-i-instrukcje-warunkowe/</guid>
-      <description>Funkcje, c.d. Poprzednie zajęcia skończyliśmy na pisaniu funkcji megafon:
+      <description>Funkcje, c.d. Zakresy widoczności Typ Int Funkcje zwracające obiekt Instrukcja if Podsumowanie Funkcje, c.d. Poprzednie zajęcia skończyliśmy na pisaniu funkcji megafon:
 fun main() = terminal { val ostrzeżenie = &amp;#34;uwaga, uwaga&amp;#34; megafon(ostrzeżenie) } fun megafon(tekst: String) { print(&amp;#34;📣 &amp;#34;) print(tekst.uppercase()) println(&amp;#34;!!!&amp;#34;) } Jest jeszcze kilka rzeczy, których możemy nauczyć się na tym przykładzie.
-Zakresy widoczności Jeżeli spróbujemy wewnątrz funkcji megafon użyć stałej ostrzeżenie, nasz program nie uruchomi się, a IntelliJ podkreśli tę linijkę na czerwono:
-fun main() = terminal { val ostrzeżenie = &amp;#34;uwaga, uwaga&amp;#34; megafon(ostrzeżenie) } fun megafon(tekst: String) { print(&amp;#34;📣 &amp;#34;) print(ostrzeżenie.</description>
+Zakresy widoczności Jeżeli spróbujemy wewnątrz funkcji megafon użyć stałej ostrzeżenie, nasz program nie uruchomi się, a IntelliJ podkreśli tę linijkę na czerwono:</description>
     </item>
     
     <item>
@@ -64,10 +61,9 @@ fun main() = terminal { val ostrzeżenie = &amp;#34;uwaga, uwaga&amp;#34; megafo
       <pubDate>Tue, 11 Oct 2022 18:00:00 +0200</pubDate>
       
       <guid>https://jerz.codes/posts/2022-10-11-funkcje-i-stale/</guid>
-      <description>Gadka-szmatka Witam was serdecznie!
+      <description>Gadka-szmatka Zapoznanie z IntelliJ Jak otworzyć kod programu Jak uruchomić program Jak stworzyć plik na kolejny program Podstawy podstawowych podstaw programowania Funkcja main Drobna dygresja Echo Stałe Przywitanie Szablony tekstu Najnudniejsza funkcja świata Parametry funkcji Podsumowanie Gadka-szmatka Witam was serdecznie!
 Zanim przejdziemy do faktycznego programowania, chciałbym udzielić wam kilku rad, żeby dobrze się nam wspólnie pracowało i żebyście wynieśli z tych zajęć jak najwięcej.
-Po pierwsze, jeśli czegokolwiek nie będziecie rozumieć, natychmiast dajcie mi znać. Jest to zwłaszcza ważne podczas pierwszych kilku zajęć, podczas których będziemy przechodzić przez fundamenty wiedzy programistycznej. Bez dokładnego opanowania tych podstaw późniejsze lekcje mogą okazać się niezrozumiałe.
-Przyznanie się przed całą grupą, że czegoś się nie wie, może być trudne, dlatego musimy postarać się o zbudowanie odpowiedniej atmosfery.</description>
+Po pierwsze, jeśli czegokolwiek nie będziecie rozumieć, natychmiast dajcie mi znać.</description>
     </item>
     
     <item>
