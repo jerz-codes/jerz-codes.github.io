@@ -4,6 +4,8 @@ date: 2022-10-11T18:00:00+02:00
 draft: false
 ---
 
+{{<toc>}}
+
 # Gadka-szmatka
 
 Witam was serdecznie!

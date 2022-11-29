@@ -4,6 +4,8 @@ date: 2022-10-25T18:00:00+02:00
 draft: false
 ---
 
+{{<toc>}}
+
 # Nasze zmagania z kodowaniem
 
 Na poprzednich zajęciach spora część grupy miała kłopot z napisaniem programów "Echo" oraz "Przywitanie". Problemy, które zauważyłem, można podzielić na następujące kategorie:

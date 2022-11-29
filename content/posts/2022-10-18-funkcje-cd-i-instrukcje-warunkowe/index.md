@@ -4,6 +4,8 @@ date: 2022-10-18T18:00:00+02:00
 draft: false
 ---
 
+{{<toc>}}
+
 # Funkcje, c.d.
 
 Poprzednie zajęcia skończyliśmy na pisaniu funkcji `megafon`:

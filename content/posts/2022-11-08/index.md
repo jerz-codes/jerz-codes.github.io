@@ -4,6 +4,8 @@ date: 2022-11-08T18:00:00+02:00
 draft: false
 ---
 
+{{<toc>}}
+
 # Smart casting
 
 Wróćmy do przykładu "Przywitania" pytającego o wiek:
