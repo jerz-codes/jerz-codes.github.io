@@ -1,7 +1,7 @@
 ---
 title: "Zajęcia 7: Lekcja powtórkowa"
-date: 2022-11-29T18:00:00+02:00
-draft: true
+date: 2022-11-29T14:00:00+02:00
+draft: false
 ---
 
 {{<toc>}}
