@@ -4,9 +4,82 @@ date: 2022-12-06T14:30:00+01:00
 draft: false
 ---
 
+Tak, jak pisałem na Slack'u, następnych kilka zajęć będzie przebiegało wg. planu:
+
+* 15 minut: omówienie zadania z poprzednich zajęć
+* 30 minut: nowy materiał
+* 45 minut: wspólna praca nad nowymi zadaniami
+
+---
+
 {{<toc>}}
 
-# Omówienie zadania: TBD
+# Omówienie zadania: [Zły Bliźniak]({{<ref "/2022-11-29#-zły-bliźniak-">}})
+
+Na wstępie musimy oczywiście wczytać z klawiatury imię:
+
+```kotlin
+print("Podaj swoje imię: ")
+val imię = readln()
+```
+
+Najważniejszą częścią tego zadania jest "odwrócenie" imienia. Możemy to osiągnąć przechodząc przez imię literka po literce i dodając kolejne literki na początku tekstu:
+
+```kotlin
+var odwróconeImię = ""
+for (literka in imię) {
+    odwróconeImię = literka + odwróconeImię
+}
+```
+
+Nie jest to zbyt intuicyjne, dlatego też proponuję, żebyście prześledzili działanie tego programu dla kilkuliterowego wyrazu.
+
+Pozostaje tylko wypisanie wyniku na ekran:
+
+```kotlin
+fun main() = terminal {
+    print("Podaj swoje imię: ")
+    val imię = readln()
+
+    var odwróconeImię = ""
+    for (literka in imię) {
+        odwróconeImię = literka + odwróconeImię
+    }
+
+    println("Twój zły bliźniak ma na imię $odwróconeImię")
+}
+```
+
+## Bonus: [Palindrom]({{<ref "/2022-11-29#-palindrom-">}})
+
+Palindrom to wyraz albo wyrażenie, które brzmi tak samo czytane od lewej do prawej i od prawej do lewej. Inaczej mówiąc, "odwrócony" palindrom jest taki sam jak "nieodwrócony".
+
+Możemy opakować kawałek kodu ze "Złego Bliźniaka" w funkcję:
+
+```kotlin
+fun odwróć(tekst: String): String {
+    var wynik = ""
+    for (litera in tekst) {
+        wynik = litera + tekst
+    }
+    return wynik
+}
+```
+
+A następnie użyć jej w instrukcji warunkowej:
+
+```kotlin
+fun main() = terminal {
+    print("Podaj wyraz: ")
+    val wyraz = readln()
+
+    if (wyraz == odwróć(wyraz)) {
+        println("Wyraz '$wyraz' to palindrom!")
+    } else {
+        println("Wyraz '$wyraz' nie jest palindromem.")
+    }
+}
+```
 
 # Nowy materiał
 
@@ -164,7 +237,7 @@ fun main() = terminal {
 }
 ```
 
-To w końcu operator porównania `==` patrzy na czy to **ten sam**, czy **taki sam** obiekt? Odpowiedź brzmi "to zależy", a konkretnie zależy to od typu obiektu. Standardowo, przy porównywaniu obiektów sprawdzane jest, czy jest to ten sam obiekt. Niektóre obiekty, jak `String`, `Int`, sprawdzają, czy logiczna "zawartość" obiektu jest taka sama.
+To w końcu operator porównania `==` patrzy na to, czy to **ten sam**, czy **taki sam** obiekt? Odpowiedź brzmi "to zależy", a konkretnie zależy to od typu obiektu. Standardowo, przy porównywaniu obiektów sprawdzane jest, czy jest to ten sam obiekt. Niektóre obiekty, jak `String`, `Int`, sprawdzają, czy logiczna "zawartość" obiektu jest taka sama.
 
 Jeśli chcemy, żeby nasz typ `Uczeń` działał w ten sposób, najprościej jest dodać do jego definicji słowo kluczowe `data`:
 
@@ -174,7 +247,7 @@ data class Uczeń(val imię: String, val klasa: String)
 
 Po tej zmianie nasza dwójka Adamów będzie sobie równa.
 
-To, czy powinniście użyć `data class`, czy samego `class`, będzie zależało głównie od tego, które zachowanie operatora `==` ma więcej sensu w waszym programie. Na początek proponuję używać `data class`, chyba że potraficie podać bardzo konkretny powód, dla którego potrzebujecie czegoś innego. Po pierwsze jest to bardziej intuicyjne zachowanie; po drugie, zachowanie operatora `==` ma wpływ na zachowanie niektórych struktur danych, o których będziemy się uczyć na późniejszych zajęciach.
+To, czy powinniście użyć `data class`, czy samego `class`, będzie zależało głównie od tego, które zachowanie operatora `==` ma więcej sensu w waszym programie. Na początek proponuję używać `data class`, chyba że potraficie podać bardzo konkretny powód, dla którego potrzebujecie innego zachowania. Po pierwsze jest to bardziej intuicyjne; po drugie, zachowanie operatora `==` ma wpływ na zachowanie niektórych struktur danych, o których będziemy się uczyć na późniejszych zajęciach.
 
 # Zadania
 
