@@ -60,7 +60,7 @@ Możemy opakować kawałek kodu ze "Złego Bliźniaka" w funkcję:
 fun odwróć(tekst: String): String {
     var wynik = ""
     for (litera in tekst) {
-        wynik = litera + tekst
+        wynik = litera + wynik
     }
     return wynik
 }
