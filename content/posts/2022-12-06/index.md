@@ -1,6 +1,6 @@
 ---
 title: "Zajęcia 8: `class`, `data class`"
-date: 2022-12-06T14:30:00+02:00
+date: 2022-12-06T14:30:00+01:00
 draft: false
 ---
 
