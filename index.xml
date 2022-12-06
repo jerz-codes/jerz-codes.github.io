@@ -13,8 +13,9 @@
       <pubDate>Tue, 06 Dec 2022 14:30:00 +0100</pubDate>
       
       <guid>https://jerz.codes/posts/2022-12-06/</guid>
-      <description>Omówienie zadania: TBD Nowy materiał class data class Zadania ⏹ Rysowanie: Kwadrat 📒 Lista obecności, v2 ▶️ Rysowanie: Trójkąt ☠️ Omówienie zadania: TBD Nowy materiał class Kilka zajęć temu, gdy poznawaliśmy listy, pisaliśmy program, który operował na liście uczestników zapisanej w ten sposób:
-val uczniowie = listOf&amp;lt;String&amp;gt;( &amp;#34;Adam&amp;#34;, &amp;#34;Ania&amp;#34;, &amp;#34;Bartłomiej&amp;#34;, &amp;#34;Julia&amp;#34;, &amp;#34;Jurek&amp;#34;, &amp;#34;Mieszko&amp;#34;, &amp;#34;Olgierd&amp;#34;, &amp;#34;Tytus&amp;#34;, ) Każdy uczeń reprezentowany był w programie przez obiekt String. Było to wystarczająco dobre rozwiązanie, gdy potrzebowaliśmy przechowywać tylko imię każdego z uczniów.</description>
+      <description>Tak, jak pisałem na Slack&amp;rsquo;u, następnych kilka zajęć będzie przebiegało wg. planu:
+15 minut: omówienie zadania z poprzednich zajęć 30 minut: nowy materiał 45 minut: wspólna praca nad nowymi zadaniami Omówienie zadania: Zły Bliźniak Bonus: Palindrom Nowy materiał class data class Zadania ⏹ Rysowanie: Kwadrat 📒 Lista obecności, v2 ▶️ Rysowanie: Trójkąt ☠️ Omówienie zadania: Zły Bliźniak Na wstępie musimy oczywiście wczytać z klawiatury imię:
+print(&amp;#34;Podaj swoje imię: &amp;#34;) val imię = readln() Najważniejszą częścią tego zadania jest &amp;ldquo;odwrócenie&amp;rdquo; imienia.</description>
     </item>
     
     <item>
