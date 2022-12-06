@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 8: `class`, `data class` | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 8: <code>class</code>, <code>data class</code></span></h1>
+
+<h2 class="date">2022/12/06</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#omówienie-zadania-tbd">Omówienie zadania: TBD</a></li>
+    <li><a href="#nowy-materiał">Nowy materiał</a>
+      <ul>
+        <li><a href="#class"><code>class</code></a></li>
+        <li><a href="#data-class"><code>data class</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#zadania">Zadania</a>
+      <ul>
+        <li><a href="#-rysowanie-kwadrat">⏹ Rysowanie: Kwadrat</a></li>
+        <li><a href="#-lista-obecności-v2">📒 Lista obecności, v2</a></li>
+        <li><a href="#-rysowanie-trójkąt-">▶️ Rysowanie: Trójkąt ☠️</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<h1 id="omówienie-zadania-tbd">Omówienie zadania: TBD</h1>
+<h1 id="nowy-materiał">Nowy materiał</h1>
+<h2 id="class"><code>class</code></h2>
+<p>Kilka zajęć temu, gdy poznawaliśmy listy, pisaliśmy program, który operował na liście uczestników zapisanej w ten sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> uczniowie = listOf&lt;String&gt;(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Adam&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Ania&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Bartłomiej&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Julia&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Jurek&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Mieszko&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Olgierd&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Tytus&#34;</span>,
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Każdy uczeń reprezentowany był w programie przez obiekt <code>String</code>. Było to wystarczająco dobre rozwiązanie, gdy potrzebowaliśmy przechowywać tylko imię każdego z uczniów. Co jednak zrobić, jeśli chcemy dla każdego ucznia mieć więcej danych, np.: do której klasy chodzi, albo jakie zna języki programowania?</p>
+<p>Oczywiście da się ten problem obejść bez dodatkowych narzędzi (trzymając kilka list albo listę list, albo stosując jakieś jeszcze pokraczniejsze konstrukcje), ale najlepszym rozwiązaniem będzie utworzenie własnego typu danych.</p>
+<p>Potrzebujemy specjalnego &ldquo;klocka&rdquo;, w którym będziemy trzymać dane o uczniu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>
+</span></span></code></pre></div><p>Po słowie kluczowym <code>class</code> podajemy nazwę typu – w tym przypadku będzie to <code>Uczeń</code> (uwaga: zgodnie z przyjętymi konwencjami nazewniczymi, nazwy typów danych zaczynamy od wielkiej litery). Taki zapis wystarczy, żeby stworzyć pierwsze obiekty tego typu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adam = Uczeń()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>
+</span></span></code></pre></div><p>Obiekty tworzymy &ldquo;wywołując&rdquo; typ przy użyciu okrągłych nawiasów <code>()</code>, tak jak w robiliśmy to w przypadku funkcji. Tak naprawdę wywołujemy specjalną funkcję nazywaną <strong>konstruktorem</strong> obiektu. Ukrywa się ona w pierwszej linijce kodu opisującego nasz typ:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//         ~~
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// To jest konstruktor. Jeśli nie przyjmuje on żadnych
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// parametrów, można go pominąć, dlatego też w poprzednim
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// bloczku kodu tych nawiasów nie było.
+</span></span></span></code></pre></div><p>Ten kod można uruchomić, ale na razie nasz typ <code>Uczeń</code> nie jest zbyt użyteczny: nie da się w nim przechować żadnych danych, a przecież chcemy w nim trzymać takie informacje jak imię czy klasę. Podobnie jak w przypadku obiektu typu <code>List&lt;&gt;</code>, którego można spytać o ilość elementów na liście przy użyciu właściwości <code>.size</code>, chcielibyśmy, żeby nasz obiekt <code>Uczeń</code> można było odpytać o imię czy klasę:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adam = Uczeń()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${adam.imię}</span><span style="color:#e6db74"> chodzi do klasy </span><span style="color:#e6db74">${adam.klasa}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Musimy do naszego typu dodać informację o jego własnościach. Najpierw, po nazwie typu musimy dodać <strong>ciało</strong> (ang. <em>body</em>) klasy przy użyciu nawiasów klamrowych <code>{}</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Podobnie jak pusty konstruktor, puste ciało klasy można
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// pominąć – dlatego w poprzednich blokach nie było go.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>A następnie opisać w ciele klasy, jakie własności powinien mieć nasz obiekt:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię: String
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> klasa: String
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Powyższy kod dalej będzie podkreślony na czerwono: stałe w obiekcie (czyli ich własności), podobnie jak inne stałe w naszym programie, muszą mieć do siebie przypisany jakiś obiekt.</p>
+<p>Wartości tych stałych najlepiej będzie przekazać przy jego tworzeniu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> adam = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;6c&#34;</span>)
+</span></span></code></pre></div><p>Pamiętajcie: obiekty tworzone są przy użyciu konstruktora, który jest funkcją. Do tej pory nie przyjmował on żadnych parametrów, ale teraz chcemy, żeby przyjmował imię oraz klasę, musimy więc dodać te parametry – tak jak do zwykłych funkcji:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(imię: String, klasa: String) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię: String
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> klasa: String
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ostatnią rzeczą, którą musimy zrobić, jest użycie tych parametrów. Samo przekazanie parametru do funkcji nie oznacza, że program cokolwiek z nim sensownego zrobi, trzeba jeszcze tego parametru użyć w ciele funkcji. Podobnie sprawa się ma z konstruktorami – przekazanych parametrów należy użyć w ciele klasy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(imię: String, klasa: String) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> imię: String = imię
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> klasa: String = klasa
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Kod wyżej może na pierwszy rzut oka wyglądać to dziwacznie: <code>imię = imię</code>, wygląda to, jakbyśmy przypisywali stałą do samej siebie. W rzeczywistości to pierwsze <code>imię</code> to nazwa własności obiektu, <code>val imię</code>, a drugie – parametru konstruktora. Tworzymy własność <code>imię</code> przypisując jej wartość parametru <code>imię</code>.</p>
+<p>Nie tylko wygląda to dziwnie, ale wymaga też powtarzania dwa razy tego samego kodu dla każdej własności tworzonego obiektu. Dlatego też Kotlin proponuje &ldquo;sklejenie&rdquo; tych dwóch rzeczy w jedną:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(<span style="color:#66d9ef">val</span> imię: String, <span style="color:#66d9ef">val</span> klasa: String)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ciało klasy jest znów puste, więc można je usunąć
+</span></span></span></code></pre></div><p>Poprzez dodanie <code>val</code> do parametru konstruktora mówimy, że chcemy wartość przekazaną do tego parametru zapisać we własności obiektu o tej samej nazwie.</p>
+<p>Finalnie nasz kod przedstawia się następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adam = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;6c&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${adam.imię}</span><span style="color:#e6db74"> chodzi do klasy </span><span style="color:#e6db74">${adam.klasa}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(<span style="color:#66d9ef">val</span> imię: String, <span style="color:#66d9ef">val</span> klasa: String)
+</span></span></code></pre></div><h2 id="data-class"><code>data class</code></h2>
+<p>Może zdarzyć się sytuacja, gdy do jednej klasy chodzi kilka osób noszących to samo imię:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adamM = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;4d1&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adamS = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;4d1&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    println(adamM <span style="color:#f92672">==</span> adamS) <span style="color:#75715e">// co się wypisze? true, czy false?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Powyższy program wypisze na ekran <code>false</code>, co może być zaskakujące. Moglibyście się spodziewać, że wypisze <code>true</code>: przecież utworzyliśmy i porównujemy jednakowe obiekty!</p>
+<p>Z drugiej strony, <code>adamM</code> i <code>adamS</code> to dwa osobne obiekty, bo przecież wywołaliśmy konstruktor naszego type <code>Uczeń</code> dwa razy. Czyli mamy dwa klocki, które wyglądają tak samo, ale nie są jednym i tym samym klockiem.</p>
+<p>Dodatkowe zamieszanie w waszych głowach może spowodować zestawienie porównywania obiektów <code>Uczeń</code> i ich własności:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adamM = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;4d1&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> adamS = Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;4d1&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    println(adamM <span style="color:#f92672">==</span> adamS) <span style="color:#75715e">//             false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println(adamM.imię <span style="color:#f92672">==</span> adamS.imię) <span style="color:#75715e">//   true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    println(adamM.klasa <span style="color:#f92672">==</span> adamS.klasa) <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>To w końcu operator porównania <code>==</code> patrzy na czy to <strong>ten sam</strong>, czy <strong>taki sam</strong> obiekt? Odpowiedź brzmi &ldquo;to zależy&rdquo;, a konkretnie zależy to od typu obiektu. Standardowo, przy porównywaniu obiektów sprawdzane jest, czy jest to ten sam obiekt. Niektóre obiekty, jak <code>String</code>, <code>Int</code>, sprawdzają, czy logiczna &ldquo;zawartość&rdquo; obiektu jest taka sama.</p>
+<p>Jeśli chcemy, żeby nasz typ <code>Uczeń</code> działał w ten sposób, najprościej jest dodać do jego definicji słowo kluczowe <code>data</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(<span style="color:#66d9ef">val</span> imię: String, <span style="color:#66d9ef">val</span> klasa: String)
+</span></span></code></pre></div><p>Po tej zmianie nasza dwójka Adamów będzie sobie równa.</p>
+<p>To, czy powinniście użyć <code>data class</code>, czy samego <code>class</code>, będzie zależało głównie od tego, które zachowanie operatora <code>==</code> ma więcej sensu w waszym programie. Na początek proponuję używać <code>data class</code>, chyba że potraficie podać bardzo konkretny powód, dla którego potrzebujecie czegoś innego. Po pierwsze jest to bardziej intuicyjne zachowanie; po drugie, zachowanie operatora <code>==</code> ma wpływ na zachowanie niektórych struktur danych, o których będziemy się uczyć na późniejszych zajęciach.</p>
+<h1 id="zadania">Zadania</h1>
+<h2 id="-rysowanie-kwadrat">⏹ Rysowanie: Kwadrat</h2>
+<p>Napiszcie program, który wczyta długość boku kwadratu, a następnie wyrysuje go przy użyciu gwiazdek:</p>
+<p><img src="rysowanie-kwadrat.png" alt=""></p>
+<p>Pamiętajcie, że tekst będący powtórzeniem jakiegoś znaku można stworzyć przy użyciu funkcji <code>String.repeat(n: Int): String</code> (np.: <code>&quot;-&quot;.repeat(10)</code>).</p>
+<h2 id="-lista-obecności-v2">📒 Lista obecności, v2</h2>
+<p>Wykorzystujcie typ danych:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Uczeń</span>(<span style="color:#66d9ef">val</span> imię: String, <span style="color:#66d9ef">val</span> klasa: String)
+</span></span></code></pre></div><p>Aby wypisać listę obecności:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> uczniowie = listOf(
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Adam&#34;</span>, <span style="color:#e6db74">&#34;6c&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Ania&#34;</span>, <span style="color:#e6db74">&#34;5c&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Bartłomiej&#34;</span>, <span style="color:#e6db74">&#34;6c&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Julia&#34;</span>, <span style="color:#e6db74">&#34;8a&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Jurek&#34;</span>, <span style="color:#e6db74">&#34;5a&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Mieszko&#34;</span>, <span style="color:#e6db74">&#34;5c&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Olgierd&#34;</span>, <span style="color:#e6db74">&#34;5b&#34;</span>),
+</span></span><span style="display:flex;"><span>    Uczeń(<span style="color:#e6db74">&#34;Tytus&#34;</span>, <span style="color:#e6db74">&#34;7a&#34;</span>),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>W formie tabelki:</p>
+<p><img src="obecnosc-v2.png" alt=""></p>
+<p>Przydadzą się wam funkcje <code>String.padEnd(n: Int): String</code> oraz <code>String.padStart(n: Int): String</code>, które dodają do tekstu spacje na końcu/początku, aby cały tekst miał dokładnie <code>n</code> znaków.</p>
+<p><em>(Jeśli uda się wam napisać ten program, proponuję wrócić do <a href="https://jerz.codes/posts/2022-11-29/#-tabliczka-mnożenia-">&ldquo;Tabliczki Mnożenia&rdquo; z zeszłego tygodnia</a>)</em></p>
+<h2 id="-rysowanie-trójkąt-">▶️ Rysowanie: Trójkąt ☠️</h2>
+<p>Napiszcie program, który wczyta wysokość trójkąta, a następnie wyrysuje go przy użyciu gwiazdek:</p>
+<p><img src="rysowanie-trojkat.png" alt=""></p>
+<p><em>(Po napisaniu tego programu możecie spróbować wrócić do <a href="https://jerz.codes/posts/2022-11-29/#-rysowanie-diamentu-">rysowania diamentu z poprzednich zajęć</a>)</em></p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

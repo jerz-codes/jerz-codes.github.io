@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 29 Nov 2022 14:00:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Dec 2022 14:30:00 +0200</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 8: `class`, `data class`</title>
+      <link>https://jerz.codes/posts/2022-12-06/</link>
+      <pubDate>Tue, 06 Dec 2022 14:30:00 +0200</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-12-06/</guid>
+      <description>Omówienie zadania: TBD Nowy materiał class data class Zadania ⏹ Rysowanie: Kwadrat 📒 Lista obecności, v2 ▶️ Rysowanie: Trójkąt ☠️ Omówienie zadania: TBD Nowy materiał class Kilka zajęć temu, gdy poznawaliśmy listy, pisaliśmy program, który operował na liście uczestników zapisanej w ten sposób:
+val uczniowie = listOf&amp;lt;String&amp;gt;( &amp;#34;Adam&amp;#34;, &amp;#34;Ania&amp;#34;, &amp;#34;Bartłomiej&amp;#34;, &amp;#34;Julia&amp;#34;, &amp;#34;Jurek&amp;#34;, &amp;#34;Mieszko&amp;#34;, &amp;#34;Olgierd&amp;#34;, &amp;#34;Tytus&amp;#34;, ) Każdy uczeń reprezentowany był w programie przez obiekt String. Było to wystarczająco dobre rozwiązanie, gdy potrzebowaliśmy przechowywać tylko imię każdego z uczniów.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 7: Lekcja powtórkowa</title>
       <link>https://jerz.codes/posts/2022-11-29/</link>
