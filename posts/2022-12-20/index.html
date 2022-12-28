@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 9: rysowanie w kolorze | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 9: rysowanie w kolorze</span></h1>
+
+<h2 class="date">2022/12/20</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#omówienie-zadania-trójkąthahahugoshortcode-s1-hbhb">Omówienie zadania: <a href="https://jerz.codes/posts/2022-12-06/##-rysowanie-trójkąt-">Trójkąt</a></a></li>
+    <li><a href="#nowy-materiał">Nowy materiał</a>
+      <ul>
+        <li><a href="#rysowanie-w-kolorze">Rysowanie w kolorze</a></li>
+        <li><a href="#narzędzie-ansi">Narzędzie <code>Ansi</code></a>
+          <ul>
+            <li><a href="#object-vs-class"><code>object</code> vs. <code>class</code></a></li>
+            <li><a href="#dygresja-dlaczego-return-zamiast-print">Dygresja: dlaczego <code>return</code> zamiast <code>print</code>?</a></li>
+          </ul>
+        </li>
+        <li><a href="#pozostałe-funkcje-w-narzędziu-ansi">Pozostałe funkcje w narzędziu Ansi</a></li>
+        <li><a href="#choinka">Choinka</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+</div>
+<h1 id="omówienie-zadania-trójkąthahahugoshortcode-s1-hbhb">Omówienie zadania: <a href="https://jerz.codes/posts/2022-12-06/##-rysowanie-trójkąt-">Trójkąt</a></h1>
+<p>Zacznijmy od &ldquo;nudnych&rdquo; części programu: wczytania wysokości trójkąta, sprawdzeniu, czy użytkownik nie wpisał głupot, itp.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Podaj wysokość trójkąta: &#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> wysokość = readln().toIntOrNull()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (wysokość <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> wysokość &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// tu będziemy rysować coś w ten deseń:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">// *******
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//  *****
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//   ***
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#75715e">//    *
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        println()
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Zauważcie następującą rzecz: każda linijka składa się z nieparzystej liczby gwiazdek poprzedzonych spacjami. W każdej linii jest o jedną spację więcej i o dwie gwiazdki mniej niż w poprzedniej. Zaczynamy od zera spacji i&hellip; no właśnie, ilu gwiazdek?</p>
+<p>Popatrzmy na dwa mniejsze trójkąty:</p>
+<pre tabindex="0"><code>strona lewa         strona prawa
+
+   ****                ****
+    ***                ***
+     **                **
+      *                *
+</code></pre><p>Każda strona ma w pierwszej linijce tyle samo gwiazdek, ile wynosi wysokość trójkąta, przy czym jedna gwiazdka jest wspólna dla obu stron. Tak więc w pierwszej linijce dużego trójkąta, który chcemy narysować będzie <code>(wysokość * 2) - 1</code> gwiazdek.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Podaj wysokość trójkąta: &#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> wysokość = readln().toIntOrNull()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (wysokość <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> wysokość &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> liczbaSpacji = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> liczbaGwiazdek = (wysokość * <span style="color:#ae81ff">2</span>) - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.wysokość) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// wypisz spacje
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">// wypisz gwiazdki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                <span style="color:#75715e">// przejdź do następnej linijki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>                
+</span></span><span style="display:flex;"><span>                liczbaSpacji <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                liczbaGwiazdek <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        println()
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Do utworzenia tekstu składającego się z powtórzeń tego samego znaku możemy użyć funkcji <code>String.repeat(n: Int): String</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Podaj wysokość trójkąta: &#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> wysokość = readln().toIntOrNull()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (wysokość <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> wysokość &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> liczbaSpacji = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> liczbaGwiazdek = (wysokość * <span style="color:#ae81ff">2</span>) - <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.wysokość) {
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34; &#34;</span>.repeat(liczbaSpacji))
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;*&#34;</span>.repeat(liczbaGwiazdek))
+</span></span><span style="display:flex;"><span>                println()
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                liczbaSpacji <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                liczbaGwiazdek <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        println()
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="nowy-materiał">Nowy materiał</h1>
+<h2 id="rysowanie-w-kolorze">Rysowanie w kolorze</h2>
+<p>Programy, które pisaliśmy do tej pory, zawsze wypisywały tekst z góry na dół, korzystając tylko z jednego koloru czcionki, co bardzo ograniczało ich szatę graficzną. Dobra wiadomość jest taka, że nasze narzędzie <code>terminal</code> obsługuje drobną część tzw. <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape codes</a>, które umożliwią nam robienie nieco ciekawszych rzeczy. Zła wiadomość jest taka, że korzystanie z nich jest dość kłopotliwe.</p>
+<p>Popatrzcie na następujący program:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ten tekst zaraz zniknie! Naciśnij tylko enter...&#34;</span>)
+</span></span><span style="display:flex;"><span>    readln()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>)
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ha! A nie mówiłem!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Tekst <code>\u001b[2J</code> to &ldquo;magiczna&rdquo; komenda, której wypisanie czyści ekran i przesuwa kursor do lewego górnego rogu.</p>
+<p>Jej pierwsza część, <code>\u001b</code> to pojedynczy znak, tylko zapisany w specjalny sposób. Każdy znak, który wypisujemy na ekran, ma przypisaną do siebie liczbę. Na przykład literka <code>A</code> ma przypisany numer <code>65</code>. Zamiast <code>print('A')</code> możemy też napisać <code>print('\u0041')</code>. <code>\u</code> oznacza &ldquo;następne cztery znaki potraktuj jako liczbę w systemie szesnastkowym&rdquo;. <code>0041</code> w systemie szesnastkowym to właśnie <code>65</code> w systemie dziesiętnym, więc <code>print('\u0041')</code> wypisze na ekran literkę <code>A</code>.</p>
+<p>Oczywiście nikt o zdrowych zmysłach nie będzie używał tego sposobu do zapisu zwykłego tekstu, ale może być on przydatny, jeśli będziemy chcieli zmusić komputer do wypisania na ekran jakiegoś znaku, którego nie da się wpisać z klawiatury. <code>\u001b</code> z naszej &ldquo;magicznej&rdquo; komendy to właśnie tego rodzaju znak: <code>1b</code> to kod znaku &ldquo;Escape&rdquo;, od którego zaczynają się wszystkie ANSI escape codes, czyli nasze &ldquo;magiczne&rdquo; terminalowe komendy:</p>
+<ul>
+<li>wspomniane wcześniej czyszczenie obrazu: <code>\u001b[2J</code></li>
+<li>zmiana koloru czcionki: <code>\u001b[38;2;r;g;bm</code> (gdzie <code>r</code>, <code>g</code> i <code>b</code> to liczby od 0 do 255, będące składowymi tego koloru)</li>
+<li>zmiana koloru tła: <code>\u001b[48;2;r;g;bm</code></li>
+<li>przywrócenie domyślnego koloru czcionki: <code>\u001b[39m</code></li>
+<li>przywrócenie domyślnego koloru tła: <code>\u001b[49m</code></li>
+<li>przywrócenie domyślnych kolorów: <code>\u001b[0m</code></li>
+<li>przesunięcie kursora: <code>\u001b[y;xH</code> (gdzie y i x to współrzędne kursora; lewy-górny róg to punkt <code>[1, 1]</code>)</li>
+<li>ukrycie kursora: <code>\u001b[?25l</code></li>
+<li>pokazanie kursora: <code>\u001b[?25h</code></li>
+</ul>
+<p>Żeby nie musieć pamiętać tych cudacznych sekwencji, napiszemy nasze pierwsze narzędzie, a przy okazji nauczymy się kilku nowych rzeczy.</p>
+<h2 id="narzędzie-ansi">Narzędzie <code>Ansi</code></h2>
+<p>Na dobry początek stwórzmy osobny plik z funkcją, która zwróci komendę ANSI do czyszczenia ekranu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.narzedzia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>(): String {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Jest to bardzo prosta funkcja składająca się tylko z jednego wyrażenia <code>return</code>. Kotlin oferuje specjalną składnię dla takich przypadków. Możemy zmienić naszą funkcję w następujący sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>(): String = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span></code></pre></div><p>A ponieważ na pierwszy rzut oka widać, że ta funkcja zwraca tekst, możemy pominąć <code>: String</code> i skrócić to jeszcze bardziej do <code>fun wyczyśćEkran() = &quot;\u001b[2J&quot;</code>.</p>
+<p>Dzięki temu nasz program stanie się nieco czytelniejszy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ten tekst zaraz zniknie! Naciśnij tylko enter...&#34;</span>)
+</span></span><span style="display:flex;"><span>    readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(wyczyśćEkran())
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Ha! A nie mówiłem!&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Będziemy mieli więcej takich funkcji i dobrze byłoby je jakoś pogrupować, żeby łatwo było je znaleźć. Zacznijmy od czegoś takiego:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.narzedzia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Ansi</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>(): String = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Stworzyliśmy właśnie nowy typ <code>Ansi</code>, dzięki czemu wszystkie powiązane metody będą w jednym miejscu i IntelliJ po napisaniu <code>Ansi().</code> będzie wyświetlał wszystkie dostępne w naszym narzędziu funkcje. Sposób użycia nie jest jednak idealny:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;To zaraz zniknie! Naciśnij enter...&#34;</span>)
+</span></span><span style="display:flex;"><span>readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(Ansi().wyczyśćEkran())
+</span></span><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;Ha! A nie mówiłem!&#34;</span>)
+</span></span></code></pre></div><p><code>Ansi</code> to typ danych, i za każdym razem, kiedy chcemy użyć jakiejś funkcji zdefiniowanej w tym typie, musimy stworzyć obiekt tego typu przy użyciu konstruktora <code>Ansi()</code>. Wprowadźmy drobną zmianę:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.narzedzia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Ansi</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>(): String = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Słówko <code>object</code> działa podobnie jak <code>class</code> pod tym względem, że też służy ono do zdefiniowania nowego typu danych. Różnica jest taka, że jednocześnie tworzymy obiekt tego typu o nazwie takiej samej jak nazwa typu. Ponadto nie da się utworzyć innych obiektów tego typu: <code>object Ansi</code> oznacza, że jest tylko jeden obiekt typu <code>Ansi</code>, i nazywa się on <code>Ansi</code>. Upraszcza to nieco jego użycie:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>println(<span style="color:#e6db74">&#34;To zaraz zniknie! Naciśnij enter...&#34;</span>)
+</span></span><span style="display:flex;"><span>readln()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.wyczyśćEkran()) <span style="color:#75715e">// nie ma nawiasów `()` po `Ansi`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>println(<span style="color:#e6db74">&#34;Ha! A nie mówiłem!&#34;</span>)
+</span></span></code></pre></div><h3 id="object-vs-class"><code>object</code> vs. <code>class</code></h3>
+<p>W zrozumieniu różnicy pomiędzy <code>object</code> i <code>class</code> może pomóc wam następujący przykład:</p>
+<p><code>class KrzesłoZIkei</code> to takie krzesło, które jest masowo produkowane w fabryce. Dowolny egzemplarz krzesła nie różni się szczególnie od innych.</p>
+<p><code>object UnikatoweKrzesłoMisternieWystruganePrzezWujkaWładkaWJegoWarsztaciku</code> to jedyne w swoim rodzaju krzesło. Nie ma drugiego takiego krzesła, nawet gdyby wujaszek bardzo się postarał, co najwyżej wyjdzie mu <code>object ZupełnieInneUnikatoweKrzesłoWładkowejProdukcji</code>.</p>
+<h3 id="dygresja-dlaczego-return-zamiast-print">Dygresja: dlaczego <code>return</code> zamiast <code>print</code>?</h3>
+<p>Możecie się zastanawiać, dlaczego nasza funkcja <code>wyczyśćEkran</code> zwraca komendę do czyszczenia obrazu, zamiast od razu wypisać ją na ekran przy użyciu <code>print</code>&lsquo;a. Będzie nam to potrzebne na późniejszych zajęciach, gdy będziemy zajmować się animacjami.</p>
+<h2 id="pozostałe-funkcje-w-narzędziu-ansi">Pozostałe funkcje w narzędziu Ansi</h2>
+<p>Dodajmy metodę do zmiany koloru tekstu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.narzedzia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Ansi</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>(): String = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">kolorTekstu</span>(kolor: Color?) = <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Użyłem tutaj typu <code>Color</code>, który musimy zaimportować (będzie się on &ldquo;świecić&rdquo; na czerwono; po najechaniu na ten tekst kursorem możemy nacisnąć <code>Alt + Enter</code>, a IntelliJ doda na górze pliku linijkę <code>import java.awt.Color</code>). Jest to typ dostępny w standardowych bibliotekach (tak jak <code>List</code>, <code>IntRange</code>, itp.) i prościej skorzystać z niego niż pisać od zera własny.</p>
+<p>Żeby utworzyć obiekt typu <code>Color</code>, możemy użyć konstruktora <code>Color(r: Int, g: Int, b: Int)</code>, który
+przyjmuje trzy składowe koloru w postaci liczb z przedziału od <code>0</code> do <code>255</code>. Jeśli podany <code>kolor</code> będzie <code>null</code>em, przywrócimy domyślny kolor tekstu sekwencją <code>\u001b[39m</code>. W przeciwnym razie
+użyjemy sekwencji <code>\u001b[38;2;r;g;bm</code>, zastępując <code>r</code>, <code>g</code> i <code>b</code> wartościami wyciągniętymi z obiektu <code>kolor</code> przy użyciu <code>kolor.red</code>, <code>kolor.blue</code> itd.:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.narzedzia
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Ansi</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">wyczyśćEkran</span>() = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[2J&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">kolorTekstu</span>(kolor: Color?) = <span style="color:#66d9ef">when</span> (kolor) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">null</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[39m&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001b</span><span style="color:#e6db74">[38;2;</span><span style="color:#e6db74">${kolor.red}</span><span style="color:#e6db74">;</span><span style="color:#e6db74">${kolor.green}</span><span style="color:#e6db74">;</span><span style="color:#e6db74">${kolor.blue}</span><span style="color:#e6db74">m&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Pozostałe funkcje dopiszcie sami!</p>
+<h2 id="choinka">Choinka</h2>
+<p>Możemy troszkę pozmieniać program &ldquo;Trójkąt&rdquo;, aby wypisać na ekran kolorową choinkę:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> wysokośćChoinki = <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj gwiazdkę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.kolorTekstu(<span style="color:#a6e22e">Color</span>.YELLOW))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34; &#34;</span>.repeat(wysokośćChoinki) + <span style="color:#e6db74">&#34; * &#34;</span>)
+</span></span><span style="display:flex;"><span>    println()
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj gałązki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> liczbaSpacji = wysokośćChoinki
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> liczbaGałązek = <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.kolorTekstu(Color(<span style="color:#ae81ff">26</span>, <span style="color:#ae81ff">80</span>, <span style="color:#ae81ff">26</span>)))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.wysokośćChoinki) {
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34; &#34;</span>.repeat(liczbaSpacji))
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;#&#34;</span>.repeat(liczbaGałązek))
+</span></span><span style="display:flex;"><span>        println()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// ponieważ rysujemy &#34;trójkąt&#34; w drugą stronę,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// zmniejszamy liczbę spacji
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// i zwiększamu liczbę gałązek
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        liczbaSpacji <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        liczbaGałązek <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj pień i podstawkę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.kolorTekstu(Color(<span style="color:#ae81ff">0x4F</span>, <span style="color:#ae81ff">0x39</span>, <span style="color:#ae81ff">0x08</span>)))
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34; &#34;</span>.repeat(wysokośćChoinki - <span style="color:#ae81ff">1</span>) + <span style="color:#e6db74">&#34; III &#34;</span>)
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34; &#34;</span>.repeat(wysokośćChoinki - <span style="color:#ae81ff">1</span>) + <span style="color:#e6db74">&#34; III &#34;</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.kolorTekstu(<span style="color:#a6e22e">Color</span>.DARK_GRAY))
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34; &#34;</span>.repeat(wysokośćChoinki - <span style="color:#ae81ff">1</span>) + <span style="color:#e6db74">&#34;=====&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="choinka.png" alt=""></p>
+<p>Zwróćcie uwagę na kilka różnych sposobów tworzenia obiektu typu <code>Color</code>:</p>
+<ul>
+<li>Do gwiazdki użyliśmy stałej bibliotecznej <code>Color.YELLOW</code></li>
+<li>Dla igliwia podaliśmy składowe RGB jako liczby dziesiętne <code>Color(26, 80, 26)</code></li>
+<li>Dla pnia podaliśmy składowe jako liczby szesnastkowe <code>Color(0x4F, 0x39, 0x08)</code></li>
+</ul>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

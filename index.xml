@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 06 Dec 2022 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Dec 2022 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 9: rysowanie w kolorze</title>
+      <link>https://jerz.codes/posts/2022-12-20/</link>
+      <pubDate>Tue, 20 Dec 2022 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2022-12-20/</guid>
+      <description>Omówienie zadania: Trójkąt Nowy materiał Rysowanie w kolorze Narzędzie Ansi object vs. class Dygresja: dlaczego return zamiast print? Pozostałe funkcje w narzędziu Ansi Choinka Omówienie zadania: Trójkąt Zacznijmy od &amp;ldquo;nudnych&amp;rdquo; części programu: wczytania wysokości trójkąta, sprawdzeniu, czy użytkownik nie wpisał głupot, itp.:
+fun main() = terminal { do { print(&amp;#34;Podaj wysokość trójkąta: &amp;#34;) val wysokość = readln().toIntOrNull() if (wysokość != null &amp;amp;&amp;amp; wysokość &amp;gt; 0) { // tu będziemy rysować coś w ten deseń: // // ******* // ***** // *** // * } println() } while (true) } Zauważcie następującą rzecz: każda linijka składa się z nieparzystej liczby gwiazdek poprzedzonych spacjami.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 8: `class`, `data class`</title>
       <link>https://jerz.codes/posts/2022-12-06/</link>
