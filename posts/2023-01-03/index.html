@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 10: `Map` i `enum class` | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 10: <code>Map</code> i <code>enum class</code></span></h1>
+
+<h2 class="date">2023/01/03</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#po-jakie-licho-są-nam-klasy"><em>&ldquo;Po jakie licho są nam klasy?&rdquo;</em></a></li>
+    <li><a href="#nowy-materiał">Nowy materiał</a>
+      <ul>
+        <li><a href="#enum-class"><code>enum class</code></a></li>
+        <li><a href="#map"><code>Map</code></a></li>
+        <li><a href="#słownik">Słownik</a></li>
+      </ul>
+    </li>
+    <li><a href="#co-dalej">Co dalej?</a></li>
+  </ul>
+</nav>
+</div>
+<h1 id="po-jakie-licho-są-nam-klasy"><em>&ldquo;Po jakie licho są nam klasy?&rdquo;</em></h1>
+<p>Pytanie, które zadał mi po ostatnich zajęciach Jurek, i które pewnie niejednemu z was przyszło do głowy.</p>
+<p>Programy, które napisaliśmy do tej pory, faktycznie dało napisać się bez tworzenia własnych klas. Przy kolejnych, bardziej skomplikowanych programach, korzystanie jedynie z wbudowanych typów danych będzie albo niepraktyczne, albo wręcz niemożliwe. Dlatego też chciałem powoli zacząć wprowadzać pojęcie klas.</p>
+<p>Na przykład, punkt na dwuwymiarowej płaszczyźnie można opisać i przekazywać do funkcji jako dwie liczby <code>x</code> i <code>y</code>. Nie da się natomiast napisać funkcji, która zwróci dwie liczby: instrukcja <code>return</code> może zwrócić tylko jeden obiekt. Tak więc funkcja, która miałaby zwracać współrzędne <code>x</code> i <code>y</code>, musi je &ldquo;opakować&rdquo; w jakiś obiekt.</p>
+<p>Przed podobnym dylematem staniemy, jeśli będziemy potrzebować listy punktów: teoretycznie możliwe jest stworzenie dwóch list (jedna na współrzędne <code>x</code>, druga na współrzędne <code>y</code>), albo wrzucanie współrzędnych naprzemiennie do jednej listy (czyli zrobienie <code>listOf(x1, y1, x2, y2, itd.)</code>), albo zastosowanie jeszcze bardziej karkołomnej konstrukcji. Lepiej będzie jednak utworzyć <code>data class Point(val x: Int, val y: Int)</code>, i korzystać po prostu z <code>List&lt;Point&gt;</code>.</p>
+<p>Inna korzyść z używania własnych typów danych to lepsze odzwierciedlenie w kodzie problemu, nad którym pracujemy. Fachowo programiści nazywają to &ldquo;modelowaniem domeny&rdquo;. Chodzi z grubsza o to, że jeśli w naszym programie robimy jakieś rzeczy z punktami na płaszczyźnie, to dobrze jest mieć klocki, które odpowiadają tym punktom, zamiast żonglować &ldquo;luźnymi&rdquo; <code>Int</code>ami. Dobre &ldquo;zamodelowanie&rdquo; obiektów znacznie ułatwia pisanie pozostałych części programu i utrudnia zrobienie błędów.</p>
+<h1 id="nowy-materiał">Nowy materiał</h1>
+<h2 id="enum-class"><code>enum class</code></h2>
+<p>W programie &ldquo;Kółko i Krzyżyk&rdquo; przechowywaliśmy planszę jako <code>List&lt;String&gt;</code>. Wspomniałem wówczas, że nie jest to najlepsze rozwiązanie. Użycie takiej struktury umożliwia popełnienie błędów w stylu używanie w jednym miejscu małego <code>x</code> a w innych dużego <code>X</code> to reprezentowania symbolu krzyżyka.</p>
+<p>Zamiast korzystać ze <code>String</code>&lsquo;ów moglibyśmy stworzyć własny typ opisujący symbol na planszy. Poznaliśmy do tej pory dwa rodzaje własnych typów:</p>
+<ul>
+<li><code>class</code> (oraz <code>data class</code>), gdy chcemy mieć możliwość stworzenia dowolnej ilości obiektów jakiegoś typu</li>
+<li><code>object</code>, gdy zależy nam na tym, żeby istniał tylko jeden obiekt tego typu (pamiętacie <code>MisterneRęcznieWystruganeKrzesłoWujkaWładka</code>?)</li>
+</ul>
+<p>Żadne z tych rozwiązań nie pasuje do &ldquo;Kółka i Krzyżyk&rdquo; gdzie potrzebujemy dokładnie dwóch obiektów naszego nowego typu: jednego dla kółek, drugiego dla krzyżyków. Potrzebny będzie nam nowy rodzaj obiektów: <code>enum class</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Symbol</span> { KÓŁKO, KRZYŻYK }
+</span></span></code></pre></div><p>Pierwszą rzeczą w ciele obiektów typu <code>enum</code> jest oddzielona przecinkami lista wszystkich obiektów tego typu. Dla wartości <code>enum</code>&lsquo;ów przyjęło się stosować nazwy w formie <code>SNAKE_UPPER_CASE</code>, czyli wyrazy pisane wielką literą oddzielone znakiem <code>_</code>.</p>
+<p>Możemy później użyć tego typu do przechowywania danych o planszy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// używamy opcjonalnego typu, null będzie oznaczał puste pole
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">val</span> plansza = mutableListOf&lt;Symbol?&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">9</span>) { plansza.add(<span style="color:#66d9ef">null</span>) }
+</span></span></code></pre></div><p>Podobnie jak przypadku innych <code>class</code>, możemy do naszego <code>enum</code>a dodać konstruktor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#66d9ef">val</span> znaczek: Char) {
+</span></span><span style="display:flex;"><span>    KÓŁKO,
+</span></span><span style="display:flex;"><span>    KRZYŻYK
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Linijki z <code>KÓŁKO</code> i <code>KRZYŻYK</code> zostaną podkreślone na czerwono: w tych miejscach tak naprawdę tworzymy obiekty typu <code>Symbol</code>, a właśnie powiedzieliśmy, że każdy obiekt tego typu powinien otrzymać w konstruktorze <code>znaczek</code> typu <code>Char</code>. Musimy dodać odpowiednie wywołania konstruktorów:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#66d9ef">val</span> znaczek: Char) {
+</span></span><span style="display:flex;"><span>    KÓŁKO(<span style="color:#e6db74">&#39;O&#39;</span>),
+</span></span><span style="display:flex;"><span>    KRZYŻYK(<span style="color:#e6db74">&#39;X&#39;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="map"><code>Map</code></h2>
+<p>Poznajmy kolejną strukturę danych: <code>Map</code>.</p>
+<p>W niektórych językach programowania (np: w Pythonie czy w C#) ta struktura danych nazywana jest słownikiem i myślę, że na tym przykładzie będzie wam to łatwo wytłumaczyć.</p>
+<p>Załóżmy, że mamy &ldquo;papierowy&rdquo; słownik polsko-angielski i potrzebujemy przetłumaczyć kilka wyrazów. Każdy wpis w takim słowniku składa się z dwóch części: polskiego wyrazu oraz jego angielskiego tłumaczenia (zazwyczaj nie jest to pojedynczy wyraz w języku angielskim, ale kilka synonimów; w niektórych słownikach można też znaleźć przykładowe zdania). Hasła w słowniku ułożone są w porządku alfabetycznym, żeby ułatwić szukanie tłumaczeń.</p>
+<p>A czy jest możliwe przetłumaczenie wyrazów &ldquo;w drugą stronę&rdquo;, tj. angielskich wyrazów na język polski przy użyciu słownika polsko-angielskiego? Czysto teoretycznie tak – wystarczy &ldquo;tylko&rdquo; przeczytać cały słownik od deski do deski. Jest to możliwe, ale niepraktyczne.</p>
+<p>Na takiej samej zasadzie działa struktura danych <code>Map</code>. Każdy wpis w naszej &ldquo;mapie&rdquo; składa się z dwóch elementów: Klucza i Wartości. W naszej słownikowej analogii Klucz to polski wyraz, a Wartość to wpis zawierający angielskie tłumaczenia. Wartości można łatwo i szybko odszukać, jeśli znamy pasujący Klucz, a przeszukiwanie samych Wartości jest możliwe, ale nieefektywne.</p>
+<h2 id="słownik">Słownik</h2>
+<p>Napiszmy prosty program tłumaczący polskie wyrazy na język angielski.</p>
+<p>Tłumaczenia będziemy oczywiście przechowywać w strukturze Map. Możemy ją utworzyć przy użyciu funkcji <code>mapOf</code>. Podobnie, jak w przypadku <code>listOf</code>, będziemy musieli podać w trójkątnych nawiasach, jakiego typu będą Klucze i
+Wartości w naszej mapie. Dla uproszczenia użyjmy typu <code>String</code> zarówno dla Kluczy, jak i Wartości:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownik = mapOf&lt;String, String&gt;()
+</span></span></code></pre></div><p>W nawiasach okrągłych możemy podać zawartość naszej <code>Map</code>y. Każdy element w <code>Map</code>ie składa się z dwóch części, Klucza i Wartości, więc musimy użyć następującej składni:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownik = mapOf&lt;String, String&gt;(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;pies&#34;</span> to <span style="color:#e6db74">&#34;dog&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Słówko <code>to</code> pomiędzy dwoma tekstami wygląda trochę dziwnie, ale w rzeczywistości to jest po prostu wywołanie funkcji. Funkcja biblioteczna <code>to</code> została oznaczona specjalnym modyfikatorem <code>infix</code>, żeby można było wywoływać ją w taki sposób. Typ zwracany przez funkcję <code>to</code> to <code>Pair</code>, czyli para obiektów:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> wpis: Pair&lt;String, String&gt; = <span style="color:#e6db74">&#34;pies&#34;</span> to <span style="color:#e6db74">&#34;dog&#34;</span>
+</span></span></code></pre></div><p><code>Map</code> podobnie jak <code>List</code> jest &ldquo;niemutowalna&rdquo;, czyli po jej utworzeniu nie można zmieniać jej zawartości. Istnieje też coś takiego jak <code>MutableMap</code>, czyli &ldquo;mutowalny&rdquo; odpowiednik naszej <code>Mapy</code>, który można utworzyć za pomocą funkcji <code>mutableMapOf</code>.</p>
+<p>Wyszukiwanie wartości w <code>Map</code>ie odbywa się za pomocą operatora <code>[]</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownik = mapOf&lt;String, String&gt;(<span style="color:#75715e">/* wpisy */</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> polskiWyraz: String = readln()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> angielskiWyraz: String? = słownik[polskiWyraz]
+</span></span></code></pre></div><p>Zauważcie, że wynik wyszukiwania jest typem opcjonalnym (z <code>?</code> doklejonym do typu przechowywanego w <code>Map</code>ie): nie możemy przecież zagwarantować, że wpis z podanym przez nas kluczem będzie znajdować się w naszej <code>Map</code>ie. Pamiętajcie o tym przypadku, gdy będziecie korzystać z tej struktury danych!</p>
+<h1 id="co-dalej">Co dalej?</h1>
+<p>Poznane dzisiaj narzędzia pozwolą nam w sensowny sposób napisać kolejny duży program: grę &ldquo;Bitwa Morska&rdquo;, czyli znaną wam z wersji papierowej grę &ldquo;w statki&rdquo;. Będziemy się tym zajmować na następnych zajęciach (i prawdopodobnie nie skończymy – spodziewam się, że na losowanie pozycji statków będziemy potrzebować kolejnych całych zajęć).</p>
+<p>Zgodnie odrzuciliście propozycję rozwiązywania zagadek programistycznych. Bajtazar z Bajtocji będzie musiał znaleźć innych pomocników, a my skupimy się na pisaniu kolejnych gier. Po &ldquo;Bitwie Morskiej&rdquo; weźmiemy na warsztat klon &ldquo;Wordle&rdquo;, &ldquo;Sapera&rdquo; i napiszemy kilka prostych animacji.</p>
+<p>Myślę, że dobrze byłoby też wrócić do wcześniej napisanych programów i spróbować użyć nowych rzeczy:</p>
+<ul>
+<li>W programie &ldquo;Kółko i Krzyżyk&rdquo; zamiast typu <code>String</code> można użyć <code>enum class</code>. Będziemy potrzebować dwóch typów: jednego do reprezentowania symbolu (kółko lub krzyżyk), drugiego do wyniku (wygrana X, wygrana O, remis).</li>
+<li>Spróbujcie przechowywać planszę w grze &ldquo;Kółko i Krzyżyk&rdquo; jako <code>MutableMap&lt;…&gt;</code> zamiast <code>MutableList&lt;…&gt;</code></li>
+<li>Nasza struktura danych w &ldquo;Wisielcu&rdquo; była nieco koślawa. Można ją trochę naprostować używając <code>data class Literka(val char: Char, var odkryta: Boolean)</code> (zauważcie, że <code>odkryta</code> to zmienna!).</li>
+</ul>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

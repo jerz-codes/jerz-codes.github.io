@@ -6,7 +6,17 @@
     <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 20 Dec 2022 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 03 Jan 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 10: `Map` i `enum class`</title>
+      <link>https://jerz.codes/posts/2023-01-03/</link>
+      <pubDate>Tue, 03 Jan 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-01-03/</guid>
+      <description>&amp;ldquo;Po jakie licho są nam klasy?&amp;rdquo; Nowy materiał enum class Map Słownik Co dalej? &amp;ldquo;Po jakie licho są nam klasy?&amp;rdquo; Pytanie, które zadał mi po ostatnich zajęciach Jurek, i które pewnie niejednemu z was przyszło do głowy.
+Programy, które napisaliśmy do tej pory, faktycznie dało napisać się bez tworzenia własnych klas. Przy kolejnych, bardziej skomplikowanych programach, korzystanie jedynie z wbudowanych typów danych będzie albo niepraktyczne, albo wręcz niemożliwe. Dlatego też chciałem powoli zacząć wprowadzać pojęcie klas.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 9: rysowanie w kolorze</title>
       <link>https://jerz.codes/posts/2022-12-20/</link>
