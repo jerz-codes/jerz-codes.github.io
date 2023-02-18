@@ -6,7 +6,16 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 03 Jan 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 14 (chyba?): Biedamatrix, cz.1</title>
+      <link>https://jerz.codes/posts/2023-02-14/</link>
+      <pubDate>Tue, 14 Feb 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-02-14/</guid>
+      <description>Krok 1: wyświetl literkę Krok 2: przesuń literkę na środek ekranu Krok 3: zmień kolor litery na zielony Krok 4: ukryj kursor Krok 5: spadająca literka Krok 6: losowanie litery Krok 7: spadanie w nieskończoność Krok 8: wiele literek Krok 9: smugi za literkami Co dalej? Przez kilka ostatnich zajęć wałkowaliśmy program &amp;ldquo;Gra w Statki&amp;rdquo; i powtórki materiału. Jako że wszyscy (włącznie z prowadzącym) odczuwają potrzebę zrobienia czegoś innego, napiszemy dzisiaj naszą pierwszą animację.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 10: `Map` i `enum class`</title>
       <link>https://jerz.codes/posts/2023-01-03/</link>

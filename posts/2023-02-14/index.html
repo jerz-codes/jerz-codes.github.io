@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 14 (chyba?): Biedamatrix, cz.1 | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 14 (chyba?): Biedamatrix, cz.1</span></h1>
+
+<h2 class="date">2023/02/14</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#krok-1-wyświetl-literkę">Krok 1: wyświetl literkę</a></li>
+    <li><a href="#krok-2-przesuń-literkę-na-środek-ekranu">Krok 2: przesuń literkę na środek ekranu</a></li>
+    <li><a href="#krok-3-zmień-kolor-litery-na-zielony">Krok 3: zmień kolor litery na zielony</a></li>
+    <li><a href="#krok-4-ukryj-kursor">Krok 4: ukryj kursor</a></li>
+    <li><a href="#krok-5-spadająca-literka">Krok 5: spadająca literka</a></li>
+    <li><a href="#krok-6-losowanie-litery">Krok 6: losowanie litery</a></li>
+    <li><a href="#krok-7-spadanie-w-nieskończoność">Krok 7: spadanie w nieskończoność</a></li>
+    <li><a href="#krok-8-wiele-literek">Krok 8: wiele literek</a></li>
+    <li><a href="#krok-9-smugi-za-literkami">Krok 9: smugi za literkami</a></li>
+    <li><a href="#co-dalej">Co dalej?</a></li>
+  </ul>
+</nav>
+</div>
+<p>Przez kilka ostatnich zajęć wałkowaliśmy program &ldquo;Gra w Statki&rdquo; i powtórki materiału. Jako że wszyscy (włącznie z prowadzącym) odczuwają potrzebę zrobienia czegoś innego, napiszemy dzisiaj naszą pierwszą animację. Weźmiemy na warsztat animację znaną z kultowego filmu Matrix:</p>
+<img style="display: block; margin: 0 auto;" src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Digital_rain_animation_medium_letters_shine.gif"/>
+<p>Spodziewam się, że nasze pierwsze podejście nie będzie wyglądało raczej biednie, stąd nazwa programu: &ldquo;Biedamatrix&rdquo;.</p>
+<h1 id="krok-1-wyświetl-literkę">Krok 1: wyświetl literkę</h1>
+<p>Nasza animacja będzie składać się z literek, tak więc pierwszym krokiem będzie wyświetlenie pojedynczej literki. Ustalmy też rozmiar okna oraz wielkość czcionki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">package</span> jerz.codes.animacje
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> jerz.codes.terminal.terminal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> SZEROKOSC = <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> WYSOKOSC = <span style="color:#ae81ff">30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = SZEROKOSC,
+</span></span><span style="display:flex;"><span>    heightInTiles = WYSOKOSC,
+</span></span><span style="display:flex;"><span>    fontSize = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="krok1.png" alt=""></p>
+<h1 id="krok-2-przesuń-literkę-na-środek-ekranu">Krok 2: przesuń literkę na środek ekranu</h1>
+<p>Nasza litera nie zawsze będzie znajdować się przy lewej krawędzi ekranu. Teoretycznie moglibyśmy przesunąć ją w prawo przez wypisanie odpowiedniej ilości spacji (np.: <code>print(&quot; &quot;.repeat(15)</code>), ale lepszym rozwiązaniem będzie użycie odpowiedniej instrukcji Ansi, o których była mowa na <a href="https://jerz.codes/posts/2022-12-20/">zajęciach nr 9</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Ansi</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// …inne funkcje
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * Okno konsoli używa następującego układu
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * współrzędnych:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     * (1, 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       *-----------------&gt; x
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       |
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       |
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       |
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       V
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     *       y
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">     */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">przesuńKursor</span>(x: Int, y: Int): String {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u001B</span><span style="color:#e6db74">[</span><span style="color:#e6db74">$y</span><span style="color:#e6db74">;</span><span style="color:#e6db74">${x}</span><span style="color:#e6db74">H&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Stworzymy też dwie zmienne, żeby przechowywać w nich współrzędne literki.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = SZEROKOSC,
+</span></span><span style="display:flex;"><span>    heightInTiles = WYSOKOSC,
+</span></span><span style="display:flex;"><span>    fontSize = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesunKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="krok2.png" alt=""></p>
+<h1 id="krok-3-zmień-kolor-litery-na-zielony">Krok 3: zmień kolor litery na zielony</h1>
+<p>Nasze Biedamatrixowe literki powinny być zielone! Skorzystamy z kolejnej instrukcji ANSI, żeby zmienić kolor czcionki:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = SZEROKOSC,
+</span></span><span style="display:flex;"><span>    heightInTiles = WYSOKOSC,
+</span></span><span style="display:flex;"><span>    fontSize = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="krok3.png" alt=""></p>
+<h1 id="krok-4-ukryj-kursor">Krok 4: ukryj kursor</h1>
+<p>Kwadratowy kursor znajdujący się za literką psuje nieco efekt wizualny. Na szczęście jest instrukcja ANSI (<code>\u001b[?25l</code>), która ukrywa kursor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = SZEROKOSC,
+</span></span><span style="display:flex;"><span>    heightInTiles = WYSOKOSC,
+</span></span><span style="display:flex;"><span>    fontSize = <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.ukryjKursor())
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="krok4.png" alt=""></p>
+<h1 id="krok-5-spadająca-literka">Krok 5: spadająca literka</h1>
+<p>Czas zacząć animację naszej literki!</p>
+<p>Tak naprawdę, animacja komputerowa polega na wyświetlaniu kolejnych obrazów bardzo szybko, jeden po drugim. Tak więc, jeśli chcemy narysować spadającą literkę, musimy narysować literkę na górze ekranu, a następnie wyczyścić ekran i narysować literkę o jedno pole niżej, i powtarzać to, aż literka znajdzie się poza dolną krawędzią ekranu.</p>
+<p>W terminalowym układzie współrzędnych <code>y</code> to tak naprawdę numer wiersza na ekranie, tak więc przy ruchu w dół będziemy zwiększać <code>y</code> o jeden przy każdym kroku:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.ukryjKursor())
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// wyczyść ekran
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.wyczyśćEkran())
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj literkę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;a&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// zmień współrzędną y, aby w następnej klatce
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// animacji literka została narysowana niżej 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    y <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// poczekaj 0.1s przed narysowaniem kolejnej klatki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">Thread</span>.sleep(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (y <span style="color:#f92672">&lt;=</span> WYSOKOSC) <span style="color:#75715e">// powtarzaj, dopóki literka nie spadnie na sam dół
+</span></span></span></code></pre></div><p>Ukrywanie kursora i zmiana koloru czcionki wylądowała poza pętlą, ponieważ nie ma potrzeby robić tego wielokrotnie.</p>
+<p>Po narysowaniu każdej klatki animacji musimy chwilkę odczekać: w przeciwnym razie nasz program zakończyłby się w mgnieniu oka i nie dostrzeglibyśmy efektu ruchu literki. Wykorzystamy metodę <code>Thread.sleep(…)</code>, żeby kazać komputerowi czekać 100 milisekund.</p>
+<h1 id="krok-6-losowanie-litery">Krok 6: losowanie litery</h1>
+<p>W Matrixowej animacji literka podczas spadania cały czas się zmienia. Nasz Biedamatrix na razie pokazuje tylko literkę <code>a</code>, co nie wygląda równie imponująco. Możemy nieco poprawić efekt, losując literkę przy każdej klatce animacji:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> znaki = <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">..</span><span style="color:#e6db74">&#39;Z&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.ukryjKursor())
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.wyczyśćEkran())
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(znaki.random())
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span>.sleep(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (y <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">30</span>)
+</span></span></code></pre></div><h1 id="krok-7-spadanie-w-nieskończoność">Krok 7: spadanie w nieskończoność</h1>
+<p>Gdy litera spadnie poza dolną krawędź ekranu, możemy &ldquo;teleportować&rdquo; ją z powrotem do pierwszego wiersza i wylosować nową współrzędną <code>x</code>. Dzięki temu nasza animacja będzie mogła działać w nieskończonej pętli:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> x = SZEROKOSC / <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> znaki = <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">..</span><span style="color:#e6db74">&#39;Z&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.ukryjKursor())
+</span></span><span style="display:flex;"><span>print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.wyczyśćEkran())
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(x, y))
+</span></span><span style="display:flex;"><span>    print(znaki.random())
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (y &gt; WYSOKOSC) {
+</span></span><span style="display:flex;"><span>        x = (<span style="color:#ae81ff">1.</span>.SZEROKOSC).random()
+</span></span><span style="display:flex;"><span>        y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span>.sleep(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span></code></pre></div><h1 id="krok-8-wiele-literek">Krok 8: wiele literek</h1>
+<p>Czas na dość trudny krok: animowanie wielu liter.</p>
+<p>Gdy animowaliśmy jedną literę, mogliśmy po prostu użyć dwóch zmiennych <code>x</code> i <code>y</code>. Teraz będziemy musieli przechowywać dwie współrzędne dla wielu liter naraz. Po pierwsze, potrzebny będzie &ldquo;klocek&rdquo;, który może przechować wszystkie dane dotyczące litery:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Litera</span>(<span style="color:#66d9ef">var</span> x: Int, <span style="color:#66d9ef">var</span> y: Int)
+</span></span></code></pre></div><p>Po drugie, potrzebna będzie <code>List</code>a takich klocków:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> litery = mutableListOf&lt;Litera&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">42</span>) {
+</span></span><span style="display:flex;"><span>    litery.add(Litera(x = (<span style="color:#ae81ff">1.</span>.SZEROKOSC).random(), y = <span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>W głównej pętli kod, który wykonywaliśmy dla pojedynczej litery, będziemy musieli wykonać dla wszystkich liter na liście:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.wyczyśćEkran())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (litera <span style="color:#66d9ef">in</span> litery) {
+</span></span><span style="display:flex;"><span>        print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, litera.y))
+</span></span><span style="display:flex;"><span>        print(znaki.random())
+</span></span><span style="display:flex;"><span>        litera.y <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (litera.y &gt; WYSOKOSC) {
+</span></span><span style="display:flex;"><span>            litera.x = (<span style="color:#ae81ff">1.</span>.SZEROKOSC).random()
+</span></span><span style="display:flex;"><span>            litera.y = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span>.sleep(<span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span></code></pre></div><p>Po powyższych zmianach nasz Biedamatrix wygląda naprawdę biednie, ponieważ nasze literki będą maszerować w zwartym szeregu:</p>
+<p><img src="krok8.png" alt=""></p>
+<p>Dzieje się tak, ponieważ tworząc początkową listę literek użyliśmy tego samego <code>y=1</code> dla wszystkich liter. Proponuję rozwiązać ten problem losując początkowy <code>y</code> z przedziału <code>-WYSOKOSC..0</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> litery = mutableListOf&lt;Litera&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">42</span>) {
+</span></span><span style="display:flex;"><span>    litery.add(
+</span></span><span style="display:flex;"><span>        Litera(
+</span></span><span style="display:flex;"><span>            x = (<span style="color:#ae81ff">1.</span>.SZEROKOSC).random(), 
+</span></span><span style="display:flex;"><span>            y = (-<span style="color:#a6e22e">WYSOKOSC</span><span style="color:#f92672">..</span><span style="color:#ae81ff">0</span>).random()
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Dzięki temu nasze literki będą &ldquo;rozrzucone&rdquo; po całym ekranie, a jednocześnie przy starcie ekranu żadna z liter nie będzie widoczna.</p>
+<p>Konieczna będzie jeszcze jedna zmiana: nasz <code>terminal</code> nie lubi, gdy ktoś próbuje ustawić kursor na pozycji <code>y</code> mniejszej od 0. Musimy &ldquo;owinąć&rdquo; kod rysujący literkę w instrukcję warunkową, która sprawdzi, czy <code>y</code> jest poprawne:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (litera.y &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, litera.y))
+</span></span><span style="display:flex;"><span>    print(znaki.random())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Nasz Biedamatrix jest wciąż biedny, ale zaczyna już być czymś matrixopodobnym:</p>
+<p><img src="krok8a.png" alt=""></p>
+<h1 id="krok-9-smugi-za-literkami">Krok 9: smugi za literkami</h1>
+<p>W prawdziwej Matrixowej animacji wszystkie literki zostawiają za sobą gasnące smugi. My na razie zrobimy coś prostszego: nad każdą literką będziemy rysować smugę o długości 10 znaków. Literka będzie rysowana białym kolorem, smuga zielonym.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (litera.y &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj białą literkę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.WHITE))
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, litera.y))
+</span></span><span style="display:flex;"><span>    print(znaki.random())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// narysuj zieloną smugę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (dy <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> ySmugi = litera.y - dy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (ySmugi &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            print(<span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, ySmugi))
+</span></span><span style="display:flex;"><span>            print(znaki.random())
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Do rysowania smugi użyjemy pętli <code>for</code> po przedziale <code>1..10</code>. Ponieważ smuga rysowana jest powyżej literki, będziemy od współrzędnej <code>litera.y</code> odejmować wartość <code>dy</code>.</p>
+<p>Podobnie jak w przypadku rysowania samej literki, musimy sprawdzić współrzędną <code>y</code> dla każdego elementu w smudze.</p>
+<p><img src="krok9.png" alt=""></p>
+<h1 id="co-dalej">Co dalej?</h1>
+<p>Na następnych zajęciach postaramy się ulepszyć naszą animację!</p>
+<p>Przede wszystkim, zaobserwowaliście pewnie dziwne &ldquo;mruganie&rdquo; ekranu. Pozbycie się tych &ldquo;glitchy&rdquo; to pierwsza rzecz, którą będziemy musieli się zająć.</p>
+<p>Po drugie, nasze smugi nie prezentują się zbyt dobrze: znikają nagle, gdy litera dolatuje do krawędzi; cała smuga narysowana jest jednym kolorem; literki w smudze zmieniają się cały czas, a powinny w 90% pozostawać takie same (popatrzcie na animację na początku tego wpisu).</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
