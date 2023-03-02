@@ -254,7 +254,7 @@ Po powyższych zmianach nasz Biedamatrix wygląda naprawdę biednie, ponieważ n
 
 ![](krok8.png)
 
-Dzieje się tak, ponieważ tworząc początkową listę literek użyliśmy tego samego `y=1` dla wszystkich liter. Proponuję rozwiązać ten problem losując początkowy `y` z przedziału `-WYSOKOSC..0`:
+Dzieje się tak, ponieważ tworząc początkową listę literek użyliśmy tego samego `y=1` dla wszystkich liter. Proponuję rozwiązać ten problem losując początkowy `y` z przedziału `-WYSOKOSC..-1`:
 
 ```kotlin
 val litery = mutableListOf<Litera>()
@@ -262,7 +262,7 @@ for (i in 1..42) {
     litery.add(
         Litera(
             x = (1..SZEROKOSC).random(), 
-            y = (-WYSOKOSC..0).random()
+            y = (-WYSOKOSC..-1).random()
         )
     )
 }
