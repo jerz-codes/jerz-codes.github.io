@@ -233,13 +233,13 @@
 </span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
 </span></span></code></pre></div><p>Po powyższych zmianach nasz Biedamatrix wygląda naprawdę biednie, ponieważ nasze literki będą maszerować w zwartym szeregu:</p>
 <p><img src="krok8.png" alt=""></p>
-<p>Dzieje się tak, ponieważ tworząc początkową listę literek użyliśmy tego samego <code>y=1</code> dla wszystkich liter. Proponuję rozwiązać ten problem losując początkowy <code>y</code> z przedziału <code>-WYSOKOSC..0</code>:</p>
+<p>Dzieje się tak, ponieważ tworząc początkową listę literek użyliśmy tego samego <code>y=1</code> dla wszystkich liter. Proponuję rozwiązać ten problem losując początkowy <code>y</code> z przedziału <code>-WYSOKOSC..-1</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> litery = mutableListOf&lt;Litera&gt;()
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">42</span>) {
 </span></span><span style="display:flex;"><span>    litery.add(
 </span></span><span style="display:flex;"><span>        Litera(
 </span></span><span style="display:flex;"><span>            x = (<span style="color:#ae81ff">1.</span>.SZEROKOSC).random(), 
-</span></span><span style="display:flex;"><span>            y = (-<span style="color:#a6e22e">WYSOKOSC</span><span style="color:#f92672">..</span><span style="color:#ae81ff">0</span>).random()
+</span></span><span style="display:flex;"><span>            y = (-<span style="color:#a6e22e">WYSOKOSC</span><span style="color:#f92672">..</span>-<span style="color:#ae81ff">1</span>).random()
 </span></span><span style="display:flex;"><span>        )
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>}

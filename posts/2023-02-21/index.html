@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 15: Trochęmatrix, czyli ulepszony Biedamatrix | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 15: Trochęmatrix, czyli ulepszony Biedamatrix</span></h1>
+
+<h2 class="date">2023/02/21</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#sytuacja-po-poprzednich-zajęciach">Sytuacja po poprzednich zajęciach</a></li>
+    <li><a href="#bug-nr-1-mruganie">Bug nr 1: mruganie</a></li>
+    <li><a href="#zmiana-nr-2-przedwczesne-znikanie">Zmiana nr 2: przedwczesne znikanie</a></li>
+    <li><a href="#zmiana-nr-3-paleta-kolorów-smugi">Zmiana nr 3: paleta kolorów smugi</a></li>
+    <li><a href="#podsumowanie">Podsumowanie</a></li>
+  </ul>
+</nav>
+</div>
+<h1 id="sytuacja-po-poprzednich-zajęciach">Sytuacja po poprzednich zajęciach</h1>
+<p>Pod koniec poprzednich zajęć nasz Biedamatrix prezentował się następująco:</p>
+<p><img src="biedamatrix.png" alt=""></p>
+<p>Najbardziej paskudny bug w naszym programie nie jest widoczny na nieruchomym obrazku, ale działająca animacja &ldquo;mruga&rdquo;. Tym zajmiemy się w pierwszej kolejności.</p>
+<p>Kolejne zmiany będą dotyczyły smug za literkami:</p>
+<ul>
+<li>Smugi nie powinny znikać, gdy litera doleci do dolnej krawędzi ekranu.</li>
+<li>Litery w smudze powinny stopniowo ściemniać się ku górze.</li>
+</ul>
+<h1 id="bug-nr-1-mruganie">Bug nr 1: mruganie</h1>
+<p>Uproszczony kod naszego programu wygląda mniej-więcej tak:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>do {
+</span></span><span style="display:flex;"><span>  wyczyść ekran
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  dla każdej z 42 literek:
+</span></span><span style="display:flex;"><span>    zmień kolor na biały
+</span></span><span style="display:flex;"><span>    przesuń kursor
+</span></span><span style="display:flex;"><span>    narysuj literkę na dole smugi
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    zmień kolor na zielony
+</span></span><span style="display:flex;"><span>    powtórz 10 razy:
+</span></span><span style="display:flex;"><span>      przesuń kursor
+</span></span><span style="display:flex;"><span>      narysuj literkę w smudze
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  poczekaj 100ms
+</span></span><span style="display:flex;"><span>} while(true)
+</span></span></code></pre></div><p>Każda instrukcja w powyższym pseudokodzie sprowadza się do wywołania funkcji <code>print</code>. Tak więc jeszcze bardziej uproszczony pseudokod wygląda następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>do {
+</span></span><span style="display:flex;"><span>  wyczyść ekran (czyli print nr 1)
+</span></span><span style="display:flex;"><span>  wypisz resztę (czyli pozostałe ~1000 printów)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  poczekaj 100ms
+</span></span><span style="display:flex;"><span>} while(true)
+</span></span></code></pre></div><p>Po każdym wywołaniu instrukcji <code>print</code> nasz program daje znać oknu terminala, że pojawiły się nowe rzeczy, które bardzo chciałby wyświetlić. Dzieje się to ok. 1000 razy w jednym przebiegu pętli, która wykonuje się 10 razy na sekundę. Sumarycznie, nasz program chciałby odświeżyć zawartość okienka ok. 10 tysięcy razy na sekundę.</p>
+<p>Ekran waszego komputera nie jest w stanie tego obsłużyć. Standardowe ekrany potrafią pokazać 60 klatek na sekundę, czyli odświeżają obraz co ok. 16ms (bo <code>1000ms / 60 = 16.66(6)ms</code>).</p>
+<p>Dialog między ekranem komputera i naszym programem wygląda następująco:</p>
+<blockquote>
+<p><strong>Program</strong>: Popatrz! Popatrz! Patrz, jakie super rzeczy mam!</p>
+<p><strong>Ekran</strong>: …</p>
+<p><strong>Program</strong>: No weź, popatrz tylko!</p>
+<p><strong>Program</strong>: O, znowu coś mam! Wyświetlisz?</p>
+<p><strong>Ekran</strong>: Nie-e. Zajęty jestem…</p>
+<p><strong>Program</strong>: Szkoda. O, popatrz! Nowe rzeczy!</p>
+<p><em>Po kilkunastu milisekundach</em></p>
+<p><strong>Program</strong>: Znowu coś mam! I znowu! O, znowu-znowu!</p>
+<p><strong>Ekran</strong>: No dobra, daj to…</p>
+<p><strong>Program</strong>: Dzięki, ty to fajny jesteś! A to mi wyświetlisz? A to? O, i to jeszcze?</p>
+</blockquote>
+<p>Nie kontrolujemy tego, kiedy ekran będzie w stanie (albo będzie łaskaw) wyświetlić to, co da mu program. Czasami wydarzy się to po wypisaniu wszystkich liter, gdy program czeka na następny przebieg pętli w wywołaniu <code>Thread.sleep(100)</code>, i wtedy wszystko wyświetli się poprawnie. Może się też zdarzyć tak, że ekran postanowi się odświeżyć tuż po <code>print(Ansi.wyczyśćEkran())</code> i przez kolejnych 16ms będzie wyświetlony czarny ekran. To właśnie jest źródłem &ldquo;mrugania&rdquo;.</p>
+<p>Nie jesteśmy (jeszcze…) w stanie dopasować się do częstotliwości odświeżania ekranu, ale możemy obejść ten problem w inny sposób: zamiast bombardować okno tysiącami <code>print</code>ów, możemy każdą klatkę animacji najpierw przygotować, a dopiero później przekazać do wyświetlenia w jednym <code>print</code>.</p>
+<p>Na początku pętli stworzymy pustą zmienną z tekstem, zamienimy wszystkie <code>print</code>y na dodawanie kolejnych elementów do tej zmiennej, i dopiero na samym końcu pętli wyświetlimy całą klatkę animacji <code>print</code>em:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>do {
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+   var kartka = &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-   print(Ansi.wyczyśćEkran())
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+   kartka += Ansi.wyczyśćEkran()
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>    for (litera in litery) {
+</span></span><span style="display:flex;"><span>        if (litera.y &gt; 0) {
+</span></span><span style="display:flex;"><span>            // narysuj białą literkę
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-           print(Ansi.kolorCzcionki(Color.WHITE))
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672">-           print(Ansi.przesuńKursor(litera.x, litera.y))
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672">-           print(znaki.random())
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           kartka += Ansi.kolorCzcionki(Color.WHITE)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+           kartka += Ansi.przesuńKursor(litera.x, litera.y)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+           kartka += znaki.random()
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>            // narysuj zieloną smugę
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-           print(Ansi.kolorCzcionki(Color.GREEN))
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           kartka += Ansi.kolorCzcionki(Color.GREEN)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>            for (dy in 1..DŁUGOŚĆ_SMUGI) {
+</span></span><span style="display:flex;"><span>                val ySmugi = litera.y - dy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                if (ySmugi &gt; 0) {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-                   print(Ansi.przesuńKursor(litera.x, ySmugi))
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672">-                   print(znaki.random())
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+                   kartka += Ansi.przesuńKursor(litera.x, ySmugi)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+                   kartka += znaki.random()
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        litera.y += 1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        if (litera.y &gt; WYSOKOSC) {
+</span></span><span style="display:flex;"><span>            litera.x = (1..SZEROKOSC).random()
+</span></span><span style="display:flex;"><span>            litera.y = 1
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+   print(kartka)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>    Thread.sleep(100)
+</span></span><span style="display:flex;"><span>} while (true)
+</span></span></code></pre></div><p>Ta technika nazywana jest <a href="https://pl.wikipedia.org/wiki/Bufor_ramki">buforowaniem ramki</a> i jest powszechnie stosowana w grach komputerowych.</p>
+<h1 id="zmiana-nr-2-przedwczesne-znikanie">Zmiana nr 2: przedwczesne znikanie</h1>
+<p>W obecnej wersji programu, literki &ldquo;teleportują&rdquo; się na górę ekranu, gdy tylko dotkną dolnej krawędzi. To zachowanie sprawia, że smuga, która była rysowana ponad tą literką, nagle zniknie, zamiast podążyć za literką poza dolną krawędź.</p>
+<p>Najprostszym rozwiązaniem tego problemu będzie opóźnienie przenoszenia litery do momentu, gdy cała smuga znajdzie się poza ekranem, czyli gdy współrzędna <code>y</code> litery będzie większa niż <code>(WYSOKOSC + DŁUGOŚĆ_SMUGI)</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">-       if (litera.y &gt; WYSOKOSC) {
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+       if (litera.y &gt; (WYSOKOSC + DŁUGOŚĆ_SMUGI)) {
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>            litera.x = (1..SZEROKOSC).random()
+</span></span><span style="display:flex;"><span>            litera.y = 1
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>Ta zmiana spowoduje pojawienie się innego efektu, który nie wygląda najlepiej: litery będą spadać &ldquo;falami&rdquo;, z dość dobrze zauważalną przerwą pomiędzy (jeśli nie widać tego efektu w waszym programie, możecie zwiększyć liczbę animowanych liter).</p>
+<p>Chcemy, aby litery były mniej-więcej równomiernie rozsiane po ekranie. Można wylosować ich początkową pozycję z zakresu widocznego na ekranie:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+---------------------------+     ^
+</span></span><span style="display:flex;"><span>|    a         j    d    c  |     | 
+</span></span><span style="display:flex;"><span>|    A      b  J    D    c  |     |
+</span></span><span style="display:flex;"><span>| f         b            C  |     |  
+</span></span><span style="display:flex;"><span>| f    e    B         g     |     | WYSOKOŚĆ
+</span></span><span style="display:flex;"><span>| F    e        i     g h   |     |
+</span></span><span style="display:flex;"><span>|      E        i     G h   |     |
+</span></span><span style="display:flex;"><span>|               I       H   |     |
+</span></span><span style="display:flex;"><span>+---------------------------+     V
+</span></span></code></pre></div><p>Chcieliśmy też, aby początkowo ekran był czarny, a litery pojawiały się stopniowo zza jego górnej krawędzi. Żeby to osiągnąć, losowaliśmy <code>y</code> z przedziału <code>-WYSOKOŚĆ..-1</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                                  ^ -WYSOKOŚĆ
+</span></span><span style="display:flex;"><span>     A         J    D             | 
+</span></span><span style="display:flex;"><span>                         C        |
+</span></span><span style="display:flex;"><span>            B                     |  
+</span></span><span style="display:flex;"><span>  F                               | 
+</span></span><span style="display:flex;"><span>       E              G           |
+</span></span><span style="display:flex;"><span>                I       H         |
+</span></span><span style="display:flex;"><span>+---------------------------+     - 0
+</span></span><span style="display:flex;"><span>|                           |     | 
+</span></span><span style="display:flex;"><span>|                           |     |
+</span></span><span style="display:flex;"><span>|                           |     |  
+</span></span><span style="display:flex;"><span>|                           |     | 
+</span></span><span style="display:flex;"><span>|                           |     |
+</span></span><span style="display:flex;"><span>|                           |     |
+</span></span><span style="display:flex;"><span>|                           |     | WYSOKOŚĆ
+</span></span><span style="display:flex;"><span>+---------------------------+     V
+</span></span></code></pre></div><p>Czyli przesunęliśmy obszar rysowania na ujemną połowę naszego układu współrzędnych. Gdy zmieniliśmy moment, w którym przenosimy literę na górę ekranu, zmieniliśmy też obszar rysowania: powiększyliśmy go o <code>DŁUGOŚĆ_SMUGI</code> linii:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+---------------------------+     - 0
+</span></span><span style="display:flex;"><span>|                           |     |
+</span></span><span style="display:flex;"><span>|    a         j    d       |     |
+</span></span><span style="display:flex;"><span>|    a         j    d    c  |     | 
+</span></span><span style="display:flex;"><span>|    A      b  J    D    c  |     |
+</span></span><span style="display:flex;"><span>| f         b            C  |     |  
+</span></span><span style="display:flex;"><span>| f    e    B         g     |     | 
+</span></span><span style="display:flex;"><span>| F    e        i     g h   |     - WYSOKOŚĆ
+</span></span><span style="display:flex;"><span>+---------------------------+     |
+</span></span><span style="display:flex;"><span>       E        i     G h         |
+</span></span><span style="display:flex;"><span>                I       H         |  
+</span></span><span style="display:flex;"><span>                                  V WYSOKOŚĆ + DŁUGOŚĆ_SMUGI
+</span></span></code></pre></div><p>Żeby zachować równomierny rozrzut liter, musimy tak samo poszerzyć obszar, na który będziemy je początkowo rozmieszczać:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>    for (i in 1..42) {
+</span></span><span style="display:flex;"><span>        litery.add(
+</span></span><span style="display:flex;"><span>            Litera(
+</span></span><span style="display:flex;"><span>                x = (1..SZEROKOSC).random(),
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-               y = (-WYSOKOSC..-1).random()
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+               y = (-(WYSOKOSC + DŁUGOSC_SMUGI)..-1).random()
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>            )
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h1 id="zmiana-nr-3-paleta-kolorów-smugi">Zmiana nr 3: paleta kolorów smugi</h1>
+<p>Spadająca literka powinna być narysowana na biało i pozostawiać za sobą zieloną, stopniowo ciemniejącą smugę. Obecnie nasza pętla rysująca smugę wygląda tak:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// narysuj zieloną smugę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.kolorCzcionki(<span style="color:#a6e22e">Color</span>.GREEN)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (dy <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ySmugi = litera.y - dy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (ySmugi &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, ySmugi)
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> znaki.random()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Skoro każda literka ma mieć inny kolor, powinniśmy przenieść zmianę koloru czcionki tuż przed dodawaniem do kartki znaczka. Kolor, którego użyjemy, będzie zależał od tego, którą literkę będziemy wypisywać. Możemy wykorzystać fakt, że jesteśmy wewnątrz pętli po przedziale <code>1..10</code>, więc stała <code>dy</code> będzie wskazywać na to, którą literką właśnie się zajmujemy. Najprościej będzie przed główną pętlą animacji przygotować sobie paletę barw, czyli 10-elementową listę <code>Color</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> kolory = mutableListOf&lt;Color&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    kolory.add(<span style="color:#75715e">/* tym zajmiejmy się za chwilkę */</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Pamiętajcie, że listy indeksowane są od <code>0</code>, a nasza stała <code>dy</code> będzie przybierać wartości z przedziału od <code>1..10</code>! Wyciągając kolor dla elementu <code>dy</code> będziemy musieli poprosić o kolor pod indeksem <code>dy - 1</code>.</p>
+<p>Po wszystkich zmianach nasza pętla rysująca smugę będzie wyglądać tak:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#75715e">// narysuj zieloną smugę
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (dy <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> ySmugi = litera.y - dy
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (ySmugi &gt; <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.przesuńKursor(litera.x, ySmugi)
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.kolorCzcionki(kolory[dy - <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> znaki.random()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Ostatnią rzeczą, którą musimy zrobić, jest stworzenie palety kolorów, czyli dopisanie kodu w miejscu, gdzie teraz mamy komentarz <code>/* tym zajmiejmy się za chwilkę */</code>.</p>
+<p>Zazwyczaj tworząc obiekty typu <code>Color</code> przy użyciu jego standardowego konstruktora, podawaliśmy składową czerwoną, zieloną, i niebieską. Nie jest to jedyny sposób, można też stworzyć <code>Color</code> funkcją <code>Color.getHSBColor(…)</code> podając jego barwę (<em>Hue</em>), nasycenie (<em>Saturation</em>) i jasność (<em>Brightness</em>).</p>
+<p>Wszystkie wartości powinny być liczbami rzeczywistymi z przedziału <code>0..1</code>. W Kotlinie liczby rzeczywiste to typ <code>Float</code>. Żeby stworzyć liczbę <code>Float</code> zamiast <code>Int</code>a, musimy do wartości dodać literkę <code>f</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> liczbaCałkowita: Int = <span style="color:#ae81ff">1500</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> liczbaRzeczywista: Float = <span style="color:#ae81ff">2900f</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> trzyCzwarte: Float = <span style="color:#ae81ff">0.75f</span>
+</span></span></code></pre></div><p>W przypadku nasycenia i jasności można to interpretować jako procentową wartość: nasycenie <code>1f</code> to w 100% jaskrawa barwa; nasycenie <code>0.4f</code> to inaczej 40% nasycenia, czyli bardziej pastelowy kolor.</p>
+<p>Barwa też jest liczbą od <code>0f</code> do <code>1f</code>, przy czym jej zachowanie może być trochę zaskakujące. Wartość <code>0f</code> odpowiada kolorowi czerwonemu. Większe wartości odpowiadają kolejnym kolorom tęczy: <code>0.16f</code> to będzie kolor żółty, <code>0.33f</code> to kolor zielony, <code>0.66f</code> to niebieski, <code>0.82f</code> to fioletowy itd. Wartości pomiędzy oczywiście też można używać, na przykład przedział pomiędzy <code>0f</code> a <code>0.16f</code> to różne odcienie pomarańczowego.</p>
+<p>Myślę, że najlepiej będzie pokazać przy użyciu krótkiego programu testowego, który pokazuje całą paletę jaskrawych barw, zaczynając od czerwonego <code>0f</code> po lewej stronie.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = <span style="color:#ae81ff">60</span>,
+</span></span><span style="display:flex;"><span>    heightInTiles = <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">60</span>) {
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">val</span> kolor = <span style="color:#a6e22e">Color</span>.getHSBColor(
+</span></span><span style="display:flex;"><span>           (i - <span style="color:#ae81ff">1</span>).toFloat() / <span style="color:#ae81ff">60f</span>,
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">1f</span>,
+</span></span><span style="display:flex;"><span>           <span style="color:#ae81ff">1f</span>
+</span></span><span style="display:flex;"><span>       )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>       print(<span style="color:#a6e22e">Ansi</span>.kolorCzcionki(kolor))
+</span></span><span style="display:flex;"><span>       print(<span style="color:#e6db74">&#34;#&#34;</span>)
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="tecza.png" alt="tęcza"></p>
+<p>Wracając do naszego Matrixa: chcemy stworzyć paletę zielonych, stopniowo ciemniejących kolorów. Zamiast żonglować wartościami RGB, możemy użyć modelu HSB. Litery mają być zielone (<code>h = 0.33f</code>) i nasycone (<code>s = 1f</code>), natomiast ich jasność ma stopniowo maleć do zera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> kolory = mutableListOf&lt;Color&gt;()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> b = <span style="color:#ae81ff">1f</span> - (i - <span style="color:#ae81ff">1</span>) * <span style="color:#ae81ff">0.1f</span>
+</span></span><span style="display:flex;"><span>    kolory.add(<span style="color:#a6e22e">Color</span>.getHSBColor(<span style="color:#ae81ff">0.33f</span>, <span style="color:#ae81ff">1f</span>, b))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="podsumowanie">Podsumowanie</h1>
+<p>Uff, dobrnęliśmy do końca. Po wszystkich zmianach nasz Matrix prezentuje się znacznie lepiej: nic nie mruga, nie ma glitchy, smugi ładnie zanikają. To już nie Biedamatrix, ale&hellip; Trochęmatrix?</p>
+<p><img src="trochematrix.png" alt="Trochęmatrix"></p>
+<p>Na następnych zajęciach zostawimy Matrixa w spokoju i zajmiemy się kolejną animacją pt.: &ldquo;Doom Fire&rdquo;, czyli będziemy podpalać ekrany naszych komputerów.</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

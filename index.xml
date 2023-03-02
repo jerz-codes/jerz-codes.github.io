@@ -6,7 +6,19 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 14 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 15: Trochęmatrix, czyli ulepszony Biedamatrix</title>
+      <link>https://jerz.codes/posts/2023-02-21/</link>
+      <pubDate>Tue, 21 Feb 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-02-21/</guid>
+      <description>Sytuacja po poprzednich zajęciach Bug nr 1: mruganie Zmiana nr 2: przedwczesne znikanie Zmiana nr 3: paleta kolorów smugi Podsumowanie Sytuacja po poprzednich zajęciach Pod koniec poprzednich zajęć nasz Biedamatrix prezentował się następująco:
+Najbardziej paskudny bug w naszym programie nie jest widoczny na nieruchomym obrazku, ale działająca animacja &amp;ldquo;mruga&amp;rdquo;. Tym zajmiemy się w pierwszej kolejności.
+Kolejne zmiany będą dotyczyły smug za literkami:
+Smugi nie powinny znikać, gdy litera doleci do dolnej krawędzi ekranu.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 14 (chyba?): Biedamatrix, cz.1</title>
       <link>https://jerz.codes/posts/2023-02-14/</link>
