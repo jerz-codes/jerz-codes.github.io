@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 21 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 16: Doom Fire</title>
+      <link>https://jerz.codes/posts/2023-02-28/</link>
+      <pubDate>Tue, 28 Feb 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-02-28/</guid>
+      <description>Okienko Paleta kolorów Model danych Rysowanie ekranu Pętla animacji… …i faktyczna animacja! Doom… tęcza? Na poprzednich zajęciach animowaliśmy Matrix&amp;rsquo;owy deszcz liter. Dziś pobawimy się w piromanów i napiszemy animację płomieni.
+Okienko Podobnie, jak przy Matrix&amp;rsquo;owych animacjach, zaczniemy od narysowania pustego okienka. Użyjemy stałych do określenia szerokości i wysokości okna – będziemy potrzebować tych wartości później. Do rysowania płomieni nie będziemy używać żadnych specjalnych znaczków. Zamiast tego będziemy wypisywać różnokolorowe spacje, a więc każdy znak naszego terminala będzie osobnym pikselem (dość sporym i prostokątnym, ale wciąż pikselem).</description>
+    </item>
+    
     <item>
       <title>Zajęcia 15: Trochęmatrix, czyli ulepszony Biedamatrix</title>
       <link>https://jerz.codes/posts/2023-02-21/</link>

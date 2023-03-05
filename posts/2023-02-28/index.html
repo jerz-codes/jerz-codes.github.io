@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 16: Doom Fire | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 16: Doom Fire</span></h1>
+
+<h2 class="date">2023/02/28</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#okienko">Okienko</a></li>
+    <li><a href="#paleta-kolorów">Paleta kolorów</a></li>
+    <li><a href="#model-danych">Model danych</a></li>
+    <li><a href="#rysowanie-ekranu">Rysowanie ekranu</a></li>
+    <li><a href="#pętla-animacji">Pętla animacji…</a></li>
+    <li><a href="#i-faktyczna-animacja">…i faktyczna animacja!</a></li>
+    <li><a href="#doom-tęcza">Doom… tęcza?</a></li>
+  </ul>
+</nav>
+</div>
+<p>Na poprzednich zajęciach animowaliśmy Matrix&rsquo;owy deszcz liter. Dziś pobawimy się w piromanów i napiszemy animację płomieni.</p>
+<h1 id="okienko">Okienko</h1>
+<p>Podobnie, jak przy Matrix&rsquo;owych animacjach, zaczniemy od narysowania pustego okienka. Użyjemy stałych do określenia szerokości i wysokości okna – będziemy potrzebować tych wartości później. Do rysowania płomieni nie będziemy używać żadnych specjalnych znaczków. Zamiast tego będziemy wypisywać różnokolorowe spacje, a więc każdy znak naszego terminala będzie osobnym pikselem (dość sporym i prostokątnym, ale wciąż pikselem). Nasze okno powinno być zatem duży, a rozmiar czcionki – mały:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> SZEROKOSC = <span style="color:#ae81ff">120</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> WYSOKOSC = <span style="color:#ae81ff">80</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() = terminal(
+</span></span><span style="display:flex;"><span>    widthInTiles = SZEROKOSC,
+</span></span><span style="display:flex;"><span>    heightInTiles = WYSOKOSC,
+</span></span><span style="display:flex;"><span>    fontSize = <span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>) {
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="paleta-kolorów">Paleta kolorów</h1>
+<p>W przypadku Matrix&rsquo;owych animacji paletę kolorów dla smug ciągnących się za spadającymi tworzyliśmy samodzielnie. W dzisiejszym programie wykorzystamy paletę z gry Doom z 1993 roku. Możecie wkleić poniższy fragment przed funkcją <code>main</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> PALETA = listOf(
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x1f</span>, <span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x2f</span>, <span style="color:#ae81ff">0x0f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x47</span>, <span style="color:#ae81ff">0x0f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0x17</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0x1f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x77</span>, <span style="color:#ae81ff">0x1f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x8f</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0x9f</span>, <span style="color:#ae81ff">0x2f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xaf</span>, <span style="color:#ae81ff">0x3f</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xbf</span>, <span style="color:#ae81ff">0x47</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xc7</span>, <span style="color:#ae81ff">0x47</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0x4F</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0x57</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xD7</span>, <span style="color:#ae81ff">0x5F</span>, <span style="color:#ae81ff">0x07</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xD7</span>, <span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0x0F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xcf</span>, <span style="color:#ae81ff">0x6f</span>, <span style="color:#ae81ff">0x0f</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xcf</span>, <span style="color:#ae81ff">0x77</span>, <span style="color:#ae81ff">0x0f</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xcf</span>, <span style="color:#ae81ff">0x7f</span>, <span style="color:#ae81ff">0x0f</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xCF</span>, <span style="color:#ae81ff">0x87</span>, <span style="color:#ae81ff">0x17</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xC7</span>, <span style="color:#ae81ff">0x87</span>, <span style="color:#ae81ff">0x17</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xC7</span>, <span style="color:#ae81ff">0x8F</span>, <span style="color:#ae81ff">0x17</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xC7</span>, <span style="color:#ae81ff">0x97</span>, <span style="color:#ae81ff">0x1F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0x9F</span>, <span style="color:#ae81ff">0x1F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0x9F</span>, <span style="color:#ae81ff">0x1F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0xA7</span>, <span style="color:#ae81ff">0x27</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0xA7</span>, <span style="color:#ae81ff">0x27</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xBF</span>, <span style="color:#ae81ff">0xAF</span>, <span style="color:#ae81ff">0x2F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0xAF</span>, <span style="color:#ae81ff">0x2F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0x2F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0xB7</span>, <span style="color:#ae81ff">0x37</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xCF</span>, <span style="color:#ae81ff">0xCF</span>, <span style="color:#ae81ff">0x6F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0xDF</span>, <span style="color:#ae81ff">0x9F</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xEF</span>, <span style="color:#ae81ff">0xEF</span>, <span style="color:#ae81ff">0xC7</span>),
+</span></span><span style="display:flex;"><span>    Color(<span style="color:#ae81ff">0xFF</span>, <span style="color:#ae81ff">0xFF</span>, <span style="color:#ae81ff">0xFF</span>),
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h1 id="model-danych">Model danych</h1>
+<p>Dla każdego &ldquo;piksela&rdquo; na naszym ekranie będziemy przechowywać jej &ldquo;poziom ciepła&rdquo;: liczbę od 0 do 35. Te liczby nie wzięły się z kosmosu: mamy dokładnie 36 barw w naszej palecie, więc liczby <code>0..35</code> odpowiadają indeksom w tej tablicy. Poziom <code>0</code> oznacza prawie całkowicie wygaszoną kratkę, poziom <code>35</code> to kratka rozżarzona do białości.</p>
+<p>Proponuję przechowywać te dane w zagnieżdżonej liście, tj.: liście linijek, gdzie każda linijka to lista poziomów ciepła kratek w tej linii:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> ekran: MutableList&lt;MutableList&lt;Int&gt;&gt;
+</span></span></code></pre></div><p>Początkowo musimy wypełnić wszystkie kratki wartością <code>0</code>, poza dolną linią, którą wypełnimy wartościami <code>35</code>. Będzie to źródło ciepła i płomieni.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (y <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.WYSOKOSC) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> linijka = mutableListOf&lt;Int&gt;()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (x <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.SZEROKOSC) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> pikselek = <span style="color:#66d9ef">if</span> (y <span style="color:#f92672">==</span> WYSOKOSC) <span style="color:#a6e22e">PALETA</span>.lastIndex <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        linijka.add(pikselek)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    ekran.add(linijka)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>W powyższym fragmencie kodu są dwie rzeczy, na które chciałbym zwrócić waszą uwagę.</p>
+<p>Po pierwsze, dla ostatniej linijki zamiast po prostu wartości <code>35</code> używamy własności <code>PALETA.lastIndex</code>, czyli odpytujemy paletę barw o indeks ostatniego koloru. Dzięki temu nawet po zmianie palety nasz program będzie działał poprawnie.</p>
+<p>Po drugie, do stałej <code>val pikselek</code> przypisujemy&hellip; <code>if..else</code>&lsquo;a? Taki manewr nie jest dozwolony w wielu językach programowania, ale akurat w Kotlinie <code>if..else</code> oraz <code>when</code> są <strong>wyrażeniami</strong>, czyli można ich używać wszędzie tam, gdzie spodziewalibyśmy się wywołania funkcji, użycia stałej lub zmiennej, albo po prostu stałej wartości wpisanej bezpośrednio w kodzie.</p>
+<h1 id="rysowanie-ekranu">Rysowanie ekranu</h1>
+<p>Skoro mamy już przygotowane dane dla całego ekranu, czas wyrysować wszystko. Co prawda nie będziemy jeszcze nic animować, ale nauczeni doświadczeniem z tworzenia poprzednich animacji, zastosujemy trik z <code>kartką</code> i pojedynczym <code>print</code>, aby uniknąć później mrugania ekranu:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> kartka = <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.wyczyśćEkran()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (y <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.WYSOKOSC) {
+</span></span><span style="display:flex;"><span>    kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.przesuńKursor(<span style="color:#ae81ff">1</span>, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> linijka = ekran[y - <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (x <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.SZEROKOSC) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> pikselek = linijka[x - <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> kolorPiksela = PALETA[pikselek]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.kolorTła(kolorPiksela)
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39; &#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(kartka)
+</span></span></code></pre></div><p>Wypisujemy ekran linijka po linijce, dla każdej linijki najpierw przechodząc na jej początek przy użyciu <code>Ansi.przesuńKursor</code>, a potem rysując różnokolorową spację dla każdego pikselka w linijce. Jeśli nie macie w swojej klasie <code>Ansi</code> metody <code>kolorTła</code>, wróćcie do materiałów z <a href="https://jerz.codes/posts/2022-12-20/">zajęć nr 9</a>.</p>
+<p>Zauważcie też, że pobierając linijkę z listy <code>ekran</code> albo piksel z linijki, musimy od <code>y</code> i <code>x</code> odjąć <code>1</code>. Listy indeksowane są od <code>0</code>, a więc dla pierwszego wiersza, czyli dla <code>y</code> równego <code>1</code>, musimy pobrać <code>0</code>-wy element.</p>
+<p>Po uruchomieniu programu powinniście zobaczyć czarne okienko z białą kreską na dole:</p>
+<p><img src="doom-kreska.png" alt="Doom kreska"></p>
+<h1 id="pętla-animacji">Pętla animacji…</h1>
+<p>Skoro mamy coś animować, opakujmy rysowanie ekranu w pętlę:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> kartka = <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.wyczyśćEkran()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (y <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.WYSOKOSC) {
+</span></span><span style="display:flex;"><span>        kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.przesuńKursor(<span style="color:#ae81ff">1</span>, y)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> linijka = ekran[y - <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (x <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.SZEROKOSC) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">val</span> pikselek = linijka[x - <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">val</span> kolorPiksela = PALETA[pikselek]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            kartka <span style="color:#f92672">+=</span> <span style="color:#a6e22e">Ansi</span>.kolorTła(kolorPiksela)
+</span></span><span style="display:flex;"><span>            kartka <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39; &#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(kartka)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Thread</span>.sleep(<span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>    animujOgień(ekran)
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (<span style="color:#66d9ef">true</span>)
+</span></span></code></pre></div><p>Po wyrysowaniu kartki dodałem opóźnienie przy użyciu funkcji <code>Thread.sleep(…)</code>. Użyta wartość <code>16</code> milisekund bierze się z częstotliwości odświeżania ekranu 99% nie-gameing&rsquo;owych monitorów, które są w stanie wyświetlić 60 klatek na sekundę (<code>1000ms / 60 = 16.66(7)ms</code>). Nie ma sensu częściej wywoływać <code>print(kartka)</code> – monitor i tak nie będzie w stanie tego wyświetlić.</p>
+<p>Ostatnia rzecz w głównej pętli animacji to wywołanie funkcji <code>animujOgień</code>. To właśnie ona będzie &ldquo;sercem&rdquo; naszego programu. Przekażemy tam <code>ekran</code> i wewnątrz tej funkcji będziemy dokonywać w nim zmian, które sprawią, że nasze płomienie ożyją.</p>
+<h1 id="i-faktyczna-animacja">…i faktyczna animacja!</h1>
+<p>Podstawowa idea jest taka, że każda kratka &ldquo;ogrzewa&rdquo; kratkę powyżej. Oczywiście, ciepło nie zostanie w 100% przeniesione, więc będziemy trochę zmniejszać poziom ciepła ogrzewanych kratek. Przejedźmy po wszystkich liniach poza ostatnią (to będzie palenisko będące źródłem ciepła) i ustawmy poziom ciepła na wartość o 1 mniejszą niż poziom kratki poniżej:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">animujOgień</span>(ekran: MutableList&lt;MutableList&lt;Int&gt;&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// dla każdej linijki oprócz ostatniej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (y <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.(WYSOKOSC - <span style="color:#ae81ff">1</span>)) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// dla każdego pikselka
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span> (x <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.SZEROKOSC) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// popatrz na kratkę poniżej
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">val</span> kratkaPoniżej = ekran[y][x - <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">val</span> nowaWartość = (kratkaPoniżej - <span style="color:#ae81ff">1</span>).coerceAtLeast(<span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// ustaw nową wartość dla kratki
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            ekran[y - <span style="color:#ae81ff">1</span>][x - <span style="color:#ae81ff">1</span>] = nowaWartość
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Podobnie jak przy rysowaniu, skoro &ldquo;jedziemy&rdquo; po przedziałach <code>1..WYSOKOSC</code> i <code>1..SZEROKOSC</code>, piksel, którym obecnie się zajmujemy to <code>ekran[y - 1][x - 1]</code>, a piksel poniżej to <code>ekran[y - 1 + 1][x - 1]</code>, czyli po prostu <code>ekran[y][x - 1]</code>.</p>
+<p>Musimy pamiętać o tym, żeby nie wstawić do <code>ekran</code>u żadnej wartości ujemnej! Nasz &ldquo;poziom ciepła&rdquo; zapisany dla każdej kratki <strong>musi</strong> być prawidłowym indeksem palety kolorów. Do tego właśnie służy wywołanie <code>coerceAtLeast(0)</code>: <em>&ldquo;coerce&rdquo;</em> to po angielsku <em>&ldquo;wymuszać&rdquo;</em>, zatem funkcja <code>Int.coerceAtLeast(0)</code> zapewni, że <code>nowaWartość</code> nigdy nie będzie ujemne:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#ae81ff">20.</span>coerceAtLeast(<span style="color:#ae81ff">0</span>)    <span style="color:#75715e">// 20
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>(-<span style="color:#ae81ff">15</span>).coerceAtLeast(<span style="color:#ae81ff">0</span>) <span style="color:#75715e">// 0
+</span></span></span></code></pre></div><h1 id="doom-tęcza">Doom… tęcza?</h1>
+<p>Efekt działania tego programu nie jest zbyt ciekawy. Po pierwsze miał być ogień, a wyszło coś takiego:</p>
+<p><img src="doom-tecza.png" alt="Doom tęcza"></p>
+<p>Po drugie, animacja okrutnie się ślimaczy, osiągamy co najwyżej kilka klatek na sekundę.</p>
+<p>Na tym zakończymy dzisiejsze zajęcia. Na następnym spotkaniu zastanowimy się, czemu nasz program tak wolno działa, a potem popracujemy nad ulepszeniem efektu animacji.</p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
