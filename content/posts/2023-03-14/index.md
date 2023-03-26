@@ -203,8 +203,8 @@ fun animujOgień(piksele: MutableList<MutableList<Int>>) {
 Jeśli zmianę `x` będziemy losować z niesymetrycznego przedziału, otrzymamy efekt ognia rozwiewanego przez wiart:
 
 ```diff
--           val xOgrzanejKratki = (x - 1 + (-1..1).random()).coerceIn(0..SZEROKOSC - 1)
-+           val xOgrzanejKratki = (x - 1 + (-3..1).random()).coerceIn(0..SZEROKOSC - 1)
+-val xOgrzanejKratki = (x - 1 + (-1..1).random()).coerceIn(0..SZEROKOSC - 1)
++val xOgrzanejKratki = (x - 1 + (-3..1).random()).coerceIn(0..SZEROKOSC - 1)
 ```
 
 ![](doom-firewind.png)
