@@ -6,7 +6,17 @@
     <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 28 Feb 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 14 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 17: Doom Fire, c.d.</title>
+      <link>https://jerz.codes/posts/2023-03-14/</link>
+      <pubDate>Tue, 14 Mar 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-03-14/</guid>
+      <description>Sytuacja po poprzednich zajęciach Dlaczego to tak wolno działa?!?! Dlaczego to w ogóle działa?!?! StringBuilder Tęcza? 😒 Ogień? 😚 Sytuacja po poprzednich zajęciach Miał być ogień, wyszedł zachód słońca w piekielnych kolorach; w dodatku wszystko działa koszmarnie wolno. Podsumowując – szału nie ma.
+Dlaczego to tak wolno działa?!?! Najpierw zajmiemy się bardziej palącą kwestią: prędkością animacji. W zależności od komputera osiągać będziemy pewnie 2-3 klatki na sekundę (a w przypadku wolniejszych maszyn jedną klatkę na 2-3 sekundy).</description>
+    </item>
+    
     <item>
       <title>Zajęcia 16: Doom Fire</title>
       <link>https://jerz.codes/posts/2023-02-28/</link>

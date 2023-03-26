@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 17: Doom Fire, c.d. | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 17: Doom Fire, c.d.</span></h1>
+
+<h2 class="date">2023/03/14</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#sytuacja-po-poprzednich-zajęciach">Sytuacja po poprzednich zajęciach</a></li>
+    <li><a href="#dlaczego-to-tak-wolno-działa">Dlaczego to tak wolno działa?!?!</a>
+      <ul>
+        <li><a href="#dlaczego-to-w-ogóle-działa">Dlaczego to w ogóle działa?!?!</a></li>
+        <li><a href="#stringbuilder"><code>StringBuilder</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#tęcza--ogień-">Tęcza? 😒 Ogień? 😚</a></li>
+  </ul>
+</nav>
+</div>
+<h1 id="sytuacja-po-poprzednich-zajęciach">Sytuacja po poprzednich zajęciach</h1>
+<p>Miał być ogień, wyszedł zachód słońca w piekielnych kolorach; w dodatku wszystko działa koszmarnie wolno. Podsumowując – szału nie ma.</p>
+<h1 id="dlaczego-to-tak-wolno-działa">Dlaczego to tak wolno działa?!?!</h1>
+<p>Najpierw zajmiemy się bardziej palącą kwestią: prędkością animacji. W zależności od komputera osiągać będziemy pewnie 2-3 klatki na sekundę (a w przypadku wolniejszych maszyn jedną klatkę na 2-3 sekundy). Brzmi absurdalnie, zwłaszcza biorąc pod uwagę moc obliczeniową waszych komputerów.</p>
+<p>Bardzo uproszczony pseudokod rysowania ognia wygląda następująco:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dla każdego kwadracika 
+</span></span><span style="display:flex;"><span>    narysuj spację w odpowiednim kolorze
+</span></span></code></pre></div><p>&ldquo;Rysowanie&rdquo; odbywa się za pomocą dodawania do zmiennej <code>kartka</code> typu <code>String</code> kolejnych spacji i instrukcji ANSI do zmiany koloru tła, tak więc bardziej szczegółowy pseudokod to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>przygotuj zmienną &#34;kartka&#34; z instrukcją ANSI do czyszczenia ekranu 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dla każdego kwadracika
+</span></span><span style="display:flex;"><span>    do zmiennej &#34;kartka&#34; dodaj instrukcję ANSI do zmiany koloru
+</span></span><span style="display:flex;"><span>    do zmiennej &#34;kartka&#34; dodaj znak spacji &#39; &#39;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>wypisz zmienną &#34;kartka&#34; na ekran
+</span></span></code></pre></div><p>Samo przygotowanie zmiennej albo wypisanie jej na ekran nie powinno być wolne (gdyby było, problemy pojawiłyby się również przy Biedamatrixowej animacji). Problem musi leżeć gdzieś w pętli &ldquo;jadącej&rdquo; po wszystkich pikselach.</p>
+<p>Zastanówmy się, ile faktycznie wykonujemy tam pracy. Mamy <code>120 * 80 = 9600</code> kwadracików, i dla każdego z nich dodajemy do kartki tekst w rodzaju <code>&quot;␛[48;2;255;90;90m &quot;</code> (spacja poprzedzona zmianą koloru tła), czyli ok. 18 znaków. Łącznie nasza kartka będzie mieć ok. <code>170000</code> znaków. Może wydawać się to dużą liczbą, ale dla waszych komputerów to powinna być betka: każdy znak zajmuje 1 bajt pamięci, tak więc 170 tysięcy znaków, to 170kb. Wasze komputery mają zapewne conajmniej 4GB pamięci, czyli 4 miliony kilobajtów. W porównaniu 170kb to naprawdę niewiele.</p>
+<p>Musimy spojrzeć się na to z jeszcze większego przybliżenia.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>przygotuj zmienną &#34;kartka&#34;
+</span></span><span style="display:flex;"><span>dodaj do tekstu ze zmiennej &#34;kartka&#34; 18 znaków dla pierwszego pikselika 
+</span></span><span style="display:flex;"><span>dodaj do tekstu ze zmiennej &#34;kartka&#34; 18 znaków dla drugiego pikselika 
+</span></span><span style="display:flex;"><span>dodaj do tekstu ze zmiennej &#34;kartka&#34; 18 znaków dla trzeciego pikselika
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>dodaj do tekstu ze zmiennej &#34;kartka&#34; 18 znaków dla pikselika nr 9600 
+</span></span></code></pre></div><p>W Kotlinie, &ldquo;dodawanie&rdquo; dwóch tekstów to tak naprawdę tworzenie trzeciego tekstu na ich podstawie. Tak więc kod naszej pętli wygląda tak:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>przygotuj zmienną &#34;kartka&#34;
+</span></span><span style="display:flex;"><span>stwórz tekst z zawartości &#34;kartki&#34; i 18 znaków dla pierwszego pikselika i zapisz go w &#34;kartce&#34; 
+</span></span><span style="display:flex;"><span>stwórz tekst z nowej zawartości &#34;kartki&#34; i 18 znaków dla drugiego pikselika i zapisz go w &#34;kartce&#34;
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>itd. itp.
+</span></span></code></pre></div><p>Tak więc ostatecznie nasza <code>kartka</code> będzie miała 170kb, ale po drodze stworzymy całą masę pośrednich wartości. Policzmy, ile z grubsza będziemy na to potrzebować miejsca. Dla każdego pikselika nasza kartka będzie rosnąć o ~18 bajtów, czyli łącznie będziemy potrzebować na to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>18 + 36 + 54 + 72 + ... + 172800
+</span></span></code></pre></div><p>Czyli inaczej:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>18 * (1 + 2 + 3 + 4 + ... + 9600)
+</span></span></code></pre></div><p>Suma w nawiasie to suma <a href="https://pl.wikipedia.org/wiki/Ci%C4%85g_arytmetyczny">ciągu arytmetycznego</a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>18 * (9600 + 1) * 9600 / 2 
+</span></span></code></pre></div><p>Dwójka upraszcza się z <code>18</code>, <code>+1</code> w nawiasach pomijamy, bo nie robi to dużej różnicy, zaokrąglamy wszystkie rzeczy do najbliższej potęgi 10 i dostajemy z grubsza:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>10 * 10000 * 10000 = 1000 * 1000 * 1000 = 1GB 🙀
+</span></span></code></pre></div><p>Na jedną klatkę animacji! A my chcemy to wykonywać 60 razy w ciągu sekundy! Nic dziwnego, że nasze komputery się nie wyrabiają.</p>
+<h2 id="dlaczego-to-w-ogóle-działa">Dlaczego to w ogóle działa?!?!</h2>
+<p>Nasze komputery mają 4, 8, albo 16GB pamięci RAM, więc jakim cudem ten program w ogóle działa, jeśli w ciągu sekundy potrzebne mu jest 60GB pamięci? Nie powinien się wykrzaczyć z komunikatem w stylu &ldquo;za mało pamięci&rdquo;?</p>
+<p>Gdybyśmy spróbowali stworzyć jeden tekst z 60 miliardami znaków, nasze komputery faktycznie by zaprotestowały. Nasz program w ciągu sekundy tworzy tysiące (a może to już idzie w miliony?) obiektów o łącznym rozmiarze 60GB, ale największe z nich, pełne &ldquo;kartki&rdquo;, które wypisujemy na ekran, zajmują jedynie ~170kb. Po prostu stworzenie tych wszystkich obiektów i posprzątanie ich zajmuje bardzo dużo czasu.</p>
+<p>Obrazowo można wyobrazić to sobie w następujący sposób: w pokoju (naszym programie) siedzi stwór zwany Kotlinem i wyczarowuje kolejne &ldquo;klocki&rdquo; z tekstami, łączy je ze sobą, itd. Jeśli coś nie jest mu już potrzebne, wyrzuca to w kąt. Co jakiś czas do pokoju zagląda kolega Kotlina, Śmieciarz (ang. <em>garbage collector</em>), i zabiera wszystkie wciśnięte w kąt i niepotrzebne już rzeczy. Zazwyczaj dzieje się to bez przerw w działaniu programu – Śmieciarz nie przeszkadza Kotlinowi w jego pracy i po cichutku ogarnia bałagan.</p>
+<p>Czasami zdarza się jednak tak, że Kotlin naprodukuje tyle szpejów, że przestają się one mieścić w pokoju. Nie może nic więcej zrobić, bo nie ma miejsca na wyczarowywane przez niego klocki. Siada wtedy na hałdzie śmieci i woła Śmieciarza na ratunek. Program zostaje zatrzymany, dopóki Śmieciarz nie wyniesie niepotrzebnych rzeczy.</p>
+<p>Przypuszczam, że podobna sytuacja dzieje się w naszym programie nawet kilka razy na klatkę animacji i stąd biorą się nasze problemy z wydajnością programu.</p>
+<h2 id="stringbuilder"><code>StringBuilder</code></h2>
+<p>Rozwiązaniem naszego problemu jest użycie specjalnego narzędzia do łączenia <code>String</code>ów – klasy <code>StringBuilder</code>. Do obiektu tej klasy można dodawać kolejne elementy, nie powodując lawinowego generowania śmieci.</p>
+<p>Zmieńmy zatem naszą kartkę. Na początku, zamiast tworzyć pusty <code>String</code>, użyjmy konstruktora typu <code>StringBuilder</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">- var kartka = &#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+ val kartka = StringBuilder()
+</span></span></span></code></pre></div><p>Nasza <code>kartka</code> nie musi być już zmienną (<code>var</code>), może być to stała (<code>val</code>). Co prawda będziemy do niej dodawać teksty, ale w dalszym ciągu będzie to ten sam obiekt.</p>
+<p>Po tej zmianie wszystkie <code>kartka += …</code> zaczną świecić się na czerwono. Obiekt <code>StringBuilder</code> w Kotlinie nie obsługuje tego zapisu. Zamiast tego, będziemy musieli użyć normalnej funkcji <code>append</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">- kartka += Ansi.wyczyśćEkran()
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+ kartka.append(Ansi.wyczyśćEkran())
+</span></span></span></code></pre></div><p>Po tych wszystkich zabiegach nasz program powinien zacząć działać sprawnie. Wreszcie możemy zabrać się za ciekawsze rzeczy, czyli ulepszenie naszej animacji. Zanim do tego przejdziemy, chciałbym wam zwrócić uwagę na ogólniejszą lekcję, wynikającą z naszej przygody z dodawaniem do siebie <code>String</code>ów.</p>
+<p>W potocznej terminologii programistów &ldquo;wykręciliśmy n kwadrat&rdquo;. Czyli nasz program miał coś zrobić ze zbiorem N
+elementów, ale nasz algorytm potrzebował na to N² kroków albo N² pamięci. Wasze komputery są naprawdę bardzo szybkie, wykonywanie kilku milionów operacji to dla nich betka. Wykonanie kilkunastu milionów milionów operacji zajmie im nieco więcej czasu, prawdopodobnie zbyt dużo, zwłaszcza w kontekście gier i animacji, gdzie oczekujemy 60 klatek na sekundę.</p>
+<h1 id="tęcza--ogień-">Tęcza? 😒 Ogień? 😚</h1>
+<p>W naszej animacji każdy kwadracik jest &ldquo;ogrzewany&rdquo; przez kwadracik poniżej. To &ldquo;ciepło&rdquo; rozprzestrzenia się idealnie równomiernie, co daje nam w wyniku efekt przypominający tęczę (w nieco piekielnej palecie kolorów).</p>
+<p>Prawdziwy ogień zachowuje się trochę inaczej. Po pierwsze, nie ma perfekcyjnie równomiernego źródła ciepła. Po drugie, w powietrzu powstają zawirowania, tu i ówdzie powietrze nagrzewa się bardziej, lub mniej. Musimy do naszej funkcji <code>animujOgień</code> dodać nieco losowości.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>fun animujOgień(ekran: MutableList&lt;MutableList&lt;Int&gt;&gt;) {
+</span></span><span style="display:flex;"><span>    // dla każdej linijki oprócz ostatniej
+</span></span><span style="display:flex;"><span>    for (y in 1..(WYSOKOSC - 1)) {
+</span></span><span style="display:flex;"><span>        // dla każdego pikselka
+</span></span><span style="display:flex;"><span>        for (x in 1..SZEROKOSC) {
+</span></span><span style="display:flex;"><span>            // popatrz na kratkę poniżej
+</span></span><span style="display:flex;"><span>            val kratkaPoniżej = ekran[y][x - 1]
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-           val nowaWartość = (kratkaPoniżej - 1).coerceAtLeast(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           val nowaWartość = (kratkaPoniżej - (0..1).random()).coerceAtLeast(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>            // ustaw nową wartość dla kratki
+</span></span><span style="display:flex;"><span>            ekran[y - 1][x - 1] = nowaWartość
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Od razu lepiej!</p>
+<p><img src="doom-prosto.png" alt="Proste płomienie"></p>
+<p>Po kilku sekundach wygląda to nieźle, ale pierwsze kilkadziesiąt klatek animacji wygląda dziwnie:</p>
+<p><img src="doom-krawedz.png" alt="Tyraliera"></p>
+<p>Wynika to z faktu, że każdy kwadracik zawsze zostaje ogrzany przez kratkę poniżej. W rzeczywistości drewno pali się nierównomiernie, a w powietrzu powstają zawirowania. Żeby to zasymulować, algorytm naszej animacji powinien stwarzać możliwość, że jakiś kwadracik w ogóle nie zmieni koloru.</p>
+<p>Po pierwsze, musimy &ldquo;odwrócić&rdquo; sposób, w jaki myślimy o przenoszeniu poziom ciepła: zamiast dla każdego kwadracika &ldquo;patrzeć się&rdquo; na poziom ciepła kwadracika poniżej, powinniśmy dla każdego źródła ciepła ogrzać kwadrat powyżej:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>fun animujOgień(ekran: MutableList&lt;MutableList&lt;Int&gt;&gt;) {
+</span></span><span style="display:flex;"><span>    // dla każdej linijki oprócz ostatniej
+</span></span><span style="display:flex;"><span>    for (y in 1..(WYSOKOSC - 1)) {
+</span></span><span style="display:flex;"><span>        // dla każdego pikselka
+</span></span><span style="display:flex;"><span>        for (x in 1..SZEROKOSC) {
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-           val kratkaPoniżej = ekran[y][x - 1]
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           val mojaWartość = ekran[y][x - 1]
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span><span style="color:#f92672">-           val nowaWartość = (mojaWartość - (0..1).random()).coerceAtLeast(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           val nowaWartość = (kratkaPoniżej - (0..1).random()).coerceAtLeast(0)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>            // ustaw nową wartość dla ogrzewanej kratki
+</span></span><span style="display:flex;"><span>            ekran[y - 1][x - 1] = nowaWartość
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Na razie tylko zmieniliśmy nazwy stałych – sam algorytm na razie się nie zmienił.</p>
+<p>Czas na drugi krok: musimy dodać losowość również do przenoszenia ciepła. Do współrzędnej kratki, która zostanie ogrzana, dodamy losową wartość z przedziału <code>-1..1</code> (musimy też zadbać o to, żeby wylosowany <code>x</code> był z poprawnego przedziału; użyjemy do tego funkcji <code>coerceIn</code>, działającej na podobnej zasadzie co <code>coerceAtLeast</code>):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>fun animujOgień(piksele: MutableList&lt;MutableList&lt;Int&gt;&gt;) {
+</span></span><span style="display:flex;"><span>    // dla każdej linijki(oprócz ostatniej)
+</span></span><span style="display:flex;"><span>    for (y in 1..(WYSOKOSC - 1)) {
+</span></span><span style="display:flex;"><span>        // dla każdego pikselka
+</span></span><span style="display:flex;"><span>        for (x in 1..SZEROKOSC) {
+</span></span><span style="display:flex;"><span>            val mojaWartość = piksele[y][x - 1]
+</span></span><span style="display:flex;"><span>            val nowaWartość = (mojaWartość - (0..1).random()).coerceAtLeast(0)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+           val xOgrzanejKratki = (x - 1 + (-1..1).random()).coerceIn(0..SZEROKOSC - 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>            // ustaw nową wartość dla ogrzewanej kratki
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-           ekran[y - 1][x - 1] = nowaWartość
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           ekran[y - 1][xOgrzanejKratki] = nowaWartość
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="doom-fire.png" alt=""></p>
+<p>Jeśli zmianę <code>x</code> będziemy losować z niesymetrycznego przedziału, otrzymamy efekt ognia rozwiewanego przez wiart:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#f92672">-           val xOgrzanejKratki = (x - 1 + (-1..1).random()).coerceIn(0..SZEROKOSC - 1)
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+           val xOgrzanejKratki = (x - 1 + (-3..1).random()).coerceIn(0..SZEROKOSC - 1)
+</span></span></span></code></pre></div><p><img src="doom-firewind.png" alt=""></p>
+
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+
