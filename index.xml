@@ -6,7 +6,18 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 14 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 18: Wordle, cz. 1 – przygotowania</title>
+      <link>https://jerz.codes/posts/2023-03-21/</link>
+      <pubDate>Tue, 21 Mar 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-03-21/</guid>
+      <description>Obsługa plików Czy funkcja jest obiektem? Powtórka z typów danych Funkcja w stałej Typ funkcji Funkcja jako parametr Anonimowe funkcje i wyrażenia lambda Następnym dużym programem, który napiszemy, będzie klon gry Wordle:
+Zapewne zajmie nam to kilka zajęć. Musimy przygotować słownik haseł oraz listę dopuszczalnych słów i dobrze byłoby przechowywać je w osobnym pliku, a nie w kodzie programu. Czyli musimy nauczyć się jak wczytywać dane z plików.
+Będziemy przeprowadzać sporo operacji na kolekcjach danych (tj.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 17: Doom Fire, c.d.</title>
       <link>https://jerz.codes/posts/2023-03-14/</link>
