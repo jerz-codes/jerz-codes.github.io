@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 19: Wordle, cz. 2 – słownik | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 19: Wordle, cz. 2 – słownik</span></h1>
+
+<h2 class="date">2023/03/28</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#słownik-wszystkich-pięcioliterowców">Słownik wszystkich pięcioliterowców</a></li>
+    <li><a href="#słownik-sensownych-pięcioliterowców">Słownik sensownych pięcioliterowców</a></li>
+  </ul>
+</nav>
+</div>
+<hr>
+<h1 id="słownik-wszystkich-pięcioliterowców">Słownik wszystkich pięcioliterowców</h1>
+<p>Następnym krokiem przygotowań do pisania klonu Wordle&rsquo;a będzie utworzenie słownika do gry. Po pierwsze musimy być w stanie wykryć, czy wpisane przez gracza słowo jest faktycznie słowem, czy zlepkiem przypadkowych liter.</p>
+<p>Jako bazy dla naszego słownika użyjemy oficjalnego turniejowego słownika do Scrabble. Pobierzcie plik <a href="https://www.wordgamedictionary.com/twl06/download/twl06.txt">twl06.txt</a> i zapiszcie w katalogu z programem (uwaga dla Czepialskich Czytelników: tak, to nie jest najlepsze miejsce na przechowywanie tego rodzaju plików, ale na dzisiejszych zajęciach skupimy się na nieco innej rzeczy).</p>
+<p>Wyrazy w Scrabble mogą mieć od 2 do 15 liter, ale nas interesują jedynie wyrazy pięcioliterowe. Na szczęście na poprzednich zajęciach poznaliśmy wszystkie narzędzia potrzebne do tego, żeby je odfiltrować i zapisać do nowego pliku:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownikScrabble = File(<span style="color:#e6db74">&#34;/długa/nudna/ścieżka/twl06.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> pięcioliterowce: List&lt;String&gt; = słownikScrabble
+</span></span><span style="display:flex;"><span>    .readLines()
+</span></span><span style="display:flex;"><span>    .filter { <span style="color:#66d9ef">it</span>.length <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownikWordle = File(słownikScrabble.parentFile, <span style="color:#e6db74">&#34;słownik.txt&#34;</span>)
+</span></span><span style="display:flex;"><span>słownikWordle.writeText(
+</span></span><span style="display:flex;"><span>    pięcioliterowce.joinToString(separator = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p>Pojawiły się tu dwie nowe rzeczy.</p>
+<p>Po pierwsze, żeby nie pisać po raz drugi <code>&quot;/długa/nudna/ścieżka/&quot;</code>, wykorzystamy fakt, że słownik do Wordle&rsquo;a ma znaleźć się w tym samym katalogu, co słownik Scrabble&rsquo;a. Poprosimy <code>słownikScrabble</code> o podanie swojego &ldquo;rodzica&rdquo; (<code>parentFile</code>), czyli katalogu, w którym się znajduje. Następnie użyjemy innego konstruktora <code>File</code>, żeby stworzyć <code>słownikWordle</code> na podstawie katalogu (obiektu typu <code>File</code>) i nazwy pliku podanej jako <code>String</code>.</p>
+<p>Druga nowa rzecz to użycie funkcji <code>joinToString</code>. Wczytana i odfiltrowana lista wyrazów jest typu <code>List&lt;String&gt;</code>, a funkcja <code>writeText</code> oczekuje pojedynczego <code>String</code>&lsquo;a. Możemy go &ldquo;zlepić&rdquo; przy użyciu pętli <code>for</code> i funkcji <code>appendLine()</code> na obiekcie <code>StringBuilder</code>, ale prościej będzie użyć funkcji <code>joinToString</code> &ldquo;dolepionej&rdquo; do <code>List</code>. Jak sama nazwa funkcji wskazuje, łączy (ang. <em>join</em>) ona elementy <code>List</code>y do <code>String</code>a. Parametr <code>separator</code> określa jakimi znakami mają być oddzielone elementy listy. Ponieważ chcemy, aby każdy wyraz wylądował w osobnej linijce, przekażemy tam znak nowej linii, czyli <code>\n</code>.</p>
+<h1 id="słownik-sensownych-pięcioliterowców">Słownik sensownych pięcioliterowców</h1>
+<p>Wypiszmy na ekran losowych 10 wyrazów:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> słownikWordle = File(<span style="color:#960050;background-color:#1e0010">…</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">val</span> pięcioliterowce: List&lt;String&gt; = słownikWordle.readLines()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>repeat(<span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    println(pięcioliterowce.random())
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Użyte przeze mnie <code>repeat</code> jest jedną z <strong>funkcji wyższego rzędu</strong>, o których była mowa na ostatnich zajęciach. Przyjmuje ona liczbę powtórzeń oraz blok kodu, który ma się wykonać kilka razy. Jest to zamiennik stosowanego przez nas do tej pory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#66d9ef">in</span> <span style="color:#ae81ff">1.</span>.<span style="color:#ae81ff">10</span>) { <span style="color:#75715e">/* zrób coś */</span> }
+</span></span></code></pre></div><p>Jest spora szansa, że większość wypisanych haseł będzie bardzo egzotycznymi wyrazami:</p>
+<p><img src="od-czapy.png" alt=""></p>
+<p>(uwaga: słownik do Scrabble zawiera <strong>wszystkie</strong> wyrazy, więc istnieje też niezerowa szansa, że wylosują się jakieś niecenzuralne plugastwa; proszę o dojrzałe podejście i zignorowanie tych bluzgów).</p>
+<p>O ile powinniśmy pozwolić graczom na popisanie się swoim słownictwem i wprowadzenie <code>exurb</code> albo <code>sonde</code> (cokolwiek miałoby to znaczyć), to raczej nie chcemy, aby tego typu wyrazy były odgadywanymi hasłami. Musimy przygotować listę &ldquo;sensownych&rdquo; wyrazów. Napiszemy w tym celu program:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>wczytaj pięcioliterowce z pliku fiveletter.txt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>przygotuj mutableList() na listę haseł
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pętelka
+</span></span><span style="display:flex;"><span>    wypisz ile mam wyrazów na liście haseł
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pokaż na ekranie losowy wyraz pięcioliterowy
+</span></span><span style="display:flex;"><span>    wczytaj tekst z klawiatury
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    jeśli tekst == &#39;T&#39;
+</span></span><span style="display:flex;"><span>        dodaj wylosowany wyraz do listy haseł
+</span></span><span style="display:flex;"><span>    jeśli tekst == &#39;KONIEC!&#39;
+</span></span><span style="display:flex;"><span>        zakończ pętelkę
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>zapisz listę haseł do pliku hasła.txt
+</span></span></code></pre></div><p>W trakcie pisania tego programu na zajęciach zwróciliście uwagę na kilka istotnych problemów.</p>
+<p>Po pierwsze, być może ktoś nie będzie miał ochoty albo czasu na przygotowanie słownika haseł za jednym razem. Dobrze by było, żeby przy drugim uruchomieniu nie zaczynać od zera, tylko wczytać <code>&quot;hasła.txt&quot;</code> stworzone przy pierwszym uruchomieniu. Tak więc <code>przygotuj mutableList() na listę haseł</code> powinno wczytać <code>hasła.txt</code> do <code>MutableList</code>. Funkcja <code>File.readlines()</code> zwraca niemutowalną <code>List</code>ę, tak więc będziecie musieli użyć jeszcze metody <code>.toMutableList()</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">val</span> hasła = plikHaseł
+</span></span><span style="display:flex;"><span>    .readLines()
+</span></span><span style="display:flex;"><span>    .toMutableList()
+</span></span></code></pre></div><p>Drugi problem jest taki, że jakiś wyraz może wylosować się kilka razy. Jest to mało prawdopodobne, ale może się zdarzyć, więc dobrze obsłużyć taką sytuację. Przy zapisywaniu haseł musimy usunąć duplikaty. Możemy do tego użyć funkcji <code>.distinct()</code>. Mieszko zasugerował również posortowanie alfabetyczne listy. Też da się to załatwić jedną linijką – metoda <code>.sorted()</code> zwróci nam posortowaną listę:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span>plikHaseł.writeText(
+</span></span><span style="display:flex;"><span>    hasła
+</span></span><span style="display:flex;"><span>        .distinct()
+</span></span><span style="display:flex;"><span>        .sorted()
+</span></span><span style="display:flex;"><span>        .joinToString(separator = <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div>
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

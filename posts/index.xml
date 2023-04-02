@@ -6,7 +6,17 @@
     <description>Recent content in Posts on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 21 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 19: Wordle, cz. 2 – słownik</title>
+      <link>https://jerz.codes/posts/2023-03-28/</link>
+      <pubDate>Tue, 28 Mar 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-03-28/</guid>
+      <description>Słownik wszystkich pięcioliterowców Słownik sensownych pięcioliterowców Słownik wszystkich pięcioliterowców Następnym krokiem przygotowań do pisania klonu Wordle&amp;rsquo;a będzie utworzenie słownika do gry. Po pierwsze musimy być w stanie wykryć, czy wpisane przez gracza słowo jest faktycznie słowem, czy zlepkiem przypadkowych liter.
+Jako bazy dla naszego słownika użyjemy oficjalnego turniejowego słownika do Scrabble. Pobierzcie plik twl06.txt i zapiszcie w katalogu z programem (uwaga dla Czepialskich Czytelników: tak, to nie jest najlepsze miejsce na przechowywanie tego rodzaju plików, ale na dzisiejszych zajęciach skupimy się na nieco innej rzeczy).</description>
+    </item>
+    
     <item>
       <title>Zajęcia 18: Wordle, cz. 1 – przygotowania</title>
       <link>https://jerz.codes/posts/2023-03-21/</link>
