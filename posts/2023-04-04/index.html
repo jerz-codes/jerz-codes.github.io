@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl-pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zajęcia 20: Wordle, cz. 3 | jerz.codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/">🏠</a></li>
+      
+      <li><a href="/zapisy/">Zapisy</a></li>
+      
+      <li><a href="/faq/">FAQ</a></li>
+      
+      <li><a href="/kontakt/">Kontakt</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Zajęcia 20: Wordle, cz. 3</span></h1>
+
+<h2 class="date">2023/04/04</h2>
+</div>
+
+<main>
+<div>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#główna-pętla-gry">Główna pętla gry</a></li>
+    <li><a href="#ocenianie">Ocenianie</a></li>
+  </ul>
+</nav>
+</div>
+<hr>
+<p>Mamy przygotowane słowniki, na dzisiejszych zajęciach zaczniemy programować faktyczną grę.</p>
+<h1 id="główna-pętla-gry">Główna pętla gry</h1>
+<p>Praktycznie każda gra komputerowa polega na cyklicznym powtarzaniu jakichś czynności. Przykładowo, w szachach taką czynnością będzie wybranie kolejnego ruchu i może trwać nawet kilka minut. W Minecrafcie jeden cykl pętli trwa kilkanaście milisekund – w każdym momencie gracz może coś zacząć robić albo poczekać. W przypadku gier tego typu brak akcji też w zasadzie jest akcją – czekaniem.</p>
+<p>Najczęściej, w każdym przebiegu pętli wyświetlamy coś na ekranie, sprawdzamy, czy gracz chce wykonać jakąś akcję, zmieniamy stan gry i wracamy na początek pętli. Podobnie będzie w przypadku Wordle&rsquo;a:</p>
+<p><img src="wordle-original.png" alt="Wordle"></p>
+<p>Posiłkując się tym obrazkiem, rozpiszmy, co powinna robić nasza główna pętla gry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Powtarzaj w kółko:
+</span></span><span style="display:flex;"><span>    Wypisz poprzednio wpisane wyrazy, oceniając każdy z nich
+</span></span><span style="display:flex;"><span>    Narysuj klawiaturę z zaznaczonymi literami
+</span></span><span style="display:flex;"><span>    Wczytaj kolejny wyraz
+</span></span><span style="display:flex;"><span>    Dodaj go do listy wczytanych wyrazów
+</span></span></code></pre></div><p>Drugi punkt – rysowanie klawiatury – na początku pominiemy. Jest to fajny dodatek do gry, który nieco ułatwia zobrazowanie jakich literek jeszcze nie gracz nie próbował użyć, ale nie jest absolutnie konieczny.</p>
+<p>Brakuje nam natomiast warunków końca gry: gracz wygrywa, jeśli ostatni wpisany wyraz jest taki sam jak wylosowane hasło (które, swoją drogą, wypadałoby wylosować przed rozpoczęciem gry); jeśli nie udało się odgadnąć hasła po 6 próbie, gra kończy się porażką.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span><span style="color:#a6e22e">+Wczytaj słownik sensownych pięcioliterowców i wylosuj hasło
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>Powtarzaj w kółko:
+</span></span><span style="display:flex;"><span>    Wypisz poprzednio wpisane wyrazy, oceniając każdy z nich
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-   Narysuj klawiaturę z zaznaczonymi literami
+</span></span></span><span style="display:flex;"><span><span style="color:#f92672"></span><span style="color:#a6e22e">+   Jeśli ostatni wpisany wyraz jest taki jak wylosowane hasło
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+       Gra kończy się wygraną
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+   Jeśli było już 6 prób
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+       Gra kończy się przegraną
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>    Wczytaj kolejny wyraz
+</span></span><span style="display:flex;"><span>    Dodaj go do listy wczytanych wyrazów
+</span></span></code></pre></div><p>Kolejna kwestia jest taka, że gra powinna akceptować jedynie prawdziwe wyrazy, a nie dowolne pięcioliterowe teksty:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>Wczytaj słownik sensownych pięcioliterowców i wylosuj hasło
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+Wczytaj słownik wszystkich poprawnych pięcioliterowców
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e"></span>
+</span></span><span style="display:flex;"><span>Powtarzaj w kółko:
+</span></span><span style="display:flex;"><span>    Wypisz poprzednio wpisane wyrazy, oceniając każdy z nich
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Jeśli ostatni wpisany wyraz jest taki jak wylosowane hasło
+</span></span><span style="display:flex;"><span>        Gra kończy się wygraną
+</span></span><span style="display:flex;"><span>    Jeśli było już 6 prób
+</span></span><span style="display:flex;"><span>        Gra kończy się przegraną
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>    Wczytaj kolejny wyraz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">+   Jeśli wyraz znajduje się w słowniku
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+       Dodaj go do listy wczytanych wyrazów
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+   W przeciwnym razie
+</span></span></span><span style="display:flex;"><span><span style="color:#a6e22e">+       Zignoruj go (albo pokaż komunikat o błędzie)
+</span></span></span></code></pre></div><h1 id="ocenianie">Ocenianie</h1>
+<p>Większość rzeczy w powyższym pseudokodzie przerabialiśmy na wcześniejszych zajęciach. Nieco bardziej skomplikowanym kawałkiem kodu będzie ocenianie wyrazów. Proponuję wydzielić sobie to do osobnej funkcji i na razie zająć się całą resztą kodu.</p>
+<p>Nasza funkcja oceniająca będzie przyjmować <code>hasło</code> oraz oceniany <code>wyraz</code> i powinna zwrócić ocenę każdej litery w podanym wyrazie. Litera może być w 100% trafiona (kolor zielony), może znajdować się w haśle, ale na innym miejscu (kolor żółty/pomarańczowy), albo być całkowicie nietrafiona. Nie pasuje to do żadnego typu danych wbudowanego w język Kotlin, więc powinniśmy stworzyć własny typ.</p>
+<p>Najbardziej pasuje tu <code>enum class</code> – za każdym razem, gdy mówicie &ldquo;jakiś obiekt może być tym, tamtym, albo siamtym&rdquo;, powinniście spróbować użyć właśnie tej konstrukcji.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Ocena</span> { PUDŁO, TRAFIONE, NIE_NA_TYM_MIEJSCU }
+</span></span></code></pre></div><p>Na razie nie będziemy pisać tej funkcji, zwrócimy losowych pięć wartości (po jednej na literkę w <code>wyraz</code>ie), po to, żeby przetestować, czy reszta programu działa poprawnie i rysuje wszystko tak, jak należy. Może to wyglądać np. w ten sposób:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-kotlin" data-lang="kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">oceń</span>(wyraz: String, hasło: String): List&lt;Ocena&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> listOf(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Ocena</span>.PUDŁO,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Ocena</span>.TRAFIONE,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Ocena</span>.NIE_NA_TYM_MIEJSCU,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Ocena</span>.NIE_NA_TYM_MIEJSCU,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Ocena</span>.PUDŁO,
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</main>
+
+  <footer>
+  
+  
+  </footer>
+  </body>
+</html>
+

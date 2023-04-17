@@ -6,7 +6,17 @@
     <description>Recent content in 🏠 on jerz.codes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pl-pl</language>
-    <lastBuildDate>Tue, 28 Mar 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Apr 2023 14:30:00 +0100</lastBuildDate><atom:link href="https://jerz.codes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Zajęcia 20: Wordle, cz. 3</title>
+      <link>https://jerz.codes/posts/2023-04-04/</link>
+      <pubDate>Tue, 04 Apr 2023 14:30:00 +0100</pubDate>
+      
+      <guid>https://jerz.codes/posts/2023-04-04/</guid>
+      <description>Główna pętla gry Ocenianie Mamy przygotowane słowniki, na dzisiejszych zajęciach zaczniemy programować faktyczną grę.
+Główna pętla gry Praktycznie każda gra komputerowa polega na cyklicznym powtarzaniu jakichś czynności. Przykładowo, w szachach taką czynnością będzie wybranie kolejnego ruchu i może trwać nawet kilka minut. W Minecrafcie jeden cykl pętli trwa kilkanaście milisekund – w każdym momencie gracz może coś zacząć robić albo poczekać. W przypadku gier tego typu brak akcji też w zasadzie jest akcją – czekaniem.</description>
+    </item>
+    
     <item>
       <title>Zajęcia 19: Wordle, cz. 2 – słownik</title>
       <link>https://jerz.codes/posts/2023-03-28/</link>
